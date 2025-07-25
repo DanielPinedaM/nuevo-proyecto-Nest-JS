@@ -12,7 +12,7 @@ Nombre de clases, variables, interfaces, funciones EN INGLÉS.
 Bases de datos.
 Nombres de las tablas: PascalCase
 
-## Instalar paquetes del proyecto:
+## Instalar paquetes del proyecto
 
 ```console
 nvm use 22.17.1
@@ -22,7 +22,7 @@ nvm use 22.17.1
 npm i
 ```
 
-## Comandos para ejecutar proyecto:
+## Comandos para ejecutar proyecto
 
 ```console
 nvm use 22.17.1
