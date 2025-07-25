@@ -13,23 +13,30 @@ export class LoggerMiddleware implements NestMiddleware {
       const duration: number = Date.now() - start;
       const statusCode: number = res.statusCode;
       const statusMessage: string = httpStatusMessages[statusCode] ?? '';
-      const logMessage: string = `[${method}] ${protocol}://${host}${originalUrl} - https://http.cat/status/${statusCode} ${statusMessage} - ⌛ ${duration}ms`;
+
+      const logMessage: string =
+        `🌐 [${method}] ${protocol}://${host}${originalUrl}` + // URL
+        ` 🐱 https://http.cat/status/${statusCode}` +          // Link HTTP status
+        ` 📄 ${statusMessage}` +                               // Descripción del estado
+        ` ⌛ ${duration}ms`;                                   // Tiempo de respuesta
 
       let coloredMessage: string = '';
       if (statusCode >= 500) {
-        coloredMessage = chalk.blue(logMessage);
+        coloredMessage = chalk.blue(logMessage);     // 5xx: Errores del servidor
       } else if (statusCode >= 400) {
-        coloredMessage = chalk.red(logMessage);
+        coloredMessage = chalk.red(logMessage);      // 4xx: Errores del cliente
       } else if (statusCode >= 300) {
-        coloredMessage = chalk.yellow(logMessage);
+        coloredMessage = chalk.yellow(logMessage);   // 3xx: Redirecciones
+      } else if (statusCode >= 200) {
+        coloredMessage = chalk.green(logMessage);    // 2xx: Peticiones correctas
       } else {
-        coloredMessage = chalk.green(logMessage);
+        coloredMessage = chalk.cyan(logMessage);     // 1xx: Respuestas informativas
       }
 
       if (statusCode >= 400) {
-        console.error('❌ ', coloredMessage);
+        console.error('❌ ', coloredMessage + '\n');
       } else {
-        console.info('✅ ', coloredMessage);
+        console.info('✅ ', coloredMessage + '\n');
       }
     });
 

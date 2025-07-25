@@ -1,9 +1,9 @@
-import { Controller, Post, Get, Body, Param, Logger, NotFoundException, BadRequestException, UseInterceptors, Put, Delete } from '@nestjs/common';
+import { Controller, Post, Get, Body, Param, NotFoundException, BadRequestException, UseInterceptors, Put, Delete } from '@nestjs/common';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { BaseDto } from 'src/app/dto/base.dto';
 import { BaseService } from 'src/app/services/base/base.service';
-import { apiVersion, baseApiTag, baseError, baseSuccess } from 'src/app/utils/constants';
-import { SuccessResponseInterceptor } from 'src/app/utils/success-response';
+import { apiVersion, baseApiTag, baseError, baseSuccess } from '@/app/models/constants/general.constants';
+import { SuccessResponseInterceptor } from '@/app/utils/success-response.utils';
 
 @ApiTags(baseApiTag)
 @Controller({

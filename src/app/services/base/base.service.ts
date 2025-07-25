@@ -1,4 +1,4 @@
-import { Injectable, InternalServerErrorException, Logger, NotFoundException } from '@nestjs/common';
+import { Injectable, InternalServerErrorException, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { BaseDto } from 'src/app/dto/base.dto';
 import { BaseEntity } from 'src/app/entities/base.entity';
@@ -41,7 +41,6 @@ export class BaseService {
         }
       });
 
-      console.log(user);
       if (!user) {
         throw new NotFoundException(`Usuario con nombre ${firstName} no encontrado`);
       }
@@ -56,8 +55,6 @@ export class BaseService {
 
   async findById(id: number): Promise<BaseEntity> {
     try {
-      console.log(id);
-
       const user = await this.baseRepository.findOne({ where: { id } });
 
       if (!user) {

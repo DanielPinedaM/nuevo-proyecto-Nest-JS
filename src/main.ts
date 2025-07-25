@@ -1,17 +1,22 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { INestApplication, Logger, ValidationPipe } from '@nestjs/common';
-import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
-import { apiDescription, apiTitle, apiVersion } from './app/utils/constants';
+import { DocumentBuilder, OpenAPIObject, SwaggerModule } from '@nestjs/swagger';
+import {
+  apiDescription,
+  apiTitle,
+  apiVersion,
+} from './app/models/constants/general.constants';
 import { json } from 'express';
 import { ConfigService } from '@nestjs/config';
-import { CONFIG } from './app/config/config-keys';
- 
+import { CONFIG } from './app/config/config-keys.config';
+import chalk from 'chalk';
+
 //Manejo de excepciones
-import { AllExceptionsFilter } from './app/utils/exceptions';
+import { AllExceptionsFilter } from './app/utils/exceptions.utils';
 
 //Manejo de respuesta exitosas
-import { SuccessResponseInterceptor } from './app/utils/success-response';
+import { SuccessResponseInterceptor } from './app/utils/success-response.utils';
 
 function listRoutes(app: INestApplication) {
   const server = app.getHttpServer();
@@ -25,14 +30,18 @@ function listRoutes(app: INestApplication) {
       },
     }));
 
-  Logger.log('API list:', 'Bootstrap');
+  Logger.log(chalk.blueBright('📡 Lista de APIs:'), 'Bootstrap');
   console.table(availableRoutes);
+  Logger.log(
+    chalk.gray(`🛣️ Total de rutas: ${availableRoutes.length}`),
+    'Bootstrap',
+  );
 }
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
-  const configService = app.get(ConfigService);
+  const configService: ConfigService<unknown, boolean> = app.get(ConfigService);
 
   app.useGlobalPipes(
     new ValidationPipe({
@@ -45,9 +54,12 @@ async function bootstrap() {
 
   app.use(json({ limit: '5mb' }));
 
-  const allowedOrigins = "*";
-
-  Logger.log(`Allowed origins: ${allowedOrigins}`, 'Bootstrap');
+  const allowedOrigins = '*';
+  Logger.log(
+    chalk.yellowBright(`🌐 Orígenes permitidos: `) +
+      chalk.whiteBright(allowedOrigins),
+    'Bootstrap',
+  );
 
   app.enableCors({
     origin: true,
@@ -57,25 +69,31 @@ async function bootstrap() {
 
   app.enableVersioning();
 
-  const config = new DocumentBuilder()
+  const config: Omit<OpenAPIObject, 'paths'> = new DocumentBuilder()
     .setTitle(apiTitle)
     .setDescription(apiDescription)
     .setVersion(apiVersion)
     .build();
 
-  const document = SwaggerModule.createDocument(app, config);
+  const document: OpenAPIObject = SwaggerModule.createDocument(app, config);
 
   SwaggerModule.setup('docs', app, document, {
     useGlobalPrefix: false,
   });
 
-  const port: number = configService.get(CONFIG.PORT);
-  const env: string = configService.get(CONFIG.ENV);
+  const port: number = configService.get(CONFIG?.PORT);
+  const env: string = configService.get(CONFIG?.ENV);
 
   await app.listen(port);
 
   listRoutes(app);
 
-  Logger.log(`App running at port ${port} in environment ${env}`, 'Bootstrap');
+  Logger.log(
+    chalk.greenBright('🖥️ Aplicación ejecutándose en el puerto ') +
+      chalk.yellowBright(port) +
+      chalk.greenBright(' en el entorno ') +
+      chalk.magentaBright(env),
+    'Bootstrap',
+  );
 }
 bootstrap();

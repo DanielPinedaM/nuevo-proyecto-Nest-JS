@@ -12,9 +12,7 @@ import { BaseEntity } from './entities/base.entity';
 // Nest Modules
 import { HttpModule } from '@nestjs/axios';
 
-export const entities = [
-  BaseEntity,
-];
+export const entities = [BaseEntity];
 
 @Module({
   imports: [TypeOrmModule.forFeature(entities), HttpModule],
