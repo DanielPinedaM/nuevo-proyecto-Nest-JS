@@ -5,6 +5,7 @@ const httpStatusMessages: Record<number, string> = {
   101: 'Switching Protocols',
   102: 'Processing',
   103: 'Early Hints',
+  104: 'Upload Resumption Supported',
 
   // 2xx: Peticiones correctas
   200: 'OK',
@@ -49,6 +50,8 @@ const httpStatusMessages: Record<number, string> = {
   416: 'Requested Range Not Satisfiable',
   417: 'Expectation Failed',
   418: "I'm a teapot",
+  419: 'Page Expired',
+  420: 'Enhance Your Calm',
   421: 'Misdirected Request',
   422: 'Unprocessable Content',
   423: 'Locked',
@@ -60,6 +63,10 @@ const httpStatusMessages: Record<number, string> = {
   431: 'Request Header Fields Too Large',
   449: 'Retry With',
   451: 'Unavailable for Legal Reasons',
+  460: 'Client closed connection prematurely',
+  463: 'Too many forwarded IP addresses',
+  464: 'Incompatible protocol',
+  499: 'Client Closed Request',
 
   // 5xx: Errores del servidor
   500: 'Internal Server Error',
