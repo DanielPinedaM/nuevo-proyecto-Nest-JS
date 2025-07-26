@@ -3,7 +3,7 @@ import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { BaseDto } from 'src/app/dto/base.dto';
 import { BaseService } from 'src/app/services/base/base.service';
 import { apiVersion, baseApiTag, baseError, baseSuccess } from '@/app/models/constants/general.constants';
-import { SuccessResponseInterceptor } from '@/app/utils/success-response.utils';
+import { SuccessResponseInterceptor } from '@/app/utils/response/success-response.utils';
 
 @ApiTags(baseApiTag)
 @Controller({

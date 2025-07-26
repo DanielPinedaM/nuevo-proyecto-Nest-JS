@@ -84,3 +84,5 @@ const httpStatusMessages: Record<number, string> = {
   512: 'Not updated',
   521: 'Version Mismatch',
 };
+
+export default httpStatusMessages;
