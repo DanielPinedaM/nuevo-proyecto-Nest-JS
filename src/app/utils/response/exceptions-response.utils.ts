@@ -34,12 +34,18 @@ no quiero q  dentro de la key error.message este lo mismo q en message, los mess
 hacer q los status code correspondan a los de las excepciones de next,
 no quiero q las excepciones de nest me den un status y q  despues defina otro status manualmente y se reemplace en objeto,
 
-ccontrolar con optional chaining y operador coalesente nulo el acceso a status asi, ejemplo
+controlar con optional chaining y operador coalesente nulo el acceso a status asi, ejemplo
 
    const status =
           newData?.status ??
           newData?.statusCode ??
           AQUI VA EL STATUS REAL DEL EXCEPTION DE NEST
+
+siempre dar prioridad al status q devuelve el exception de nest
+
+✔️ Si usas throw new BadRequestException() → status será 400.
+
+❌ Si usas throw new Error() o throw { message: '...' } → no hay status definido → usas 500 por defecto.
 
 la respuesta tiene q ser esta 
 response.status(status).json({
@@ -81,18 +87,22 @@ export class AllExceptionsFilter implements ExceptionFilter {
     const request = ctx.getRequest() as ExpressRequest;
 
     // 1. Status
-    const status: number =
+    const baseStatus =
       exception instanceof HttpException
         ? exception.getStatus()
-        : typeof (exception as any)?.status === 'number'
-          ? (exception as any).status
-          : HttpStatus.INTERNAL_SERVER_ERROR;
+        : HttpStatus.INTERNAL_SERVER_ERROR;
 
     // 2. Raw initial payload de la excepción
     const initialRaw: any =
       exception instanceof HttpException
         ? exception.getResponse()
         : { message: 'Internal server error', error: 'Unknown Error' };
+
+    const status =
+      baseStatus ??
+      initialRaw?.status ??
+      initialRaw?.statusCode ??
+      HttpStatus.INTERNAL_SERVER_ERROR;
 
     // 3. ErrorObj (siempre objeto)
     let errorObj: object | string = {};
