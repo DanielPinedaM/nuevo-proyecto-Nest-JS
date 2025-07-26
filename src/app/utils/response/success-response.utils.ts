@@ -25,13 +25,19 @@ export class ResponseInterceptor<T>
     return next.handle().pipe(
       map((data: any) => {
         // obtener data
-        const newData = data?.data ?? data;
+        const newData: any =
+          data?.data?.data ??
+          data?.data ??
+          data?.datos?.datos ??
+          data?.datos ??
+          data;
 
         // responder directo con tipo archivo
         if (isFile) return newData;
 
         // paginacion
-        const pagination = newData?.pagination ?? undefined;
+        const pagination =
+          newData?.pagination ?? newData?.paginacion ?? undefined;
         const resultData = pagination ? newData.items : newData;
 
         // obtener http status
@@ -42,6 +48,24 @@ export class ResponseInterceptor<T>
           newData?.mensaje ??
           newData?.message ??
           newData?.msg ??
+          newData?.mensajeUsuario ??
+          newData?.mensajeExito ??
+          newData?.mensajeError ??
+          newData?.descripcion ??
+          newData?.descripcionError ??
+          newData?.detalle ??
+          newData?.detalles ??
+          newData?.texto ??
+          newData?.textoError ??
+          newData?.userMessage ??
+          newData?.successMessage ??
+          newData?.errorMessage ??
+          newData?.description ??
+          newData?.errorDescription ??
+          newData?.detail ??
+          newData?.details ??
+          newData?.text ??
+          newData?.errorText ??
           'Operación exitosa';
 
         return {

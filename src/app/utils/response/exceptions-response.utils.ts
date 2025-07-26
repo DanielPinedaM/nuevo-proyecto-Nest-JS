@@ -4,7 +4,7 @@ devolver dentro de data cualquier tipo de dato
 
 message tiene q ser string
 
-error siempre tiene q estar en la key error, separada, sin importar sin importar si es objeto o string
+error siempre tiene q estar en la key error, separada, sin importar sin importar su tipo
 
 solamente concatenar error + message cuando se defina manualmente la key error
 
@@ -41,10 +41,12 @@ controlar con optional chaining y operador coalesente nulo el acceso a status as
           newData?.statusCode ??
           AQUI VA EL STATUS REAL DEL EXCEPTION DE NEST
 
-siempre dar prioridad al status q devuelve el exception de nest
+siempre dar prioridad al status q devuelve el exception de nest y detectar otros status
 
+mucho cuidado, los status tienen q coincidir, la key de status en este interceptor y la q se muestra en navegador inspecionar elemento tienen q ser las mismas
+
+Ejemplo
 ✔️ Si usas throw new BadRequestException() → status será 400.
-
 ❌ Si usas throw new Error() o throw { message: '...' } → no hay status definido → usas 500 por defecto.
 
 la respuesta tiene q ser esta 
@@ -56,15 +58,17 @@ response.status(status).json({
       errorDescription: {
         timestamp: new Date().toISOString(),
         path: request.url,
-        error, // es objeto o string
+        error, // es objeto o array
       },
-      data, // cualquier dato
+      data, // cualquier tipo de dato
     });
 
 
 muestrame las excepciones mas usadas y como responde con el interceptor
 
-con el interceptor anterior dame ejemplo de esto: solamente concatenar error + message cuando se defina manualmente la key error */
+con el interceptor anterior dame ejemplo de esto:
+solamente concatenar error + message cuando se defina manualmente la key error */
+import { DateTime } from 'luxon';
 import httpStatusMessages from '@/app/models/constants/http-status-messages.constans';
 import {
   ExceptionFilter,
@@ -86,13 +90,13 @@ export class AllExceptionsFilter implements ExceptionFilter {
     const response = ctx.getResponse() as ExpressResponse;
     const request = ctx.getRequest() as ExpressRequest;
 
-    // 1. Status
-    const baseStatus =
+    // Status
+    const baseStatus: number =
       exception instanceof HttpException
         ? exception.getStatus()
         : HttpStatus.INTERNAL_SERVER_ERROR;
 
-    // 2. Raw initial payload de la excepción
+    // Raw initial payload de la excepción
     const initialRaw: any =
       exception instanceof HttpException
         ? exception.getResponse()
@@ -102,58 +106,73 @@ export class AllExceptionsFilter implements ExceptionFilter {
       baseStatus ??
       initialRaw?.status ??
       initialRaw?.statusCode ??
+      initialRaw?.code ??
+      initialRaw?.httpCode ??
+      initialRaw?.httpStatusCode ??
+      initialRaw?.httpStatus ??
+      initialRaw?.estado ??
+      initialRaw?.codigo ??
+      initialRaw?.codigoEstado ??
+      initialRaw?.codigoHttp ??
       HttpStatus.INTERNAL_SERVER_ERROR;
 
-    // 3. ErrorObj (siempre objeto)
-    let errorObj: object | string = {};
-    const e1 = initialRaw?.error;
-    const e2 = initialRaw?.err;
-
-    if (typeof e1 === 'object' && e1 !== null) {
-      const { message, msg, mensaje, ...rest } = e1;
-      errorObj = rest;
-    } else if (typeof e2 === 'object' && e2 !== null) {
-      const { message, msg, mensaje, ...rest } = e2;
-      errorObj = rest;
-    } else if (typeof e1 === 'string') {
-      errorObj = e1;
-    } else if (typeof e2 === 'string') {
-      errorObj = e2;
+    // ErrorObjArray siempre es objeto literal {} o array []
+    let errorObjArray: object | any[] = {};
+    const rawError = initialRaw?.error ?? initialRaw?.err;
+    if (
+      (typeof rawError === 'object' && rawError !== null) ||
+      Array.isArray(rawError)
+    ) {
+      errorObjArray = rawError;
     } else {
-      errorObj = {};
+      errorObjArray = {};
     }
 
-    // 4. Raw for detecting nesting: viene de errorObj si tiene datos, sino initialRaw
-    const raw: any = Object.keys(errorObj)?.length > 0 ? errorObj : initialRaw;
-
-    // 5. Data (puede ser cualquier tipo)
+    // Data puede ser cualquier tipo
     let data: any;
+    const raw = initialRaw;
     if (typeof raw === 'object' && raw !== null) {
-      data = raw.data ?? raw.payload ?? [];
+      data =
+        raw?.data?.data ??
+        raw?.data ??
+        raw?.datos?.datos ??
+        raw?.datos ??
+        raw?.payload ??
+        [];
     } else {
       data = [];
     }
 
-    // 6. Message (siempre string) + concatenar error en todos los casos
-    let message: string;
+    // Message (siempre string) + concatenar con error solamente cuando error sea tipo string
+    // hacer q los string de message y error NO se repitan
+    let message: string = '';
+
     const m1 = raw?.message;
     const m2 = raw?.msg;
     const m3 = raw?.mensaje;
-    const errStr =
-      typeof initialRaw?.error === 'string' ? initialRaw.error : '';
 
-    const isManualError = typeof initialRaw?.error === 'string';
+    const error = typeof raw?.error === 'string' ? raw.error.trim() : '';
+    const isManualError: boolean = error !== '';
 
+    let baseMessage = '';
     if (typeof m1 === 'string') {
-      message = isManualError ? `${initialRaw.error} ${m1}` : m1;
+      baseMessage = m1.trim();
     } else if (typeof m2 === 'string') {
-      message = isManualError ? `${initialRaw.error} ${m2}` : m2;
+      baseMessage = m2.trim();
     } else if (typeof m3 === 'string') {
-      message = isManualError ? `${initialRaw.error} ${m3}` : m3;
-    } else if (isManualError) {
-      message = initialRaw.error;
+      baseMessage = m3.trim();
     } else {
-      message = 'Internal server error';
+      baseMessage = '';
+    }
+
+    if (isManualError && baseMessage && !baseMessage?.includes(error)) {
+      message = `${error} ${baseMessage}`;
+    } else if (baseMessage) {
+      message = baseMessage;
+    } else if (isManualError) {
+      message = error;
+    } else {
+      message = '';
     }
 
     response.status(status).json({
@@ -162,10 +181,27 @@ export class AllExceptionsFilter implements ExceptionFilter {
       statusText: httpStatusMessages[status] ?? '',
       message,
       data,
+
       description: {
-        timestamp: new Date().toISOString(),
-        path: request.url,
-        error: errorObj,
+        error: errorObjArray,
+
+        requestInfo: {
+          method: request.method,
+          contentType: request.headers['content-type'],
+          userAgent: request.headers['user-agent'],
+          timestamp: DateTime.now()
+            .setLocale('es')
+            .toFormat(
+              "cccc, dd 'de' LLLL 'de' yyyy hh:mm:ss.SSS a ZZZZ 'UTC' Z",
+            ),
+        },
+
+        networkInfo: {
+          ip: request.ip,
+          fullEndpointUrl: `${request.protocol}://${request?.get('host') ?? request?.hostname}${request.originalUrl}`,
+          path: request.url,
+          hostname: request.hostname,
+        },
       },
     });
   }
