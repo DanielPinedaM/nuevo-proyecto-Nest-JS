@@ -3,6 +3,7 @@ import {
   NestInterceptor,
   ExecutionContext,
   CallHandler,
+  HttpStatus,
 } from '@nestjs/common';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -30,15 +31,18 @@ export class ResponseInterceptor<T>
         // responder directo con tipo archivo
         if (isFile) return newData;
 
-        this.clearData(newData);
-
         // paginacion
         const pagination = this.searchPagination(newData);
         const resultData = pagination ? newData?.items : newData;
 
         // obtener http status
         const status =
-          newData?.status ?? newData?.statusCode ?? response?.statusCode ?? 200;
+          newData?.status ??
+          newData?.statusCode ??
+          response?.statusCode ??
+          HttpStatus.OK;
+
+        this.clearData(newData);
 
         // obtener mensaje
         const message =
