@@ -30,6 +30,30 @@ export class ResponseInterceptor<T>
           data?.data ??
           data?.datos?.datos ??
           data?.datos ??
+          data?.dato?.dato ??
+          data?.dato ??
+          data?.result?.result ??
+          data?.result ??
+          data?.results?.results ??
+          data?.results ??
+          data?.payload?.payload ??
+          data?.payload ??
+          data?.respuesta?.respuesta ??
+          data?.respuesta ??
+          data?.respuestas?.respuestas ??
+          data?.respuestas ??
+          data?.response?.response ??
+          data?.response ??
+          data?.responses?.responses ??
+          data?.responses ??
+          data?.content?.content ??
+          data?.content ??
+          data?.contenido?.contenido ??
+          data?.contenido ??
+          data?.value?.value ??
+          data?.value ??
+          data?.valor?.valor ??
+          data?.valor ??
           data;
 
         // responder directo con tipo archivo
