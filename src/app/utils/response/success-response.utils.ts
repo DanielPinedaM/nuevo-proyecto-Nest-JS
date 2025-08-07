@@ -25,12 +25,12 @@ export class ResponseInterceptor<T>
     return next.handle().pipe(
       map((data: any) => {
         // obtener data
-        let newData: any = this.searchData(data);
+        const newData: any = this.searchData(data);
 
         // responder directo con tipo archivo
         if (isFile) return newData;
 
-        newData = this.clearData(newData);
+        this.clearData(newData);
 
         // paginacion
         const pagination = this.searchPagination(newData);
@@ -124,19 +124,51 @@ export class ResponseInterceptor<T>
     );
   }
 
-  private clearData(data: any): any {
-    if (data === null || typeof data !== 'object') return data;
+  /**
+  ¿la variable es un objeto literal? */
+  private isLiteralObject = (literalObject: any): boolean => {
+    return (
+      typeof literalObject === 'object' &&
+      literalObject !== null &&
+      (Object.getPrototypeOf(literalObject) === Object.prototype ||
+        Object.prototype.toString.call(literalObject) === '[object Object]')
+    );
+  };
 
-    const keysToDelete = ['status', 'statusCode', 'mensaje', 'message'];
+  private clearData(data: any): void {
+    if (!this.isLiteralObject(data)) return;
 
-    const clone: any = structuredClone(data);
+    const keysToDelete: string[] = [
+      'status',
+      'statusCode',
+      'mensaje',
+      'message',
+      'msg',
+      'mensajeUsuario',
+      'mensajeExito',
+      'mensajeError',
+      'descripcion',
+      'descripcionError',
+      'detalle',
+      'detalles',
+      'texto',
+      'textoError',
+      'userMessage',
+      'successMessage',
+      'errorMessage',
+      'description',
+      'errorDescription',
+      'detail',
+      'details',
+      'text',
+      'texto',
+      'errorText',
+    ];
 
     keysToDelete.forEach((key: string) => {
-      if (Object.prototype.hasOwnProperty.call(clone, key)) {
-        delete clone[key];
+      if (Object.prototype.hasOwnProperty.call(data, key)) {
+        delete data[key];
       }
     });
-
-    return clone;
   }
 }
