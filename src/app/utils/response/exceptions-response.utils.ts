@@ -87,17 +87,14 @@ import type {
 export class AllExceptionsFilter implements ExceptionFilter {
   catch(exception: unknown, host: ArgumentsHost) {
     const ctx = host.switchToHttp();
-    // Convertimos con assertion en lugar de tipo genérico
-    const response = ctx.getResponse() as ExpressResponse;
-    const request = ctx.getRequest() as ExpressRequest;
+    const response = ctx.getResponse<ExpressResponse>();
+    const request = ctx.getRequest<ExpressRequest>();
 
-    // Status
     const baseStatus: number =
       exception instanceof HttpException
         ? exception.getStatus()
         : HttpStatus.INTERNAL_SERVER_ERROR;
 
-    // Raw initial payload de la excepción
     const initialRaw: any =
       exception instanceof HttpException
         ? exception.getResponse()
@@ -107,73 +104,36 @@ export class AllExceptionsFilter implements ExceptionFilter {
       baseStatus ??
       initialRaw?.status ??
       initialRaw?.statusCode ??
-      initialRaw?.code ??
-      initialRaw?.httpCode ??
-      initialRaw?.httpStatusCode ??
-      initialRaw?.httpStatus ??
-      initialRaw?.estado ??
-      initialRaw?.codigo ??
-      initialRaw?.codigoEstado ??
-      initialRaw?.codigoHttp ??
       HttpStatus.INTERNAL_SERVER_ERROR;
 
-    // ErrorObjArray siempre es objeto literal {} o array []
-    let errorObjArray: object | any[] = {};
-    const rawError = initialRaw?.error ?? initialRaw?.err;
-    if (
-      (typeof rawError === 'object' && rawError !== null) ||
-      Array.isArray(rawError)
-    ) {
-      errorObjArray = rawError;
-    } else {
-      errorObjArray = {};
-    }
-
-    // Data puede ser cualquier tipo
-    let data: any;
-    const raw = initialRaw;
-    if (typeof raw === 'object' && raw !== null) {
-      data =
-        raw?.data?.data ??
-        raw?.data ??
-        raw?.datos?.datos ??
-        raw?.datos ??
-        raw?.payload ??
-        [];
-    } else {
-      data = [];
-    }
-
-    // Message (siempre string) + concatenar con error solamente cuando error sea tipo string
-    // hacer q los string de message y error NO se repitan
+    // Detectamos mensajes
     let message: string = '';
+    let messagesArray: string[] = [];
 
-    const m1 = raw?.message;
-    const m2 = raw?.msg;
-    const m3 = raw?.mensaje;
-
-    const error = typeof raw?.error === 'string' ? raw.error.trim() : '';
-    const isManualError: boolean = error !== '';
-
-    let baseMessage = '';
-    if (typeof m1 === 'string') {
-      baseMessage = m1.trim();
-    } else if (typeof m2 === 'string') {
-      baseMessage = m2.trim();
-    } else if (typeof m3 === 'string') {
-      baseMessage = m3.trim();
+    if (Array.isArray(initialRaw?.message)) {
+      messagesArray = initialRaw.message; // <- errores de DTO
+      message = messagesArray.join(', ');
+    } else if (typeof initialRaw?.message === 'string') {
+      message = initialRaw.message;
     } else {
-      baseMessage = '';
+      message = 'Internal server error';
     }
 
-    if (isManualError && baseMessage && !baseMessage?.includes(error)) {
-      message = `${error} ${baseMessage}`;
-    } else if (baseMessage) {
-      message = baseMessage;
-    } else if (isManualError) {
-      message = error;
-    } else {
-      message = '';
+    // Error separado
+    let error: any = {};
+    if (
+      (typeof initialRaw?.error === 'object' && initialRaw.error !== null) ||
+      Array.isArray(initialRaw?.error)
+    ) {
+      error = initialRaw.error;
+    } else if (typeof initialRaw?.error === 'string') {
+      error = initialRaw.error;
+    }
+
+    // Data genérica
+    let data: any = [];
+    if (typeof initialRaw === 'object' && initialRaw !== null) {
+      data = initialRaw?.data ?? initialRaw?.payload ?? [];
     }
 
     response.status(status).json({
@@ -182,9 +142,8 @@ export class AllExceptionsFilter implements ExceptionFilter {
       statusText: httpStatusMessages[status] ?? '',
       message,
       data,
-
       description: {
-        error: errorObjArray,
+        error: messagesArray.length > 0 ? messagesArray : error, // aquí guardamos el array del DTO si existe
 
         requestInfo: {
           method: request.method,

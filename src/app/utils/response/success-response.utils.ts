@@ -12,7 +12,7 @@ import httpStatusMessages from '@/app/models/constants/http-status-messages.cons
 import { IResponse } from '@/app/models/interface/response.interfaces';
 
 @Injectable()
-export class ResponseInterceptor<T>
+export class SuccessResponseInterceptor<T>
   implements NestInterceptor<T, IResponse<T>>
 {
   intercept(

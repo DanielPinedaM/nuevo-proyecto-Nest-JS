@@ -12,11 +12,11 @@ import { ConfigService } from '@nestjs/config';
 import { CONFIG } from './app/config/config-keys.config';
 import chalk from 'chalk';
 
-//Manejo de excepciones
+// manejo de excepciones
 import { AllExceptionsFilter } from './app/utils/response/exceptions-response.utils';
 
-//Manejo de respuesta exitosas
-import { SuccessResponseInterceptor } from './app/utils/response/success-response.utils';
+// manejo de respuesta exitosas
+import { SuccessResponseInterceptor } from '@/app/utils/response/success-response.utils';
 
 function listRoutes(app: INestApplication) {
   const server = app.getHttpServer();
