@@ -1,4 +1,8 @@
-import { Injectable, InternalServerErrorException, NotFoundException } from '@nestjs/common';
+import {
+  Injectable,
+  InternalServerErrorException,
+  NotFoundException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { BaseDto } from 'src/app/dto/base.dto';
 import { BaseEntity } from 'src/app/entities/base.entity';
@@ -8,15 +12,15 @@ import { Repository } from 'typeorm';
 export class BaseService {
   constructor(
     @InjectRepository(BaseEntity)
-    private readonly baseRepository: Repository<BaseEntity>
-  ) { }
+    private readonly baseRepository: Repository<BaseEntity>,
+  ) {}
 
   async getAllUser() {
     try {
       return await this.baseRepository.find({
         order: {
-          id: "ASC"
-        }
+          id: 'ASC',
+        },
       });
     } catch (error) {
       throw new InternalServerErrorException(error);
@@ -27,8 +31,8 @@ export class BaseService {
     return this.baseRepository.find({
       where: { isActive },
       order: {
-        id: "ASC"
-      }
+        id: 'ASC',
+      },
     });
   }
 
@@ -37,21 +41,21 @@ export class BaseService {
       const user = await this.baseRepository.findOne({
         where: { firstName },
         order: {
-          id: "ASC"
-        }
+          id: 'ASC',
+        },
       });
 
       if (!user) {
-        throw new NotFoundException(`Usuario con nombre ${firstName} no encontrado`);
+        throw new NotFoundException(
+          `Usuario con nombre ${firstName} no encontrado`,
+        );
       }
 
       return user;
-
     } catch (error) {
       throw new InternalServerErrorException(error);
     }
   }
-
 
   async findById(id: number): Promise<BaseEntity> {
     try {
@@ -62,7 +66,6 @@ export class BaseService {
       }
 
       return user;
-
     } catch (error) {
       throw new InternalServerErrorException(error);
     }
@@ -73,7 +76,9 @@ export class BaseService {
       return await this.baseRepository.save(request);
     } catch (error) {
       if (error.code === '23505') {
-        throw new InternalServerErrorException('El correo electrónico ya está registrado.');
+        throw new InternalServerErrorException(
+          'El correo electrónico ya está registrado.',
+        );
       }
       throw new InternalServerErrorException('No se pudo guardar el usuario');
     }
@@ -90,7 +95,6 @@ export class BaseService {
       Object.assign(user, updateData);
 
       return await this.baseRepository.save(user);
-
     } catch (error) {
       throw new InternalServerErrorException(error);
     }

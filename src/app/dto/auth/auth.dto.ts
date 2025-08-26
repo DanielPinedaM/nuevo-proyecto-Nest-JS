@@ -1,21 +1,16 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsNotEmpty, IsString, MaxLength } from 'class-validator';
+import { Transform } from 'class-transformer';
+import { IsEmail, IsString, MinLength } from 'class-validator';
 
-export class loginDto {
-  @ApiProperty({
-    description: 'Usuario destinado para el inicio de sesion',
-    example: 'Brayan.jimenez',
-  })
+export class LoginDto {
+  @ApiProperty({ type: String, description: 'Correo del usuario' })
+  @IsEmail({}, { message: 'El correo no es valido' })
   @IsString()
-  @IsNotEmpty({ message: 'el usuario es requerido' })
-  user: string;
+  email: string;
 
-  @ApiProperty({
-    description: 'contraseña de inicio de sesion',
-    example: 'Bor0604*',
-  })
+  @ApiProperty({ type: String, description: 'Contraseña del usuario' })
   @IsString()
-  @IsNotEmpty({ message: 'la contraseña es requerida' })
-  @MaxLength(255, { message: 'la contraseña no puede superar los 255 caracteres' })
+  @MinLength(6, { message: 'La contraseña debe tener al menos 6 caracteres' })
+  @Transform(({ value }) => value.trim())
   password: string;
 }

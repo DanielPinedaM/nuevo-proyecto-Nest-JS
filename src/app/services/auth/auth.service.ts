@@ -4,6 +4,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Users } from '@/app/entities/users/users.entity';
 import * as bcrypt from 'bcrypt';
+import { Response } from 'express';
 
 @Injectable()
 export class AuthService {
@@ -38,7 +39,32 @@ export class AuthService {
   }
 
   async login(user: any): Promise<string> {
-    const payload = { username: user.User, sub: user.UserId, role: user.RolId };
+    const payload = { username: user.User, sub: user.id, role: user.RolId };
     return this.jwtService.sign(payload);
+  }
+
+  async logout(response: Response) {
+    // Borrar la cookie
+    response.clearCookie('access_token', {
+      httpOnly: true,
+      sameSite: 'strict',
+      secure: false, // o true si estás en producción con HTTPS
+    });
+
+    // Mensaje de despedida
+    const currentHour = new Date().getHours();
+    let greeting = '¡Que tengas un excelente día!';
+
+    if (currentHour < 12) {
+      greeting = '¡Que tengas un excelente día! ☀️';
+    } else if (currentHour < 18) {
+      greeting = '¡Que tengas una excelente tarde! 🌤️';
+    } else {
+      greeting = '¡Que tengas una excelente noche! 🌙';
+    }
+
+    return response.json({
+      message: `${greeting}. Te esperamos pronto de vuelta...`,
+    });
   }
 }

@@ -5,8 +5,9 @@ import {
   UseInterceptors,
   Res,
   UnauthorizedException,
+  UseGuards,
 } from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import {
   apiVersion,
   authApiTag,
@@ -14,9 +15,8 @@ import {
 import { SuccessResponseInterceptor } from '@/app/utils/response/success-response.utils';
 import { AuthService } from '@/app/services/auth/auth.service';
 import { Response } from 'express';
-
-// DTOs
-import { loginDto } from '@/app/dto/auth/auth.dto';
+import { AuthGuard } from '@/app/guard/auth.guard';
+import { LoginDto } from '@/app/dto/auth/auth.dto';
 
 @ApiTags(authApiTag)
 @Controller({
@@ -29,11 +29,11 @@ export class AuthController {
   @Post('login')
   @UseInterceptors(SuccessResponseInterceptor)
   async login(
-    @Body() loginDto: loginDto,
+    @Body() loginDto: LoginDto,
     @Res({ passthrough: true }) res: Response,
   ) {
     const user = await this.authService.validateUser(
-      loginDto.user,
+      loginDto.email,
       loginDto.password,
     );
 
@@ -51,5 +51,12 @@ export class AuthController {
     });
 
     return { status: 200, message: 'Login exitoso' }; // útil para Postman
+  }
+
+  @ApiOperation({ summary: 'Cerrar sesión' })
+  @UseGuards(AuthGuard)
+  @Post('logout')
+  logout(@Res() response: Response) {
+    return this.authService.logout(response);
   }
 }
