@@ -13,7 +13,7 @@ export enum CONFIG {
   DB_SCHEMA = 'DB_SCHEMA',
   DB_SSL = 'DB_SSL',
   DB_SYNCHRONIZE = 'DB_SYNCHRONIZE',
-  ALLOWED_ORIGINS = 'ALLOWED_ORIGINS'
+  ALLOWED_ORIGINS = 'ALLOWED_ORIGINS',
 }
 
 export class Environment {
@@ -39,7 +39,7 @@ export class Environment {
 
   @IsString()
   DB_NAME: string;
-  
+
   @Transform(({ value }) => value === 'true')
   @IsBoolean()
   DB_SSL: boolean;
@@ -47,5 +47,4 @@ export class Environment {
   @Transform(({ value }) => value === 'true')
   @IsBoolean()
   DB_SYNCHRONIZE: boolean;
-
 }

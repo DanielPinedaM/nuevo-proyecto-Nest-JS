@@ -10,10 +10,10 @@ import {
   apiVersion,
   authApiTag,
 } from '@/app/models/constants/general.constants';
-import { AuthService } from '@/app/services/auth/auth.service';
+import { AuthService } from '@/app/features/auth/auth.service';
 import { Response } from 'express';
-import { AuthGuard } from '@/app/guard/auth.guard';
-import { LoginDto } from '@/app/dto/auth/auth.dto';
+import { AuthGuard } from '@/app/guard/auth/auth.guard';
+import { LoginDto } from '@/app/features/auth/dto/auth.dto';
 
 @ApiTags(authApiTag)
 @Controller({

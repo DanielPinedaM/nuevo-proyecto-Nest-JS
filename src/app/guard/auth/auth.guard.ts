@@ -12,7 +12,9 @@ import { RequestWithUser } from '@/app/models/interface/request-with-user.interf
 @Injectable()
 export class AuthGuard implements CanActivate {
   private logger = new Logger(AuthGuard.name);
+
   constructor(private readonly jwtService: JwtService) {}
+
   async canActivate(context: ExecutionContext): Promise<boolean> {
     const request: RequestWithUser = context.switchToHttp().getRequest();
     const cookies = request.cookies;
