@@ -5,7 +5,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { BaseModule } from './app/base.module';
-import { DatabaseModule } from './app/database/database.module';
+import { DatabaseModule } from './app/module/database.module';
 import { LoggerMiddleware } from './app/middlewares/logger.middleware';
 
 @Module({

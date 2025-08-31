@@ -1,4 +1,4 @@
 /**
-Encriptar y desencriptar texto */
+encriptar y desencriptar texto */
 export const secretKeyAuthentication: string = 'GestionAlcaldeCO';
 export const IVAuth: string = 'encryptionIntVec';

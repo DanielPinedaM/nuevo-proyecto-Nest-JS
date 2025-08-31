@@ -3,9 +3,11 @@ import {
   IVAuth,
   secretKeyAuthentication,
 } from '@/app/models/constants/auth.constants';
+import { Injectable } from '@nestjs/common';
 
-export default class CryptoServiceClass {
-  public static async encrypt(text: string): Promise<string> {
+@Injectable()
+export class CryptoService {
+  async encrypt(text: string): Promise<string> {
     const key = enc.Utf8.parse(secretKeyAuthentication); // número hexadecimal de 16 dígitos como clave
     const iv = enc.Utf8.parse(IVAuth); // Número hexadecimal como desplazamiento de clave
 
@@ -21,7 +23,7 @@ export default class CryptoServiceClass {
     return encrypted.toString();
   }
 
-  public static async decrypt(encryptedText: string): Promise<string> {
+  async decrypt(encryptedText: string): Promise<string> {
     const key = enc.Utf8.parse(secretKeyAuthentication);
     const iv = enc.Utf8.parse(IVAuth);
 
