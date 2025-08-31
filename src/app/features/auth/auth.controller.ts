@@ -1,10 +1,4 @@
-import {
-  Controller,
-  Post,
-  Body,
-  Res,
-  UseGuards,
-} from '@nestjs/common';
+import { Controller, Post, Body, Res, UseGuards } from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import {
   apiVersion,
@@ -13,7 +7,8 @@ import {
 import { AuthService } from '@/app/features/auth/auth.service';
 import { Response } from 'express';
 import { AuthGuard } from '@/app/guard/auth/auth.guard';
-import { LoginDto } from '@/app/features/auth/dto/auth.dto';
+import { LoginDto } from '@/app/features/auth/dto/users.dto';
+import { RegisterDto } from '@/app/features/auth/dto/register.dto';
 
 @ApiTags(authApiTag)
 @Controller({
@@ -25,15 +20,11 @@ export class AuthController {
 
   @ApiOperation({ summary: 'iniciar sesión' })
   @Post('login')
-  async login(
+  login(
     @Body() loginDto: LoginDto,
     @Res({ passthrough: true }) response: Response,
   ) {
-    return this.authService.loginUser(
-      loginDto.email,
-      loginDto.password,
-      response,
-    );
+    return this.authService.login(loginDto.email, loginDto.password, response);
   }
 
   @ApiOperation({ summary: 'cerrar sesión' })
@@ -41,5 +32,10 @@ export class AuthController {
   @Post('logout')
   logout(@Res() response: Response) {
     return this.authService.logout(response);
+  }
+
+  @Post('register')
+  register(@Body() registerDto: RegisterDto) {
+    return this.authService.registerUser(registerDto);
   }
 }

@@ -7,21 +7,18 @@ import {
 
 @Entity('Users')
 export class Users {
-  @PrimaryGeneratedColumn()
+  @PrimaryGeneratedColumn('uuid')
   id: number;
 
   @Column({ type: 'varchar', length: 200, unique: true })
-  User: string;
+  email: string;
 
   @Column({ type: 'varchar', length: 100 })
-  UserName: string;
+  username: string;
 
   @Column({ type: 'varchar', length: 255 })
-  Password: string;
-
-  @Column({ type: 'int' })
-  RolId: number;
+  password: string;
 
   @CreateDateColumn()
-  CreationDate: Date;
+  creationDate: Date;
 }
