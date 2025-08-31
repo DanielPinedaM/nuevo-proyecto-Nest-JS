@@ -35,9 +35,9 @@ export class AuthService {
 
   generateToken(data: any): string {
     const token = {
-      id: data.id,
-      email: data.email,
-      username: data.username,
+      id: data?.id,
+      email: data?.email,
+      username: data?.username,
     };
 
     return this.jwtService.sign(token);
