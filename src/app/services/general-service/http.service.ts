@@ -1,10 +1,10 @@
+import chalk from 'chalk';
 import { Injectable, HttpException } from '@nestjs/common';
 import axios, {
   AxiosError,
   AxiosInstance,
   AxiosRequestConfig,
   AxiosResponse,
-  InternalAxiosRequestConfig,
   Method,
 } from 'axios';
 import { IRequestOptions } from '@/app/services/general-service/types/request-data.types';
@@ -24,18 +24,7 @@ export class HttpService {
    ***********************
    * Axios interceptor's *
    *********************** */
-  private setupInterceptors() {
-    this.client.interceptors.request.use(
-      (config: InternalAxiosRequestConfig<any>) => {
-        console.log(
-          `➡️ ${config.method?.toUpperCase()} ${config.url}`,
-          config?.data ?? config?.params,
-        );
-
-        return config;
-      },
-    );
-
+  private setupInterceptors(): void {
     this.client.interceptors.response.use(
       (response: AxiosResponse<any, any>) => this.logResponseSuccess(response),
       (error: AxiosError) => this.logResponseError(error),
@@ -44,17 +33,37 @@ export class HttpService {
 
   /** logs de peticiones HTTP exitosas ✅  */
   private logResponseSuccess(response: AxiosResponse) {
-    console.log(`✅ ${response.status} ${response.config.url}`);
+    const { status } = response;
+    const { method } = response.config;
+
+    const fullUrl: string = this.buildFullUrl(response.config);
+
+    const message: string = `✅ [${method?.toUpperCase()}] ${status} ${fullUrl}`;
+    console.log(chalk.green(message));
+
     return response;
   }
 
   /** logs de peticiones HTTP erroneas ❌ */
   private logResponseError(error: AxiosError) {
-    console.error(
-      `❌ ${error.config?.url}`,
-      error?.response?.data ?? error?.message,
-    );
+    const { status } = error?.response;
+    const { method } = error.config;
+
+    const fullUrl: string = this.buildFullUrl(error.config);
+
+    const message: string = `❌ [${method?.toUpperCase()}] ${status} ${fullUrl}`;
+    console.log(chalk.red(message));
+
     return Promise.reject(error);
+  }
+
+  private buildFullUrl(config: AxiosRequestConfig): string {
+    const base = config.baseURL ?? '';
+    const path = config.url ?? '';
+    const query = config.params
+      ? `?${new URLSearchParams(config.params as any).toString()}`
+      : '';
+    return `${base}${path}${query}`;
   }
 
   /*
