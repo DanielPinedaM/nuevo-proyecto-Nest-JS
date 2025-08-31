@@ -13,8 +13,6 @@ import { IRequestOptions } from '@/app/services/general-service/types/request-da
 export class HttpService {
   private client: AxiosInstance;
 
-  private methodsWithBody: string[] = ['PUT', 'POST', 'DELETE', 'PATCH'];
-
   constructor() {
     this.client = axios.create({ timeout: 15000 });
     this.setupInterceptors();
@@ -70,7 +68,7 @@ export class HttpService {
    ***************************
    * validar peticiones HTTP *
    *************************** */
-  private async httpService<T = any>(
+  private async executeRequest<T = any>(
     method: string,
     url: string,
     options: IRequestOptions = {},
@@ -96,13 +94,13 @@ export class HttpService {
     try {
       let response: AxiosResponse<T>;
 
-      if (this.methodsWithBody.includes(method)) {
+      if (method === 'GET') {
+        const { data, ...rest } = config;
+        response = await this.client.request<T>({ ...rest });
+      } else {
         response = await this.client.request<T>({
           ...config,
         });
-      } else {
-        const { data, ...rest } = config;
-        response = await this.client.request<T>({ ...rest });
       }
 
       return response?.data;
@@ -119,22 +117,22 @@ export class HttpService {
    * funciones con metodos HTTP para llamar endpoint (API) *
    ********************************************************* */
   public async GET<T = any>(url: string, options: IRequestOptions = {}) {
-    return this.httpService<T>('GET', url, options);
+    return this.executeRequest<T>('GET', url, options);
   }
 
   public async POST<T = any>(url: string, options: IRequestOptions = {}) {
-    return this.httpService<T>('POST', url, options);
+    return this.executeRequest<T>('POST', url, options);
   }
 
   public async PUT<T = any>(url: string, options: IRequestOptions = {}) {
-    return this.httpService<T>('PUT', url, options);
+    return this.executeRequest<T>('PUT', url, options);
   }
 
   public async PATCH<T = any>(url: string, options: IRequestOptions = {}) {
-    return this.httpService<T>('PATCH', url, options);
+    return this.executeRequest<T>('PATCH', url, options);
   }
 
   public async DELETE<T = any>(url: string, options: IRequestOptions = {}) {
-    return this.httpService<T>('DELETE', url, options);
+    return this.executeRequest<T>('DELETE', url, options);
   }
 }
