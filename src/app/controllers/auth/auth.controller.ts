@@ -45,12 +45,12 @@ export class AuthController {
 
     res.cookie('sessionId', token, {
       httpOnly: true,
-      secure: true,
-      sameSite: 'strict',
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: process.env.NODE_ENV === 'production' ? 'strict' : 'lax',
       maxAge: 1000 * 60 * 60,
     });
 
-    return { status: 200, message: 'Login exitoso' }; // útil para Postman
+    return { status: 200, message: 'inicio de sesion exitoso' };
   }
 
   @ApiOperation({ summary: 'Cerrar sesión' })
