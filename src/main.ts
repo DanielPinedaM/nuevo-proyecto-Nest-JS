@@ -1,19 +1,19 @@
 import { NestFactory } from '@nestjs/core';
-import { AppModule } from './app.module';
+import { AppModule } from '@/app.module';
 import { INestApplication, Logger, ValidationPipe } from '@nestjs/common';
 import { DocumentBuilder, OpenAPIObject, SwaggerModule } from '@nestjs/swagger';
 import {
   apiDescription,
   apiTitle,
   apiVersion,
-} from './app/models/constants/general.constants';
+} from '@/app/models/constants/general.constants';
 import { json } from 'express';
 import { ConfigService } from '@nestjs/config';
-import { CONFIG } from './app/config/config-keys.config';
+import { CONFIG } from '@/app/config/config-keys.config';
 import chalk from 'chalk';
 
 // manejo de excepciones
-import { AllExceptionsFilter } from './app/utils/response/exceptions-response.utils';
+import { AllExceptionsFilter } from '@/app/utils/response/exceptions-response.utils';
 
 // manejo de respuesta exitosas
 import { SuccessResponseInterceptor } from '@/app/utils/response/success-response.utils';
