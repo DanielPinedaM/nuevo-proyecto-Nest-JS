@@ -11,7 +11,7 @@ type TQueryParams = Record<
 parametros de funcion httpService para llamar a la API */
 export interface IRequestOptions<T = any> {
   body?: T;
-  queryParams?: TQueryParams;
+  params?: TQueryParams;
   responseType?: ResponseType;
   withCredentials?: boolean;
 }

@@ -78,17 +78,18 @@ export class HttpService {
     https://axios-http.com/es/docs/req_config */
     const {
       body = undefined,
-      queryParams = undefined,
+      params = undefined,
       responseType = 'json',
+      withCredentials,
     } = options;
 
     const config: AxiosRequestConfig = {
       url,
       method: method as Method,
-      params: queryParams,
       data: body,
+      params,
       responseType,
-      withCredentials: true,
+      withCredentials,
     };
 
     try {
@@ -116,23 +117,38 @@ export class HttpService {
    *********************************************************
    * funciones con metodos HTTP para llamar endpoint (API) *
    ********************************************************* */
-  public async GET<T = any>(url: string, options: IRequestOptions = {}) {
+  public async GET<T = any>(
+    url: string,
+    options: IRequestOptions = {},
+  ): Promise<T> {
     return this.executeRequest<T>('GET', url, options);
   }
 
-  public async POST<T = any>(url: string, options: IRequestOptions = {}) {
+  public async POST<T = any>(
+    url: string,
+    options: IRequestOptions = {},
+  ): Promise<T> {
     return this.executeRequest<T>('POST', url, options);
   }
 
-  public async PUT<T = any>(url: string, options: IRequestOptions = {}) {
+  public async PUT<T = any>(
+    url: string,
+    options: IRequestOptions = {},
+  ): Promise<T> {
     return this.executeRequest<T>('PUT', url, options);
   }
 
-  public async PATCH<T = any>(url: string, options: IRequestOptions = {}) {
+  public async PATCH<T = any>(
+    url: string,
+    options: IRequestOptions = {},
+  ): Promise<T> {
     return this.executeRequest<T>('PATCH', url, options);
   }
 
-  public async DELETE<T = any>(url: string, options: IRequestOptions = {}) {
+  public async DELETE<T = any>(
+    url: string,
+    options: IRequestOptions = {},
+  ): Promise<T> {
     return this.executeRequest<T>('DELETE', url, options);
   }
 }
