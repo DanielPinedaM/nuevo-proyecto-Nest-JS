@@ -18,9 +18,9 @@ export class AuthGuard implements CanActivate {
   async canActivate(context: ExecutionContext): Promise<boolean> {
     const request: RequestWithUser = context.switchToHttp().getRequest();
     const cookies = request.cookies;
-    const access_token = cookies.access_token;
+    const token = cookies.token;
 
-    if (!access_token) {
+    if (!token) {
       this.logger.warn('No se encontró el token de acceso en las cookies');
       throw new HttpException(
         'No tienes una sesión activa. Inicia sesión para continuar.',
@@ -29,9 +29,8 @@ export class AuthGuard implements CanActivate {
     }
 
     try {
-      // Verify the access token
-      const payload = this.jwtService.verify(access_token);
-      // Check if the token is valid
+      const payload = this.jwtService.verify(token);
+
       if (!payload) {
         this.logger.warn(
           'El token de autenticación no es válido o ha expirado',
@@ -43,7 +42,7 @@ export class AuthGuard implements CanActivate {
         );
       }
     } catch (error) {
-      this.logger.error(`Error al verificar el token: ${error.message}`);
+      this.logger.error(`error al verificar el token: ${error}`);
       throw new HttpException(
         'No se pudo verificar la sesión. Es posible que el token haya expirado o sea inválido.',
         HttpStatus.UNAUTHORIZED,
