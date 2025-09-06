@@ -160,7 +160,6 @@ export class AllExceptionsFilter implements ExceptionFilter {
           ip: request.ip,
           fullEndpointUrl: `${request.protocol}://${request?.get('host') ?? request?.hostname}${request.originalUrl}`,
           path: request.url,
-          hostname: request.hostname,
         },
       },
     });
