@@ -13,7 +13,7 @@ import { ServiceModule } from '@/app/services/service.module';
     ConfigModule.forRoot({
       envFilePath: `environments/.env.${process.env?.ENVIRONMENT ?? 'development'}`,
     }),
-    DatabaseModule,
+    //DatabaseModule,
     TypeOrmModule,
     UtilsModule,
     ServiceModule,
