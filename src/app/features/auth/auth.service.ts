@@ -75,7 +75,9 @@ export class AuthService {
       maxAge: 1000 * 60 * 60,
     });
 
-    return { status: 200, message: 'inicio de sesión exitoso' };
+    const { id, password, creationDate, ...rest } = foundUser;
+    const data = { ...rest };
+    return { status: 200, message: 'inicio de sesión exitoso', data };
   }
 
   async logout(response: Response) {
