@@ -15,7 +15,7 @@ Nombres de las tablas: PascalCase
 ## Instalar paquetes del proyecto
 
 ```console
-nvm use 22.17.1
+nvm use 24.7.0
 ```
 
 ```console
@@ -25,7 +25,7 @@ npm i
 ## Comandos para ejecutar proyecto
 
 ```console
-nvm use 22.17.1
+nvm use 24.7.0
 ```
 
 ```console
