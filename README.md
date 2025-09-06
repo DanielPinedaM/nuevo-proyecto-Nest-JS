@@ -28,6 +28,8 @@ npm i
 nvm use 24.7.0
 ```
 
-```console
-node --run start:dev
-```
+comando | apunta a... | ruta archivo
+------------ | ------------- | -------------
+node --run start:dev | localhost | environments/.env.development
+node --run start:test | pruebas | environments/.env.test
+node --run start:prod | producción | environments/.env.production

@@ -6,13 +6,21 @@
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
+    "start:dev": "npx nest start --watch --env-file environments/.env.development",
+    "start:prod": "npx nest start --watch --env-file environments/.env.production",
+    "start:test": "npx nest start --watch --env-file environments/.env.test",
+
+    "debug:dev": "npx nest start --debug --watch --env-file environments/.env.development",
+    "debug:prod": "npx nest start --debug --watch --env-file environments/.env.production",
+    "debug:test": "npx nest start --debug --watch --env-file environments/.env.test",
+
     "build": "nest build",
+    "dist": "node dist/main",
+
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
-    "start": "nest start",
-    "start:dev": "npx nest start --watch --env-file .env",
-    "start:debug": "nest start --debug --watch",
-    "start:prod": "node dist/main",
+
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
+
     "test": "jest",
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
