@@ -1,5 +1,5 @@
 import chalk from 'chalk';
-import { Injectable, NestMiddleware } from '@nestjs/common';
+import { Injectable, Logger, NestMiddleware } from '@nestjs/common';
 import { NextFunction, Request, Response } from 'express';
 import httpStatusMessages from '@/app/models/constants/http-status-messages.constans';
 
@@ -35,9 +35,9 @@ export class LoggerMiddleware implements NestMiddleware {
       }
 
       if (statusCode >= 400) {
-        console.error('❌ ', coloredMessage + '\n');
+        Logger.error(`❌ ${coloredMessage}`);
       } else {
-        console.info('✅ ', coloredMessage + '\n');
+        Logger.log(`✅ ${coloredMessage}`);
       }
     });
 

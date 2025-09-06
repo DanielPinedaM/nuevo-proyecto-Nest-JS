@@ -1,5 +1,5 @@
 import chalk from 'chalk';
-import { Injectable, HttpException } from '@nestjs/common';
+import { Injectable, HttpException, Logger } from '@nestjs/common';
 import axios, {
   AxiosError,
   AxiosInstance,
@@ -37,7 +37,7 @@ export class HttpService {
     const fullUrl: string = this.buildFullUrl(response.config);
 
     const message: string = `✅ [${method?.toUpperCase()}] ${status} ${fullUrl}`;
-    console.log(chalk.green(message));
+    Logger.log(chalk.green(message));
 
     return response;
   }
@@ -50,7 +50,7 @@ export class HttpService {
     const fullUrl: string = this.buildFullUrl(error.config);
 
     const message: string = `❌ [${method?.toUpperCase()}] ${status} ${fullUrl}`;
-    console.log(chalk.red(message));
+    Logger.error(chalk.red(message));
 
     return Promise.reject(error);
   }
