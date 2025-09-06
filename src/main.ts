@@ -21,7 +21,7 @@ import { SuccessResponseInterceptor } from '@/app/utils/response/success-respons
 function listRoutes(app: INestApplication) {
   const server = app.getHttpServer();
   const router = server._events.request._router;
-  const availableRoutes: [] = router?.stack
+  const availableRoutes = (router?.stack ?? [])
     .filter((layer) => layer.route)
     .map((layer) => ({
       route: {
@@ -30,12 +30,16 @@ function listRoutes(app: INestApplication) {
       },
     }));
 
-  Logger.log(chalk.blueBright('📡 Lista de APIs:'), 'Bootstrap');
-  console.table(availableRoutes);
-  Logger.log(
-    chalk.gray(`🛣️ Total de rutas: ${availableRoutes.length}`),
-    'Bootstrap',
-  );
+  if (availableRoutes?.length > 0) {
+    Logger.log(chalk.blueBright('📡 Lista de endpoints:'), 'Bootstrap');
+    console.table(availableRoutes);
+    Logger.log(
+      chalk.gray(`🛣️ Total de rutas: ${availableRoutes?.length ?? 0}`),
+      'Bootstrap',
+    );
+  } else {
+    Logger.log(chalk.blueBright('📡 No hay endpoints'), 'Bootstrap');
+  }
 }
 
 async function bootstrap() {
