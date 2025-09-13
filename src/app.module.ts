@@ -11,9 +11,9 @@ import { ServiceModule } from '@/app/services/service.module';
 @Module({
   imports: [
     ConfigModule.forRoot({
-      envFilePath: `environments/.env.${process.env?.ENVIRONMENT ?? 'development'}`,
+      envFilePath: `environments/.env.${process.env?.ENVIRONMENT ?? 'test'}`,
     }),
-    //DatabaseModule,
+    DatabaseModule,
     TypeOrmModule,
     UtilsModule,
     ServiceModule,

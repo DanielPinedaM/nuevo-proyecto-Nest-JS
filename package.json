@@ -6,11 +6,11 @@
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
-    "start:dev": "npx nest start --watch --env-file environments/.env.development",
+    "start:localhost": "npx nest start --watch --env-file environments/.env.localhost",
     "start:prod": "npx nest start --watch --env-file environments/.env.production",
     "start:test": "npx nest start --watch --env-file environments/.env.test",
 
-    "debug:dev": "npx nest start --debug --watch --env-file environments/.env.development",
+    "debug:localhost": "npx nest start --debug --watch --env-file environments/.env.localhost",
     "debug:prod": "npx nest start --debug --watch --env-file environments/.env.production",
     "debug:test": "npx nest start --debug --watch --env-file environments/.env.test",
 
