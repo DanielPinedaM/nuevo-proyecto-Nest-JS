@@ -6,7 +6,7 @@
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
-    "start:localhost": "npx nest start --watch --env-file environments/.env.localhost",
+    "start:local": "npx nest start --watch --env-file environments/.env.localhost",
     "start:prod": "npx nest start --watch --env-file environments/.env.production",
     "start:test": "npx nest start --watch --env-file environments/.env.test",
 
