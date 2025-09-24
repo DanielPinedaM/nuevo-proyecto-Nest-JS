@@ -30,6 +30,6 @@ nvm use 24.7.0
 
 comando | apunta a... | ruta archivo
 ------------ | ------------- | -------------
-node --run start:localhost | localhost | environments/.env.localhost
+node --run start:local | localhost | environments/.env.localhost
 node --run start:test | pruebas | environments/.env.test
 node --run start:prod | producción | environments/.env.production
