@@ -35,7 +35,7 @@ node --run start:test | pruebas | environments/.env.test
 node --run start:prod | producción | environments/.env.production
 
 
-#### Generar build (dist) para desplegar
+## Generar build (dist) para desplegar
 
 ```console
 nvm install 24.7.0
