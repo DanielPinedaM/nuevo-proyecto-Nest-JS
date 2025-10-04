@@ -15,6 +15,10 @@ Nombres de las tablas: PascalCase
 ## Instalar paquetes del proyecto
 
 ```console
+nvm install 24.7.0
+```
+
+```console
 nvm use 24.7.0
 ```
 
@@ -34,12 +38,7 @@ node --run start:local | localhost | environments/.env.localhost
 node --run start:test | pruebas | environments/.env.test
 node --run start:prod | producción | environments/.env.production
 
-
 ## Generar build (dist) para desplegar
-
-```console
-nvm install 24.7.0
-```
 
 ```console
 nvm use 24.7.0
