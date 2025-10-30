@@ -1,5 +1,5 @@
 import { Module, Global } from '@nestjs/common';
-import { HttpService } from '@/app/services/general-service/http.service';
+import { HttpService } from '@/app/services/http-general-service/http.service';
 
 const modules = [HttpService];
 

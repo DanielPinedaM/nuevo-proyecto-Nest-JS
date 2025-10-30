@@ -7,7 +7,7 @@ import axios, {
   AxiosResponse,
   Method,
 } from 'axios';
-import { IRequestOptions } from '@/app/services/general-service/types/request-data.types';
+import { IRequestOptions } from '@/app/services/http-general-service/types/request-data.types';
 
 @Injectable()
 export class HttpService {

@@ -132,9 +132,8 @@ export class AllExceptionsFilter implements ExceptionFilter {
 
     // Data genérica
     let data: any = [];
-    if (typeof initialRaw === 'object' && initialRaw !== null) {
+    if (typeof initialRaw === 'object' && initialRaw !== null) 
       data = initialRaw?.data ?? initialRaw?.payload ?? [];
-    }
 
     response.status(status).json({
       success: false,
