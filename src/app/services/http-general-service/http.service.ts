@@ -15,26 +15,26 @@ export class HttpService {
 
   constructor() {
     this.client = axios.create({ timeout: 15000 });
-    this.setupInterceptors();
+    this.#setupInterceptors();
   }
 
   /*
    ***********************
    * Axios interceptor's *
    *********************** */
-  private setupInterceptors(): void {
+  #setupInterceptors(): void {
     this.client.interceptors.response.use(
-      (response: AxiosResponse<any, any>) => this.logResponseSuccess(response),
-      (error: AxiosError) => this.logResponseError(error),
+      (response: AxiosResponse<any, any>) => this.#logResponseSuccess(response),
+      (error: AxiosError) => this.#logResponseError(error),
     );
   }
 
   /** logs de peticiones HTTP exitosas ✅  */
-  private logResponseSuccess(response: AxiosResponse) {
+  #logResponseSuccess(response: AxiosResponse) {
     const { status } = response;
     const { method } = response.config;
 
-    const fullUrl: string = this.buildFullUrl(response.config);
+    const fullUrl: string = this.#buildFullUrl(response.config);
 
     const message: string = `✅ [${method?.toUpperCase()}] ${status} ${fullUrl}`;
     Logger.log(chalk.green(message));
@@ -43,11 +43,11 @@ export class HttpService {
   }
 
   /** logs de peticiones HTTP erroneas ❌ */
-  private logResponseError(error: AxiosError) {
+  #logResponseError(error: AxiosError) {
     const { status } = error?.response;
     const { method } = error.config;
 
-    const fullUrl: string = this.buildFullUrl(error.config);
+    const fullUrl: string = this.#buildFullUrl(error.config);
 
     const message: string = `❌ [${method?.toUpperCase()}] ${status} ${fullUrl}`;
     Logger.error(chalk.red(message));
@@ -55,7 +55,7 @@ export class HttpService {
     return Promise.reject(error);
   }
 
-  private buildFullUrl(config: AxiosRequestConfig): string {
+  #buildFullUrl(config: AxiosRequestConfig): string {
     const base = config.baseURL ?? '';
     const path = config.url ?? '';
     const query = config.params
@@ -68,7 +68,7 @@ export class HttpService {
    ***************************
    * validar peticiones HTTP *
    *************************** */
-  private async executeRequest<T = any>(
+  async #executeRequest<T = any>(
     method: string,
     url: string,
     options: IRequestOptions = {},
@@ -121,34 +121,34 @@ export class HttpService {
     url: string,
     options: IRequestOptions = {},
   ): Promise<T> {
-    return this.executeRequest<T>('GET', url, options);
+    return this.#executeRequest<T>('GET', url, options);
   }
 
   public async POST<T = any>(
     url: string,
     options: IRequestOptions = {},
   ): Promise<T> {
-    return this.executeRequest<T>('POST', url, options);
+    return this.#executeRequest<T>('POST', url, options);
   }
 
   public async PUT<T = any>(
     url: string,
     options: IRequestOptions = {},
   ): Promise<T> {
-    return this.executeRequest<T>('PUT', url, options);
+    return this.#executeRequest<T>('PUT', url, options);
   }
 
   public async PATCH<T = any>(
     url: string,
     options: IRequestOptions = {},
   ): Promise<T> {
-    return this.executeRequest<T>('PATCH', url, options);
+    return this.#executeRequest<T>('PATCH', url, options);
   }
 
   public async DELETE<T = any>(
     url: string,
     options: IRequestOptions = {},
   ): Promise<T> {
-    return this.executeRequest<T>('DELETE', url, options);
+    return this.#executeRequest<T>('DELETE', url, options);
   }
 }

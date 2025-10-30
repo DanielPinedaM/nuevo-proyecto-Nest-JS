@@ -6,20 +6,21 @@ export class AppService {
   constructor(private readonly http: HttpService) {}
 
   async jsonPlaceHolder() {
-    try {
-      const data = await this.http.GET(
-        'https://jsonplaceholder.typicode.com/todos/1',
-      );
+    const response = await this.http.GET(
+      'https://jsonplaceholder.typicode.com/todos/1',
+    );
+    console.log("🚀 ~ AppService ~ jsonPlaceHolder ~ response:", response)
 
-      return {
-        message: 'solicitud exitosa a json placeholder 333',
-        data,
-      };
-    } catch (error) {
+    //return {
+    //  message: 'solicitud exitosa a json placeholder 333',
+    //  data,
+    //};
+
+    /* 
       throw new InternalServerErrorException({
         message: 'Error al consumir JSON Placeholder',
         error,
       });
-    }
+    */
   }
 }

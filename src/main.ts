@@ -93,7 +93,7 @@ async function bootstrap() {
   listRoutes(app);
 
   Logger.log(
-    chalk.greenBright('🖥️ Aplicación ejecutándose en el puerto ') +
+    chalk.greenBright('Aplicación ejecutándose en el puerto ') +
       chalk.yellowBright(port) +
       chalk.greenBright(' en el entorno ') +
       chalk.magentaBright(env),

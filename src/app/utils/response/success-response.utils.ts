@@ -26,13 +26,13 @@ export class SuccessResponseInterceptor<T>
     return next.handle().pipe(
       map((data: any) => {
         // obtener data
-        const newData: any = this.searchData(data);
+        const newData: any = this.#searchData(data);
 
         // responder directo con tipo archivo
         if (isFile) return newData;
 
         // paginacion
-        const pagination = this.searchPagination(newData);
+        const pagination = this.#searchPagination(newData);
         const resultData = pagination ? newData?.items : newData;
 
         // obtener http status
@@ -42,12 +42,12 @@ export class SuccessResponseInterceptor<T>
           response?.statusCode ??
           HttpStatus.OK;
 
-        this.clearData(newData);
+        this.#clearData(newData);
 
         // obtener mensaje
         const message =
-          this.searchMessage(data) ??
-          this.searchMessage(newData) ??
+          this.#searchMessage(data) ??
+          this.#searchMessage(newData) ??
           'Operación exitosa';
 
         return {
@@ -62,7 +62,7 @@ export class SuccessResponseInterceptor<T>
     );
   }
 
-  private searchData(data: any): any {
+  #searchData(data: any): any {
     return (
       data?.data?.data ??
       data?.data ??
@@ -96,11 +96,11 @@ export class SuccessResponseInterceptor<T>
     );
   }
 
-  private searchPagination(data: any): any {
+  #searchPagination(data: any): any {
     return data?.pagination ?? data?.paginacion ?? data?.paginador ?? undefined;
   }
 
-  private searchMessage(data: any): any {
+  #searchMessage(data: any): any {
     return (
       data?.mensaje ??
       data?.message ??
@@ -130,7 +130,7 @@ export class SuccessResponseInterceptor<T>
 
   /**
   ¿la variable es un objeto literal? */
-  private isLiteralObject = (literalObject: any): boolean => {
+  #isLiteralObject = (literalObject: any): boolean => {
     return (
       typeof literalObject === 'object' &&
       literalObject !== null &&
@@ -139,8 +139,8 @@ export class SuccessResponseInterceptor<T>
     );
   };
 
-  private clearData(data: any): void {
-    if (!this.isLiteralObject(data)) return;
+  #clearData(data: any): void {
+    if (!this.#isLiteralObject(data)) return;
 
     const keysToDelete: string[] = [
       'status',
