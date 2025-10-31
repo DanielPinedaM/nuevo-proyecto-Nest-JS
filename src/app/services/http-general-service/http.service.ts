@@ -1,5 +1,5 @@
 import chalk from 'chalk';
-import { Injectable, HttpException, Logger } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import axios, {
   AxiosError,
   AxiosInstance,
@@ -8,6 +8,8 @@ import axios, {
   Method,
 } from 'axios';
 import { IRequestOptions } from '@/app/services/http-general-service/types/request-data.types';
+import { IResponse } from '@/app/models/interface/response.interfaces';
+import httpStatusMessages from '@/app/models/constants/http-status-messages.constans';
 
 @Injectable()
 export class HttpService {
@@ -44,24 +46,26 @@ export class HttpService {
 
   /** logs de peticiones HTTP erroneas ❌ */
   #logResponseError(error: AxiosError) {
-    const { status } = error?.response;
-    const { method } = error.config;
+    const status: number = error?.response?.status ?? 500;
+    const method: string = (
+      error?.config?.method ??
+      error?.request?.method ??
+      ''
+    ).toUpperCase();
+    const fullUrl: string = this.#buildFullUrl(error?.config ?? {});
 
-    const fullUrl: string = this.#buildFullUrl(error.config);
-
-    const message: string = `❌ [${method?.toUpperCase()}] ${status} ${fullUrl}`;
+    const message: string = `❌ [${method}] ${status} ${fullUrl}`;
     Logger.error(chalk.red(message));
 
     return Promise.reject(error);
   }
 
   #buildFullUrl(config: AxiosRequestConfig): string {
-    const base = config.baseURL ?? '';
-    const path = config.url ?? '';
-    const query = config.params
+    const path: string = config?.url ?? '';
+    const query: string = config?.params
       ? `?${new URLSearchParams(config.params as any).toString()}`
       : '';
-    return `${base}${path}${query}`;
+    return `${path}${query}`;
   }
 
   /*
@@ -72,7 +76,7 @@ export class HttpService {
     method: string,
     url: string,
     options: IRequestOptions = {},
-  ): Promise<T> {
+  ): Promise<IResponse<T>> {
     /**
     configuracion de Axios:
     https://axios-http.com/es/docs/req_config */
@@ -93,23 +97,33 @@ export class HttpService {
     };
 
     try {
-      let response: AxiosResponse<T>;
+      const { data, ...rest } = config;
+      const requestOptions = method === 'GET' ? { ...rest } : { ...config };
+      const axiosResponse: AxiosResponse<T> = await this.client.request<T>(requestOptions);
 
-      if (method === 'GET') {
-        const { data, ...rest } = config;
-        response = await this.client.request<T>({ ...rest });
-      } else {
-        response = await this.client.request<T>({
-          ...config,
-        });
-      }
+      const { status, data: responseData } = axiosResponse;
 
-      return response?.data;
+      const standardResponse: IResponse<T> = {
+        success: true,
+        status,
+        statusText: httpStatusMessages[status] ?? '',
+        message: 'Petición HTTP exitosa',
+        data: responseData,
+      };
+
+      return standardResponse;
     } catch (error: any) {
-      throw new HttpException(
-        error?.response?.data ?? 'Error en la petición HTTP',
-        error?.response?.status ?? 500,
-      );
+      const status: number = error?.response?.status ?? 500;
+
+      const standardResponse: IResponse<T> = {
+        success: false,
+        status,
+        statusText: httpStatusMessages[status],
+        message: error?.response?.data?.message ?? 'Error en petición HTTP',
+        data: error?.response?.data ?? null,
+      };
+
+      return standardResponse;
     }
   }
 
@@ -117,38 +131,38 @@ export class HttpService {
    *********************************************************
    * funciones con metodos HTTP para llamar endpoint (API) *
    ********************************************************* */
-  public async GET<T = any>(
+  async GET<T = any>(
     url: string,
     options: IRequestOptions = {},
-  ): Promise<T> {
+  ): Promise<IResponse<T>> {
     return this.#executeRequest<T>('GET', url, options);
   }
 
-  public async POST<T = any>(
+  async POST<T = any>(
     url: string,
     options: IRequestOptions = {},
-  ): Promise<T> {
+  ): Promise<IResponse<T>> {
     return this.#executeRequest<T>('POST', url, options);
   }
 
-  public async PUT<T = any>(
+  async PUT<T = any>(
     url: string,
     options: IRequestOptions = {},
-  ): Promise<T> {
+  ): Promise<IResponse<T>> {
     return this.#executeRequest<T>('PUT', url, options);
   }
 
-  public async PATCH<T = any>(
+  async PATCH<T = any>(
     url: string,
     options: IRequestOptions = {},
-  ): Promise<T> {
+  ): Promise<IResponse<T>> {
     return this.#executeRequest<T>('PATCH', url, options);
   }
 
-  public async DELETE<T = any>(
+  async DELETE<T = any>(
     url: string,
     options: IRequestOptions = {},
-  ): Promise<T> {
+  ): Promise<IResponse<T>> {
     return this.#executeRequest<T>('DELETE', url, options);
   }
 }
