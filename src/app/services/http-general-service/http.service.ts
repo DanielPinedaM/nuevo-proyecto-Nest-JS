@@ -9,7 +9,7 @@ import axios, {
 } from 'axios';
 import { IRequestOptions } from '@/app/services/http-general-service/types/request-data.types';
 import { IResponse } from '@/app/models/interface/response.interfaces';
-import httpStatusMessages from '@/app/models/constants/http-status-messages.constans';
+import httpStatusMessages from '@/app/models/constants/http-status-messages.const';
 
 @Injectable()
 export class HttpService {

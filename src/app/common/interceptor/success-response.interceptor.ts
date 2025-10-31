@@ -8,7 +8,7 @@ import {
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { HttpArgumentsHost } from '@nestjs/common/interfaces';
-import httpStatusMessages from '@/app/models/constants/http-status-messages.constans';
+import httpStatusMessages from '@/app/models/constants/http-status-messages.const';
 import { IResponse } from '@/app/models/interface/response.interfaces';
 
 @Injectable()

@@ -1,7 +1,7 @@
 import chalk from 'chalk';
 import { Injectable, Logger, NestMiddleware } from '@nestjs/common';
 import { NextFunction, Request, Response } from 'express';
-import httpStatusMessages from '@/app/models/constants/http-status-messages.constans';
+import httpStatusMessages from '@/app/models/constants/http-status-messages.const';
 
 @Injectable()
 export class LoggerMiddleware implements NestMiddleware {

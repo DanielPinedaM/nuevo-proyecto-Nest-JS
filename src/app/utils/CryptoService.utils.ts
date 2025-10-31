@@ -2,7 +2,7 @@ import { enc, mode, pad, AES } from 'crypto-js';
 import {
   IVAuth,
   secretKeyAuthentication,
-} from '@/app/models/constants/auth.constants';
+} from '@/app/features/auth/constants/auth.const';
 import { Injectable } from '@nestjs/common';
 
 @Injectable()

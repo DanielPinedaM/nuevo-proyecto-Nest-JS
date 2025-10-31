@@ -6,17 +6,17 @@ import {
   apiDescription,
   apiTitle,
   apiVersion,
-} from '@/app/models/constants/general.constants';
+} from '@/app/models/constants/general.const';
 import { json } from 'express';
 import { ConfigService } from '@nestjs/config';
 import { CONFIG } from '@/app/config/config-keys.config';
 import chalk from 'chalk';
 
 // manejo de excepciones
-import { AllExceptionsFilter } from '@/app/utils/response/exceptions-response.utils';
+import { AllExceptionsFilter } from '@/app/common/filter/exceptions-response.filter';
 
 // manejo de respuesta exitosas
-import { SuccessResponseInterceptor } from '@/app/utils/response/success-response.utils';
+import { SuccessResponseInterceptor } from '@/app/common/interceptor/success-response.interceptor';
 
 function listRoutes(app: INestApplication) {
   const server = app.getHttpServer();

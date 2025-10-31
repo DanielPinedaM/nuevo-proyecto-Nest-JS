@@ -7,7 +7,6 @@ import {
   Logger,
 } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { RequestWithUser } from '@/app/models/interface/request-with-user.interface';
 
 @Injectable()
 export class AuthGuard implements CanActivate {
@@ -16,7 +15,7 @@ export class AuthGuard implements CanActivate {
   constructor(private readonly jwtService: JwtService) {}
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
-    const request: RequestWithUser = context.switchToHttp().getRequest();
+    const request = context.switchToHttp().getRequest();
     const cookies = request.cookies;
     const token = cookies.token;
 

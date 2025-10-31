@@ -70,7 +70,7 @@ con el interceptor anterior dame ejemplo de esto:
 solamente concatenar error + message cuando se defina manualmente la key error */
 
 import { DateTime } from 'luxon';
-import httpStatusMessages from '@/app/models/constants/http-status-messages.constans';
+import httpStatusMessages from '@/app/models/constants/http-status-messages.const';
 import {
   ExceptionFilter,
   Catch,

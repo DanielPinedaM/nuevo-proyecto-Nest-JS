@@ -3,10 +3,10 @@ import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import {
   apiVersion,
   authApiTag,
-} from '@/app/models/constants/general.constants';
+} from '@/app/models/constants/general.const';
 import { AuthService } from '@/app/features/auth/auth.service';
 import { Response } from 'express';
-import { AuthGuard } from '@/app/guard/auth/auth.guard';
+import { AuthGuard } from '@/app/common/guard/auth.guard';
 import { LoginDto } from '@/app/features/auth/dto/users.dto';
 import { RegisterDto } from '@/app/features/auth/dto/register.dto';
 

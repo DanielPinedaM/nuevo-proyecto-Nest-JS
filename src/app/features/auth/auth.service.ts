@@ -9,7 +9,7 @@ import { Repository } from 'typeorm';
 import { Users } from '@/app/features/auth/entities/users.entity';
 import * as bcrypt from 'bcrypt';
 import { Response } from 'express';
-import { CryptoService } from '@/app/utils/CryptoServiceClass.utils';
+import { CryptoService } from '@/app/utils/CryptoService.utils';
 import { RegisterDto } from '@/app/features/auth/dto/register.dto';
 
 @Injectable()
