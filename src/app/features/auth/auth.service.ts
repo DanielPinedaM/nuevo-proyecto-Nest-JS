@@ -70,8 +70,8 @@ export class AuthService {
 
     response.cookie('token', token, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
-      sameSite: process.env.NODE_ENV === 'production' ? 'strict' : 'lax',
+      secure: process.env.ENVIRONMENT === 'production',
+      sameSite: process.env.ENVIRONMENT === 'production' ? 'strict' : 'lax',
       maxAge: 1000 * 60 * 60,
     });
 
@@ -83,8 +83,8 @@ export class AuthService {
   async logout(response: Response) {
     response.clearCookie('token', {
       httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
-      sameSite: process.env.NODE_ENV === 'production' ? 'strict' : 'lax',
+      secure: process.env.ENVIRONMENT === 'production',
+      sameSite: process.env.ENVIRONMENT === 'production' ? 'strict' : 'lax',
     });
 
     return {
