@@ -1,4 +1,5 @@
-// https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Status
+// https://http.dev/status
+
 const httpStatusMessages: Record<number, string> = {
   // 1xx: Respuestas informativas
   100: 'Continue',
@@ -17,6 +18,7 @@ const httpStatusMessages: Record<number, string> = {
   206: 'Partial Content',
   207: 'Multi-Status',
   208: 'Already Reported',
+  218: 'This Is Fine',
   226: 'IM Used',
 
   // 3xx: Redirecciones
@@ -60,12 +62,21 @@ const httpStatusMessages: Record<number, string> = {
   426: 'Upgrade Required',
   428: 'Precondition Required',
   429: 'Too Many Requests',
+  430: 'HTTP Status Code',
   431: 'Request Header Fields Too Large',
+  440: 'Login Time-Out',
+  444: 'No Response',
   449: 'Retry With',
+  450: 'Blocked by Windows Parental Controls',
   451: 'Unavailable for Legal Reasons',
   460: 'Client closed connection prematurely',
   463: 'Too many forwarded IP addresses',
   464: 'Incompatible protocol',
+  494: 'Request Header Too Large',
+  495: 'SSL Certificate Error',
+  496: 'SSL Certificate Required',
+  497: 'HTTP Request Sent to HTTPS Port',
+  498: 'Invalid Token',
   499: 'Client Closed Request',
 
   // 5xx: Errores del servidor
@@ -82,7 +93,19 @@ const httpStatusMessages: Record<number, string> = {
   510: 'Not Extended',
   511: 'Network Authentication Required',
   512: 'Not updated',
-  521: 'Version Mismatch',
+  520: 'Web Server Is Returning an Unknown Error',
+  521: 'Web server is down',
+  522: 'Connection Timed Out',
+  523: 'Origin Is Unreachable',
+  524: 'A Timeout Occurred',
+  525: 'SSL Handshake Failed',
+  526: 'Invalid SSL Certificate',
+  527: 'Railgun Listener to Origin',
+  529: 'The Service Is Overloaded',
+  530: 'Site Frozen',
+  561: 'Unauthorized',
+  598: 'Network Read Timeout Error',
+  599: 'Network Connect Timeout Error',
 };
 
 export default httpStatusMessages;
