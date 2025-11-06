@@ -7,13 +7,16 @@ import { DatabaseModule } from '@/app/module/database.module';
 import { LoggerMiddleware } from '@/app/common/middlewares/logger.middleware';
 import { UtilsModule } from '@/app/utils/utils.module';
 import { ServiceModule } from '@/app/services/service.module';
+import { validateEnvironment } from 'environments/env-config';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       envFilePath: `environments/.env.${process.env?.ENVIRONMENT ?? 'test'}`,
+      isGlobal: true,
+      validate: (config: Record<string, any>) => validateEnvironment(config),
     }),
-    DatabaseModule,
+    //DatabaseModule,
     TypeOrmModule,
     UtilsModule,
     ServiceModule,

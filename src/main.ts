@@ -101,6 +101,8 @@ async function bootstrap(): Promise<void> {
   setupSwagger(app);
 
   const port: number = configService.get(CONFIG?.PORT);
+  console.log("🚀 ~ bootstrap ~ port:", port)
+  console.log("🚀 ~ bootstrap ~ port:", typeof port)
   const env: string = configService.get(CONFIG?.ENVIRONMENT);
 
   await app.listen(port);
