@@ -12,7 +12,7 @@ import { validateEnvironment } from 'environments/env-config';
 @Module({
   imports: [
     ConfigModule.forRoot({
-      envFilePath: `environments/.env.${process.env?.ENVIRONMENT ?? 'test'}`,
+      envFilePath: `environments/.env.${process?.env?.ENVIRONMENT ?? 'test'}`,
       isGlobal: true,
       validate: (config: Record<string, any>) => validateEnvironment(config),
     }),
