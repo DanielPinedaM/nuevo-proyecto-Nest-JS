@@ -1,4 +1,4 @@
-import { IsBoolean, IsNumber, IsString } from 'class-validator';
+import { IsBoolean, IsIn, IsNumber, IsString } from 'class-validator';
 import { Transform } from 'class-transformer';
 import { plainToInstance } from 'class-transformer';
 import { validateSync } from 'class-validator';
@@ -29,6 +29,7 @@ export enum CONFIG {
  * ******************************** */
 export class EnvironmentClass {
   @IsString()
+  @IsIn(['localhost', 'production', 'test'])
   ENVIRONMENT: string;
 
   @Transform(({ value }) => Number(value))
