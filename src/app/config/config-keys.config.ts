@@ -2,7 +2,7 @@ import { IsBoolean, IsNumber, IsString } from 'class-validator';
 import { Transform } from 'class-transformer';
 
 export enum CONFIG {
-  ENV = 'ENV',
+  ENVIRONMENT = 'ENVIRONMENT',
   PORT = 'PORT',
   DB_TYPE = 'DB_TYPE',
   DB_HOST = 'DB_HOST',
@@ -18,7 +18,7 @@ export enum CONFIG {
 
 export class Environment {
   @IsString()
-  ENV: string;
+  ENVIRONMENT: string;
 
   @Transform(({ value }) => Number(value))
   @IsNumber()
