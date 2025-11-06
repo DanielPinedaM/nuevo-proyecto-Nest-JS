@@ -1,6 +1,6 @@
 /* *******************************
-* TIPAR LAS VARIABLES DE ENTORNO *
-* ******************************** */
+ * TIPAR LAS VARIABLES DE ENTORNO *
+ * ******************************** */
 
 import { IsBoolean, IsNumber, IsString } from 'class-validator';
 import { Transform } from 'class-transformer';
@@ -8,6 +8,8 @@ import { Transform } from 'class-transformer';
 export enum CONFIG {
   ENVIRONMENT = 'ENVIRONMENT',
   PORT = 'PORT',
+
+  // #region conexion a la base de datos
   DB_TYPE = 'DB_TYPE',
   DB_HOST = 'DB_HOST',
   DB_PORT = 'DB_PORT',
@@ -17,7 +19,7 @@ export enum CONFIG {
   DB_SCHEMA = 'DB_SCHEMA',
   DB_SSL = 'DB_SSL',
   DB_SYNCHRONIZE = 'DB_SYNCHRONIZE',
-  ALLOWED_ORIGINS = 'ALLOWED_ORIGINS',
+  // #endregion conexion a la base de datos
 }
 
 export class EnvironmentClass {
@@ -27,6 +29,10 @@ export class EnvironmentClass {
   @Transform(({ value }) => Number(value))
   @IsNumber()
   PORT: number;
+
+  // #region conexion a la base de datos
+  @IsString()
+  DB_TYPE: string;
 
   @IsString()
   DB_HOST: string;
@@ -44,11 +50,15 @@ export class EnvironmentClass {
   @IsString()
   DB_NAME: string;
 
-  @Transform(({ value }) => value === 'true')
+  @IsString()
+  DB_SCHEMA: string;
+
+  @Transform(({ value }) => (value.trim().toLowerCase() === 'true' ? true : false))
   @IsBoolean()
   DB_SSL: boolean;
 
-  @Transform(({ value }) => value === 'true')
+  @Transform(({ value }) => (value.trim().toLowerCase() === 'true' ? true : false))
   @IsBoolean()
   DB_SYNCHRONIZE: boolean;
+  // #endregion conexion a la base de datos
 }
