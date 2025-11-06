@@ -10,7 +10,7 @@ import {
 } from '@/app/models/constants/general.const';
 import { json } from 'express';
 import { ConfigService } from '@nestjs/config';
-import { CONFIG } from '@/app/config/config-keys.config';
+import { CONFIG } from 'environments/env-config';
 
 // manejo de excepciones
 import { AllExceptionsFilter } from '@/app/common/filter/exceptions-response.filter';
@@ -101,7 +101,7 @@ async function bootstrap(): Promise<void> {
   setupSwagger(app);
 
   const port: number = configService.get(CONFIG?.PORT);
-  const env: string = configService.get(CONFIG?.ENV);
+  const env: string = configService.get(CONFIG?.ENVIRONMENT);
 
   await app.listen(port);
   listRoutes(app);

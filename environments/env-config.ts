@@ -1,3 +1,7 @@
+/* *******************************
+* TIPAR LAS VARIABLES DE ENTORNO *
+* ******************************** */
+
 import { IsBoolean, IsNumber, IsString } from 'class-validator';
 import { Transform } from 'class-transformer';
 
@@ -16,7 +20,7 @@ export enum CONFIG {
   ALLOWED_ORIGINS = 'ALLOWED_ORIGINS',
 }
 
-export class Environment {
+export class EnvironmentClass {
   @IsString()
   ENVIRONMENT: string;
 
