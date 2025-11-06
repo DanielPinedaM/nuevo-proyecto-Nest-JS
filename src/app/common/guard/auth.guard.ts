@@ -1,17 +1,15 @@
+import { log } from '@/app/models/constants/general.const';
 import {
   CanActivate,
   ExecutionContext,
   HttpException,
   HttpStatus,
   Injectable,
-  Logger,
 } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
 export class AuthGuard implements CanActivate {
-  private logger = new Logger(AuthGuard.name);
-
   constructor(private readonly jwtService: JwtService) {}
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
@@ -20,7 +18,8 @@ export class AuthGuard implements CanActivate {
     const token = cookies.token;
 
     if (!token) {
-      this.logger.warn('No se encontró el token de acceso en las cookies');
+      log.error('no se encontró el token de acceso en las cookies');
+
       throw new HttpException(
         'No tienes una sesión activa. Inicia sesión para continuar.',
         HttpStatus.UNAUTHORIZED,
@@ -31,9 +30,7 @@ export class AuthGuard implements CanActivate {
       const payload = this.jwtService.verify(token);
 
       if (!payload) {
-        this.logger.warn(
-          'El token de autenticación no es válido o ha expirado',
-        );
+        log.error('el token de autenticación no es válido o ha expirado');
 
         throw new HttpException(
           'El token de autenticación no es válido o ha expirado.',
@@ -41,9 +38,11 @@ export class AuthGuard implements CanActivate {
         );
       }
     } catch (error) {
-      this.logger.error(`error al verificar el token: ${error}`);
+      log.error('error al verificar el token');
+      log.error(error);
+
       throw new HttpException(
-        'No se pudo verificar la sesión. Es posible que el token haya expirado o sea inválido.',
+        'No se pudo verificar la sesión. Es posible que el token haya expirado o sea inválido',
         HttpStatus.UNAUTHORIZED,
       );
     }

@@ -1,16 +1,16 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from '@/app/module/app.module';
-import { INestApplication, Logger, ValidationPipe } from '@nestjs/common';
+import { INestApplication, ValidationPipe } from '@nestjs/common';
 import { DocumentBuilder, OpenAPIObject, SwaggerModule } from '@nestjs/swagger';
 import {
   apiDescription,
   apiTitle,
   apiVersion,
+  log,
 } from '@/app/models/constants/general.const';
 import { json } from 'express';
 import { ConfigService } from '@nestjs/config';
 import { CONFIG } from '@/app/config/config-keys.config';
-import chalk from 'chalk';
 
 // manejo de excepciones
 import { AllExceptionsFilter } from '@/app/common/filter/exceptions-response.filter';
@@ -18,7 +18,7 @@ import { AllExceptionsFilter } from '@/app/common/filter/exceptions-response.fil
 // manejo de respuesta exitosas
 import { SuccessResponseInterceptor } from '@/app/common/interceptor/success-response.interceptor';
 
-function listRoutes(app: INestApplication) {
+function listRoutes(app: INestApplication): void {
   const server = app.getHttpServer();
   const router = server._events.request._router;
   const availableRoutes = (router?.stack ?? [])
@@ -31,18 +31,18 @@ function listRoutes(app: INestApplication) {
     }));
 
   if (availableRoutes?.length > 0) {
-    Logger.log(chalk.blueBright('📡 Lista de endpoints:'), 'Bootstrap');
+    log.info(`\x1b[34mtotal de rutas: ${availableRoutes.length}\x1b[0m`);
+
+    log.info('\x1b[34mlista de endpoints:\x1b[0m');
     console.table(availableRoutes);
-    Logger.log(
-      chalk.gray(`🛣️ Total de rutas: ${availableRoutes?.length ?? 0}`),
-      'Bootstrap',
-    );
   } else {
-    Logger.log(chalk.blueBright('📡 No hay endpoints'), 'Bootstrap');
+    log.info(`\x1b[33mno hay endpoints\x1b[0m`);
   }
 }
 
 async function bootstrap() {
+  console.info('\n');
+
   const app = await NestFactory.create(AppModule);
 
   const configService: ConfigService<unknown, boolean> = app.get(ConfigService);
@@ -59,12 +59,7 @@ async function bootstrap() {
   app.use(json({ limit: '5mb' }));
 
   const allowedOrigins = '*';
-  Logger.log(
-    chalk.yellowBright(`🌐 Orígenes permitidos: `) +
-      chalk.whiteBright(allowedOrigins),
-    'Bootstrap',
-  );
-
+  log.info(`\x1b[34morigenes permitidos: ${allowedOrigins}\x1b[0m`);
   app.enableCors({
     origin: true,
   });
@@ -92,12 +87,10 @@ async function bootstrap() {
 
   listRoutes(app);
 
-  Logger.log(
-    chalk.greenBright('Aplicación ejecutándose en el puerto ') +
-      chalk.yellowBright(port) +
-      chalk.greenBright(' en el entorno ') +
-      chalk.magentaBright(env),
-    'Bootstrap',
+  log.info(
+    `\x1b[34mbackend ejecutandose en el puerto ${port} y apuntando al entorno env ${env}\x1b[0m`,
   );
+
+  console.info('\n');
 }
 bootstrap();

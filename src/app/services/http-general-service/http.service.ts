@@ -1,5 +1,4 @@
-import chalk from 'chalk';
-import { Injectable, Logger } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import axios, {
   AxiosError,
   AxiosInstance,
@@ -10,6 +9,7 @@ import axios, {
 import { IRequestOptions } from '@/app/services/http-general-service/types/request-data.types';
 import { IResponse } from '@/app/models/interface/response.interfaces';
 import httpStatusMessages from '@/app/models/constants/http-status-messages.const';
+import { log } from '@/app/models/constants/general.const';
 
 @Injectable()
 export class HttpService {
@@ -38,8 +38,8 @@ export class HttpService {
 
     const fullUrl: string = this.#buildFullUrl(response.config);
 
-    const message: string = `✅ [${method?.toUpperCase()}] ${status} ${fullUrl}`;
-    Logger.log(chalk.green(message));
+    const message: string = `[${method?.toUpperCase()}] ${status} ${fullUrl}`;
+    log.info(`\x1b[32m ${message}\x1b[0m`);
 
     return response;
   }
@@ -54,8 +54,8 @@ export class HttpService {
     ).toUpperCase();
     const fullUrl: string = this.#buildFullUrl(error?.config ?? {});
 
-    const message: string = `❌ [${method}] ${status} ${fullUrl}`;
-    Logger.error(chalk.red(message));
+    const message: string = `[${method}] ${status} ${fullUrl}`;
+    log.error(`\x1b[31m ${message}\x1b[0m`);
 
     return Promise.reject(error);
   }
@@ -99,7 +99,8 @@ export class HttpService {
     try {
       const { data, ...rest } = config;
       const requestOptions = method === 'GET' ? { ...rest } : { ...config };
-      const axiosResponse: AxiosResponse<T> = await this.client.request<T>(requestOptions);
+      const axiosResponse: AxiosResponse<T> =
+        await this.client.request<T>(requestOptions);
 
       const { status, data: responseData } = axiosResponse;
 
