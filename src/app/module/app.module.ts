@@ -16,7 +16,7 @@ import { validateEnvironment } from 'environments/env-config';
       isGlobal: true,
       validate: (config: Record<string, any>) => validateEnvironment(config),
     }),
-    //DatabaseModule,
+    DatabaseModule,
     TypeOrmModule,
     UtilsModule,
     ServiceModule,

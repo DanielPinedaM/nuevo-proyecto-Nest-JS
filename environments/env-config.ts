@@ -22,6 +22,8 @@ export enum ENV_VARS {
   DB_SSL = 'DB_SSL',
   DB_SYNCHRONIZE = 'DB_SYNCHRONIZE',
   DB_AUTO_LOAD_ENTITIES = 'DB_AUTO_LOAD_ENTITIES',
+  DB_RETRY_ATTEMPTS = 'DB_RETRY_ATTEMPTS',
+  DB_RETRY_DELAY = 'DB_RETRY_DELAY',
   // #endregion conexion a la base de datos
 }
 
@@ -71,6 +73,14 @@ export class EnvironmentClass {
   @Transform(({ value }) => String(value).trim().toLowerCase() === 'true')
   @IsBoolean()
   DB_AUTO_LOAD_ENTITIES: boolean;
+
+  @Transform(({ value }) => Number(value))
+  @IsNumber()
+  DB_RETRY_ATTEMPTS: number;
+
+  @Transform(({ value }) => Number(value))
+  @IsNumber()
+  DB_RETRY_DELAY: number;
   // #endregion conexion a la base de datos
 }
 
