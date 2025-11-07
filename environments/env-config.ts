@@ -83,7 +83,7 @@ export function validateEnvironment(
   if (errors?.length > 0) {
     const errorsStringify = JSON.stringify(errors);
     log.error(
-      `\x1b[31m error al agregar tipos de datos a las variables de entorno, verifique que las keys del enum y la clase q hay en env-config.ts coincida con los env q estan dentro de la carpeta envinronments ${errorsStringify}\x1b[0m`,
+      `\x1b[31m error al configurar tipos de datos a las variables de entorno, verifique que las keys del enum y la clase q hay en env-config.ts coincida con los env q estan dentro de la carpeta envinronments ${errorsStringify}\x1b[0m`,
     );
     throw new Error(errorsStringify);
   }
