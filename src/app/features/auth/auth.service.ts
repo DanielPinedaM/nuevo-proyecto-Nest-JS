@@ -11,6 +11,8 @@ import * as bcrypt from 'bcrypt';
 import { Response } from 'express';
 import { CryptoService } from '@/app/utils/CryptoService.utils';
 import { RegisterDto } from '@/app/features/auth/dto/register.dto';
+import { ConfigService } from '@nestjs/config';
+import { ENV_VARS, EnvironmentClass } from 'environments/env-config';
 
 @Injectable()
 export class AuthService {
@@ -19,6 +21,7 @@ export class AuthService {
     private usersRepository: Repository<Users>,
     private jwtService: JwtService,
     private cryptoService: CryptoService,
+    private env: ConfigService<EnvironmentClass>,
   ) {}
 
   async decryptCredentials(
@@ -70,8 +73,8 @@ export class AuthService {
 
     response.cookie('token', token, {
       httpOnly: true,
-      secure: process.env.ENVIRONMENT === 'production',
-      sameSite: process.env.ENVIRONMENT === 'production' ? 'strict' : 'lax',
+      secure: this.env.get(ENV_VARS.ENVIRONMENT) === 'production',
+      sameSite: this.env.get(ENV_VARS.ENVIRONMENT) === 'production' ? 'strict' : 'lax',
       maxAge: 1000 * 60 * 60,
     });
 
@@ -83,8 +86,8 @@ export class AuthService {
   async logout(response: Response) {
     response.clearCookie('token', {
       httpOnly: true,
-      secure: process.env.ENVIRONMENT === 'production',
-      sameSite: process.env.ENVIRONMENT === 'production' ? 'strict' : 'lax',
+      secure: this.env.get(ENV_VARS.ENVIRONMENT) === 'production',
+      sameSite: this.env.get(ENV_VARS.ENVIRONMENT) === 'production' ? 'strict' : 'lax',
     });
 
     return {
