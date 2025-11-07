@@ -21,6 +21,7 @@ export enum ENV_VARS {
   DB_SCHEMA = 'DB_SCHEMA',
   DB_SSL = 'DB_SSL',
   DB_SYNCHRONIZE = 'DB_SYNCHRONIZE',
+  DB_AUTO_LOAD_ENTITIES = 'DB_AUTO_LOAD_ENTITIES',
   // #endregion conexion a la base de datos
 }
 
@@ -66,6 +67,10 @@ export class EnvironmentClass {
   @Transform(({ value }) => String(value).trim().toLowerCase() === 'true')
   @IsBoolean()
   DB_SYNCHRONIZE: boolean;
+
+  @Transform(({ value }) => String(value).trim().toLowerCase() === 'true')
+  @IsBoolean()
+  DB_AUTO_LOAD_ENTITIES: boolean;
   // #endregion conexion a la base de datos
 }
 
