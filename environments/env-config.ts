@@ -7,7 +7,7 @@ import { log } from '@/app/models/constants/general.const';
 /* *************************************
  * NOMBRES DE LAS VARIABLES DE ENTORNO *
  * ************************************* */
-export enum CONFIG {
+export enum ENV_VARS {
   ENVIRONMENT = 'ENVIRONMENT',
   PORT = 'PORT',
 
@@ -59,11 +59,11 @@ export class EnvironmentClass {
   @IsString()
   DB_SCHEMA: string;
 
-  @Transform(({ value }) => value === 'true')
+  @Transform(({ value }) => String(value).trim().toLowerCase() === 'true')
   @IsBoolean()
   DB_SSL: boolean;
 
-  @Transform(({ value }) => value === 'true')
+  @Transform(({ value }) => String(value).trim().toLowerCase() === 'true')
   @IsBoolean()
   DB_SYNCHRONIZE: boolean;
   // #endregion conexion a la base de datos
@@ -73,7 +73,7 @@ export function validateEnvironment(
   config: Record<string, any>,
 ): EnvironmentClass {
   const validatedConfig = plainToInstance(EnvironmentClass, config, {
-    enableImplicitConversion: true,
+    enableImplicitConversion: false,
   });
 
   const errors = validateSync(validatedConfig, {

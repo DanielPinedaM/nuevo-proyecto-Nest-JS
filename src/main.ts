@@ -10,7 +10,7 @@ import {
 } from '@/app/models/constants/general.const';
 import { json } from 'express';
 import { ConfigService } from '@nestjs/config';
-import { CONFIG } from 'environments/env-config';
+import { ENV_VARS } from 'environments/env-config';
 
 // manejo de excepciones
 import { AllExceptionsFilter } from '@/app/common/filter/exceptions-response.filter';
@@ -94,22 +94,20 @@ async function bootstrap(): Promise<void> {
   console.info('\n');
 
   const app: INestApplication<any> = await NestFactory.create(AppModule);
-  const configService: ConfigService<unknown, boolean> = app.get(ConfigService);
+  const env: ConfigService<unknown, boolean> = app.get(ConfigService);
 
   setupGlobalMiddleware(app);
   setupCore(app);
   setupSwagger(app);
 
-  const port: number = configService.get(CONFIG?.PORT);
-  console.log("🚀 ~ bootstrap ~ port:", port)
-  console.log("🚀 ~ bootstrap ~ port:", typeof port)
-  const env: string = configService.get(CONFIG?.ENVIRONMENT);
+  const PORT: number = env.get(ENV_VARS.PORT);
+  const ENVIRONMENT: string = env.get(ENV_VARS.ENVIRONMENT);
 
-  await app.listen(port);
+  await app.listen(PORT);
   listRoutes(app);
 
   log.info(
-    `\x1b[34mbackend ejecutandose en el puerto ${port} y apuntando al entorno env ${env}\x1b[0m`,
+    `\x1b[34mbackend ejecutandose en el puerto ${PORT} y apuntando al entorno env ${ENVIRONMENT}\x1b[0m`,
   );
 
   console.info('\n');
