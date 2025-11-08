@@ -18,6 +18,8 @@ import { AllExceptionsFilter } from '@/app/common/filter/exceptions-response.fil
 // manejo de respuesta exitosas
 import { SuccessResponseInterceptor } from '@/app/common/interceptor/success-response.interceptor';
 
+const globalPrefix = 'api';
+
 /* **********************************
  * funciones para configurar Nest JS *
  * *********************************** */
@@ -43,7 +45,7 @@ function setupCore(app: INestApplication): void {
   app.enableCors({
     origin: true,
   });
-  app.setGlobalPrefix('api');
+  app.setGlobalPrefix(globalPrefix);
   app.enableVersioning();
 }
 
@@ -63,20 +65,27 @@ function setupSwagger(app: INestApplication): void {
 }
 
 /**
-listar rutas (URL endpoints) disponibles en consola */
-function listRoutes(app: INestApplication): void {
-  const server = app.getHttpServer();
-  const router = server._events.request._router;
+listar rutas (URL endpoints) disponibles en consola
+https://stackoverflow.com/questions/58255000/how-can-i-get-all-the-routes-from-all-the-modules-and-controllers-available-on */
+interface IRoute {
+  path: string;
+  methods: string;
+}
+function routesLogger(app: INestApplication): void {
+  const server = app.getHttpAdapter().getInstance();
+  const router = server.router;
 
-  const availableRoutes = (router?.stack ?? [])
-    .filter((layer) => layer.route)
-    .map((layer) => ({
-      route: {
-        path: layer.route?.path,
-        method: layer.route?.stack?.[0]?.method,
-      },
-    }));
-  console.log('🚀 ~ listRoutes ~ availableRoutes:', availableRoutes);
+  const availableRoutes: IRoute[] = router.stack
+    .filter((layer) => layer?.route)
+    .map(
+      (layer): IRoute => ({
+        path: layer?.route?.path,
+        methods: Object.keys(layer.route.methods)
+          .map((method) => method.toUpperCase())
+          .join(', '),
+      }),
+    )
+    .filter((item) => (item?.path ?? '').includes(`/${globalPrefix}`));
 
   if (availableRoutes?.length > 0) {
     log.info(`\x1b[34mtotal de rutas: ${availableRoutes.length}\x1b[0m`);
@@ -94,7 +103,9 @@ function listRoutes(app: INestApplication): void {
 async function bootstrap(): Promise<void> {
   console.info('\n');
 
-  const app: INestApplication<any> = await NestFactory.create(AppModule);
+  const app: INestApplication<any> = await NestFactory.create(AppModule, {
+    logger: ['error', 'warn'],
+  });
   const env: ConfigService<unknown, boolean> = app.get(ConfigService);
 
   setupGlobalMiddleware(app);
@@ -105,7 +116,7 @@ async function bootstrap(): Promise<void> {
   const ENVIRONMENT: string = env.get(ENV_VARS.ENVIRONMENT);
 
   await app.listen(PORT);
-  listRoutes(app);
+  routesLogger(app);
 
   log.info(
     `\x1b[34mbackend ejecutandose en el puerto ${PORT} y apuntando al entorno env ${ENVIRONMENT}\x1b[0m`,
