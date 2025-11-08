@@ -92,26 +92,29 @@ function routesLogger(app: INestApplication): void {
     )
     .filter((item) => (item?.path ?? '').includes(`/${globalPrefix}`));
 
-  if (availableRoutes.length > 0) {
-    log.info(`\x1b[34mtotal de rutas: ${availableRoutes.length}\x1b[0m`);
-    log.info('\x1b[34mlista de endpoints:\x1b[0m');
+  if (availableRoutes.length === 0) {
+    log.info(`\x1b[33mNo hay endpoints\x1b[0m`);
+    return;
+  }
 
-    const sortedRoutes: IRoute[] = availableRoutes.sort((a, b) => {
+  log.info(`\x1b[34mtotal de rutas: ${availableRoutes.length}\x1b[0m`);
+  log.info('\x1b[34mlista de endpoints:\x1b[0m');
+
+  const sortedRoutes: IRoute[] = availableRoutes.sort(
+    (a: IRoute, b: IRoute) => {
       const cleanA: string = normalizePath(a.path);
       const cleanB: string = normalizePath(b.path);
 
       return cleanA.localeCompare(cleanB);
-    });
+    },
+  );
 
-    const header: string = `METODO${' '.repeat(20 - 6)} | URL`;
-    const table: string = sortedRoutes
-      .map((route: IRoute) => `${route.methods.padEnd(20)} | ${route.path}`)
-      .join('\n');
+  const header: string = `METODO${' '.repeat(20 - 6)} | URL`;
+  const table: string = sortedRoutes
+    .map((route: IRoute) => `${route.methods.padEnd(20)} | ${route.path}`)
+    .join('\n');
 
-    log.info(`\n${header}\n${'-'.repeat(50)}\n${table}`);
-  } else {
-    log.info(`\x1b[33mNo hay endpoints\x1b[0m`);
-  }
+  log.info(`\n${header}\n${'-'.repeat(50)}\n${table}`);
 }
 
 /* *********************
