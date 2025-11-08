@@ -76,6 +76,7 @@ function listRoutes(app: INestApplication): void {
         method: layer.route?.stack?.[0]?.method,
       },
     }));
+  console.log('🚀 ~ listRoutes ~ availableRoutes:', availableRoutes);
 
   if (availableRoutes?.length > 0) {
     log.info(`\x1b[34mtotal de rutas: ${availableRoutes.length}\x1b[0m`);

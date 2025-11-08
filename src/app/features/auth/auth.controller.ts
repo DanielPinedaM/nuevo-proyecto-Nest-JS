@@ -1,9 +1,6 @@
 import { Controller, Post, Body, Res, UseGuards } from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
-import {
-  apiVersion,
-  authApiTag,
-} from '@/app/models/constants/general.const';
+import { apiVersion, authApiTag } from '@/app/models/constants/general.const';
 import { AuthService } from '@/app/features/auth/auth.service';
 import { Response } from 'express';
 import { AuthGuard } from '@/app/common/guard/auth.guard';

@@ -2,7 +2,6 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { ENV_VARS, EnvironmentClass } from 'environments/env-config';
-import { log } from '@/app/models/constants/general.const';
 
 const databaseConnection = (env: ConfigService<EnvironmentClass>) => ({
   type: env.get<any>(ENV_VARS.DB_TYPE),
@@ -27,24 +26,10 @@ const databaseConnection = (env: ConfigService<EnvironmentClass>) => ({
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
-      useFactory: async (env: ConfigService<EnvironmentClass>) => {
-        const DB_NAME: string = env.get<string>(ENV_VARS.DB_NAME);
-        const options = databaseConnection(env);
-
-        try {
-          const { DataSource } = await import('typeorm');
-          const ds = new DataSource(options);
-          await ds.initialize();
-          log.info(`\x1b[32m conectado a la base de datos ${DB_NAME}\x1b[0m`);
-        } catch (error) {
-          log.error(
-            `\x1b[31merror al conectar a la base de datos ${DB_NAME} ${JSON.stringify(error)} \x1b[0m`,
-          );
-        }
-
-        return options;
-      },
+      useFactory: async (env: ConfigService<EnvironmentClass>) =>
+        databaseConnection(env),
     }),
   ],
+  exports: [TypeOrmModule],
 })
 export class DatabaseModule {}

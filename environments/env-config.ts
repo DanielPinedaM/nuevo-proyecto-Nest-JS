@@ -8,8 +8,14 @@ import { log } from '@/app/models/constants/general.const';
  * NOMBRES DE LAS VARIABLES DE ENTORNO *
  * ************************************* */
 export enum ENV_VARS {
+  // #region configurar Nest JS
   ENVIRONMENT = 'ENVIRONMENT',
   PORT = 'PORT',
+  // #endregion configurar Nest JS
+
+  // #region JWT
+  JWT_SECRET_KEY = 'JWT_SECRET_KEY',
+  // #endregion JWT
 
   // #region conexion a la base de datos
   DB_TYPE = 'DB_TYPE',
@@ -31,6 +37,7 @@ export enum ENV_VARS {
  * TIPAR LAS VARIABLES DE ENTORNO *
  * ******************************** */
 export class EnvironmentClass {
+  // #region configurar Nest JS
   @IsString()
   @IsIn(['localhost', 'production', 'test'])
   ENVIRONMENT: string;
@@ -38,6 +45,12 @@ export class EnvironmentClass {
   @Transform(({ value }) => Number(value))
   @IsNumber()
   PORT: number;
+  // #endregion configurar Nest JS
+
+  // #region JWT
+  @IsString()
+  JWT_SECRET_KEY: string;
+  // #endregion JWT
 
   // #region conexion a la base de datos
   @IsString()

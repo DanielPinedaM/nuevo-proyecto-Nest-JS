@@ -17,11 +17,12 @@ import { ENV_VARS, EnvironmentClass } from 'environments/env-config';
 @Injectable()
 export class AuthService {
   constructor(
-    @InjectRepository(Users)
-    private usersRepository: Repository<Users>,
     private jwtService: JwtService,
     private cryptoService: CryptoService,
     private env: ConfigService<EnvironmentClass>,
+
+    //@InjectRepository(Users)
+    //private usersRepository: Repository<Users>,
   ) {}
 
   async decryptCredentials(
@@ -51,7 +52,7 @@ export class AuthService {
     encryptedPassword: string,
     response: Response,
   ): Promise<any> {
-    const { decryptedEmail, decryptedPassword } = await this.decryptCredentials(
+    /*  const { decryptedEmail, decryptedPassword } = await this.decryptCredentials(
       encryptedEmail,
       encryptedPassword,
     );
@@ -74,20 +75,22 @@ export class AuthService {
     response.cookie('token', token, {
       httpOnly: true,
       secure: this.env.get(ENV_VARS.ENVIRONMENT) === 'production',
-      sameSite: this.env.get(ENV_VARS.ENVIRONMENT) === 'production' ? 'strict' : 'lax',
+      sameSite:
+        this.env.get(ENV_VARS.ENVIRONMENT) === 'production' ? 'strict' : 'lax',
       maxAge: 1000 * 60 * 60,
     });
 
     const { id, password, creationDate, ...rest } = foundUser;
-    const data = { ...rest };
-    return { status: 200, message: 'inicio de sesión exitoso', data };
+    const data = { ...rest }; */
+    return { status: 200, message: 'inicio de sesión exitoso' /* , data */ };
   }
 
   async logout(response: Response) {
     response.clearCookie('token', {
       httpOnly: true,
       secure: this.env.get(ENV_VARS.ENVIRONMENT) === 'production',
-      sameSite: this.env.get(ENV_VARS.ENVIRONMENT) === 'production' ? 'strict' : 'lax',
+      sameSite:
+        this.env.get(ENV_VARS.ENVIRONMENT) === 'production' ? 'strict' : 'lax',
     });
 
     return {
@@ -97,7 +100,7 @@ export class AuthService {
   }
 
   async registerUser(registerDto: RegisterDto): Promise<any> {
-    const {
+    /* const {
       email: encryptedEmail,
       password: encryptedPassword,
       username,
@@ -123,7 +126,7 @@ export class AuthService {
       password: hashedPassword,
     });
 
-    await this.usersRepository.save(newUser);
+    await this.usersRepository.save(newUser); */
 
     return {
       status: 201,
