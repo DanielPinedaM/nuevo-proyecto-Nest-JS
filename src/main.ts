@@ -71,6 +71,11 @@ interface IRoute {
   path: string;
   methods: string;
 }
+function normalizePath(path: string): string {
+  return path
+    .replace(new RegExp(`^/${globalPrefix}(/v\\d+)?`), '')
+    .replace(/:\w+/g, '');
+}
 function routesLogger(app: INestApplication): void {
   const server = app.getHttpAdapter().getInstance();
   const router = server.router;
@@ -80,8 +85,8 @@ function routesLogger(app: INestApplication): void {
     .map(
       (layer): IRoute => ({
         path: layer?.route?.path,
-        methods: Object.keys(layer.route.methods)
-          .map((method) => method.toUpperCase())
+        methods: Object.keys(layer?.route?.methods)
+          .map((method: string) => method?.toUpperCase())
           .join(', '),
       }),
     )
@@ -91,9 +96,16 @@ function routesLogger(app: INestApplication): void {
     log.info(`\x1b[34mtotal de rutas: ${availableRoutes.length}\x1b[0m`);
     log.info('\x1b[34mlista de endpoints:\x1b[0m');
 
+    const sortedRoutes: IRoute[] = availableRoutes.sort((a, b) => {
+      const cleanA: string = normalizePath(a.path);
+      const cleanB: string = normalizePath(b.path);
+
+      return cleanA.localeCompare(cleanB);
+    });
+
     const header: string = `METODO${' '.repeat(20 - 6)} | URL`;
-    const table: string = availableRoutes
-      .map((route) => `${route.methods.padEnd(20)} | ${route.path}`)
+    const table: string = sortedRoutes
+      .map((route: IRoute) => `${route.methods.padEnd(20)} | ${route.path}`)
       .join('\n');
 
     log.info(`\n${header}\n${'-'.repeat(50)}\n${table}`);
