@@ -87,13 +87,16 @@ function routesLogger(app: INestApplication): void {
     )
     .filter((item) => (item?.path ?? '').includes(`/${globalPrefix}`));
 
-  if (availableRoutes?.length > 0) {
+  if (availableRoutes.length > 0) {
     log.info(`\x1b[34mtotal de rutas: ${availableRoutes.length}\x1b[0m`);
+    log.info('\x1b[34mLista de endpoints:\x1b[0m');
 
-    log.info('\x1b[34mlista de endpoints:\x1b[0m');
-    console.table(availableRoutes);
+    const table = availableRoutes
+      .map((route) => `${route.path.padEnd(30)} | ${route.methods}`)
+      .join('\n');
+    log.info(`\n${table}`);
   } else {
-    log.info(`\x1b[33mno hay endpoints\x1b[0m`);
+    log.info(`\x1b[33mNo hay endpoints\x1b[0m`);
   }
 }
 
@@ -101,7 +104,7 @@ function routesLogger(app: INestApplication): void {
  * inicializar Nest JS *
  * ********************* */
 async function bootstrap(): Promise<void> {
-  console.info('\n');
+  log.info('\n');
 
   const app: INestApplication<any> = await NestFactory.create(AppModule, {
     logger: ['error', 'warn'],
@@ -122,7 +125,7 @@ async function bootstrap(): Promise<void> {
     `\x1b[34mbackend ejecutandose en el puerto ${PORT} y apuntando al entorno env ${ENVIRONMENT}\x1b[0m`,
   );
 
-  console.info('\n');
+  log.info('\n');
 }
 
 bootstrap();
