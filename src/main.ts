@@ -1,6 +1,10 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from '@/app/module/app.module';
-import { INestApplication, ValidationPipe } from '@nestjs/common';
+import {
+  INestApplication,
+  ValidationPipe,
+  VersioningType,
+} from '@nestjs/common';
 import { DocumentBuilder, OpenAPIObject, SwaggerModule } from '@nestjs/swagger';
 import {
   apiDescription,
@@ -46,7 +50,11 @@ function setupCore(app: INestApplication): void {
     origin: true,
   });
   app.setGlobalPrefix(globalPrefix);
-  app.enableVersioning();
+
+  app.enableVersioning({
+    type: VersioningType.URI,
+    defaultVersion: apiVersion,
+  });
 }
 
 /**
