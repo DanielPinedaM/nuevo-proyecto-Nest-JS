@@ -89,12 +89,14 @@ function routesLogger(app: INestApplication): void {
 
   if (availableRoutes.length > 0) {
     log.info(`\x1b[34mtotal de rutas: ${availableRoutes.length}\x1b[0m`);
-    log.info('\x1b[34mLista de endpoints:\x1b[0m');
+    log.info('\x1b[34mlista de endpoints:\x1b[0m');
 
-    const table = availableRoutes
-      .map((route) => `${route.path.padEnd(30)} | ${route.methods}`)
+    const header: string = `METODO${' '.repeat(20 - 6)} | URL`;
+    const table: string = availableRoutes
+      .map((route) => `${route.methods.padEnd(20)} | ${route.path}`)
       .join('\n');
-    log.info(`\n${table}`);
+
+    log.info(`\n${header}\n${'-'.repeat(50)}\n${table}`);
   } else {
     log.info(`\x1b[33mNo hay endpoints\x1b[0m`);
   }
