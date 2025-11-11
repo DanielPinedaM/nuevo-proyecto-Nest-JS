@@ -1,7 +1,9 @@
 import { Injectable, NestMiddleware } from '@nestjs/common';
 import { NextFunction, Request, Response } from 'express';
 import httpStatusMessages from '@/app/models/constants/http-status-messages.const';
-import { log } from '@/app/models/constants/general.const';
+import { log } from '@/app/models/constants/logger.const';
+import { LoggerService } from '@/app/common/services/logger.service';
+import { DateTime } from 'luxon';
 
 interface IFinish {
   res: Response;
@@ -14,6 +16,8 @@ interface IFinish {
 
 @Injectable()
 export class LoggerMiddleware implements NestMiddleware {
+  constructor(private readonly loggerService: LoggerService) {}
+
   use(req: Request, res: Response, next: NextFunction) {
     const start: number = Date.now();
     const { method, originalUrl, protocol } = req;
@@ -39,17 +43,19 @@ export class LoggerMiddleware implements NestMiddleware {
     const statusMessage: string = httpStatusMessages[statusCode] ?? '';
 
     const logMessage: string =
-      `[${method}] ${protocol}://${host}${originalUrl}` +  // URL
-      ` https://http.cat/status/${statusCode}` +           // Link HTTP status
-      ` ${statusMessage}` +                                // Descripción del estado
-      ` ${duration}ms`;                                    // Tiempo de respuesta
+      `[${method}] ${protocol}://${host}${originalUrl}` + // URL
+      ` https://http.cat/status/${statusCode}` + // Link HTTP status
+      ` ${statusMessage}` + // Descripción del estado
+      ` ${duration}ms`; // Tiempo de respuesta
+
+    const meta = { statusCode, statusMessage, method, originalUrl, duration };
 
     const isError: boolean = statusCode >= 400;
 
     if (isError) {
-      log.error(`\x1b[31m ${logMessage}\x1b[0m`);
+      this.loggerService.logError(logMessage, meta);
     } else {
-      log.info(`\x1b[32m ${logMessage}\x1b[0m`);
+      this.loggerService.logInfo(logMessage, meta);
     }
   }
 }

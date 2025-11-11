@@ -6,7 +6,7 @@ import { AppService } from '@/app.service';
 import { DatabaseModule } from '@/app/module/database.module';
 import { LoggerMiddleware } from '@/app/common/middlewares/logger.middleware';
 import { UtilsModule } from '@/app/utils/utils.module';
-import { ServiceModule } from '@/app/services/service.module';
+import { ServiceModule } from '@/app/common/services/service.module';
 import {
   ENV_VARS,
   EnvironmentClass,
@@ -14,9 +14,12 @@ import {
 } from 'environments/env-config';
 import { AuthModule } from '@/app/features/auth/auth.module';
 import { JwtModule } from '@nestjs/jwt';
+import { ScheduleModule } from '@nestjs/schedule';
+import { CleanupLogsTasks } from '@/app/common/tasks/cleanup-logs.tasks';
 
 @Module({
   imports: [
+    ScheduleModule.forRoot(),
     ConfigModule.forRoot({
       envFilePath: `environments/.env.${process?.env?.ENVIRONMENT ?? 'test'}`,
       isGlobal: true,
@@ -37,7 +40,7 @@ import { JwtModule } from '@nestjs/jwt';
     AuthModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, CleanupLogsTasks],
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer): void {

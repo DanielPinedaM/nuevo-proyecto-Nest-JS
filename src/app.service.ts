@@ -1,5 +1,5 @@
 import { HttpException, Injectable } from '@nestjs/common';
-import { HttpService } from '@/app/services/http-general-service/http.service';
+import { HttpService } from '@/app/common/services/http-general-service/http.service';
 import { IResponse } from '@/app/models/interface/response.interfaces';
 
 @Injectable()

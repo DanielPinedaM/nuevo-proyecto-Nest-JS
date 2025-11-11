@@ -1,4 +1,4 @@
-import { log } from '@/app/models/constants/general.const';
+import { log } from '@/app/models/constants/logger.const';
 import {
   CanActivate,
   ExecutionContext,

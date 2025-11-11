@@ -10,7 +10,6 @@ import {
   apiDescription,
   apiTitle,
   apiVersion,
-  log,
 } from '@/app/models/constants/general.const';
 import { json } from 'express';
 import { ConfigService } from '@nestjs/config';
@@ -21,6 +20,8 @@ import { AllExceptionsFilter } from '@/app/common/filter/exceptions-response.fil
 
 // manejo de respuesta exitosas
 import { SuccessResponseInterceptor } from '@/app/common/interceptor/success-response.interceptor';
+import { log } from '@/app/models/constants/logger.const';
+import { LoggerService } from '@/app/common/services/logger.service';
 
 const globalPrefix = 'api';
 
@@ -135,6 +136,9 @@ async function bootstrap(): Promise<void> {
     logger: ['error', 'warn'],
   });
   const env: ConfigService<unknown, boolean> = app.get(ConfigService);
+
+  const loggerService: LoggerService = app.get(LoggerService);
+  loggerService.ensureLogDirectories();
 
   setupGlobalMiddleware(app);
   setupCore(app);

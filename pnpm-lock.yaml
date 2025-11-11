@@ -71,6 +71,9 @@ importers:
       reflect-metadata:
         specifier: ^0.2.2
         version: 0.2.2
+      rotating-file-stream:
+        specifier: ^3.2.7
+        version: 3.2.7
       rxjs:
         specifier: ^7.8.2
         version: 7.8.2
@@ -2940,6 +2943,10 @@ packages:
   reusify@1.1.0:
     resolution: {integrity: sha512-g6QUff04oZpHs0eG5p83rFLhHeV00ug/Yf9nZM6fLeUrPguBTkTQOdpAWWspMh55TZfVQDPaN3NQJfbVRAxdIw==}
     engines: {iojs: '>=1.0.0', node: '>=0.10.0'}
+
+  rotating-file-stream@3.2.7:
+    resolution: {integrity: sha512-SVquhBEVvRFY+nWLUc791Y0MIlyZrEClRZwZFLLRgJKldHyV1z4e2e/dp9LPqCS3AM//uq/c3PnOFgjqnm5P+A==}
+    engines: {node: '>=14.0'}
 
   router@2.2.0:
     resolution: {integrity: sha512-nLTrUKm2UyiL7rlhapu/Zl45FwNgkZGaCpZbIHajDYgwlJCOzLSk+cIPAnsEqV955GjILJnKbdQC1nVPz+gAYQ==}
@@ -6747,6 +6754,8 @@ snapshots:
       signal-exit: 3.0.7
 
   reusify@1.1.0: {}
+
+  rotating-file-stream@3.2.7: {}
 
   router@2.2.0:
     dependencies:
