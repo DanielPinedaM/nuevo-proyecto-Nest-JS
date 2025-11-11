@@ -39,10 +39,10 @@ export class LoggerMiddleware implements NestMiddleware {
     const statusMessage: string = httpStatusMessages[statusCode] ?? '';
 
     const logMessage: string =
-      `🌐 [${method}] ${protocol}://${host}${originalUrl}` +  // URL
-      ` 🐱 https://http.cat/status/${statusCode}` +           // Link HTTP status
-      ` 📄 ${statusMessage}` +                                // Descripción del estado
-      ` ⌛ ${duration}ms`;                                    // Tiempo de respuesta
+      `[${method}] ${protocol}://${host}${originalUrl}` +  // URL
+      ` https://http.cat/status/${statusCode}` +           // Link HTTP status
+      ` ${statusMessage}` +                                // Descripción del estado
+      ` ${duration}ms`;                                    // Tiempo de respuesta
 
     const isError: boolean = statusCode >= 400;
 
