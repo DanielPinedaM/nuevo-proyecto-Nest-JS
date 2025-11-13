@@ -1,9 +1,7 @@
 import { Injectable, NestMiddleware } from '@nestjs/common';
 import { NextFunction, Request, Response } from 'express';
-import httpStatusMessages from '@/app/models/constants/http-status-messages.const';
-import { log } from '@/app/models/constants/logger.const';
-import { LoggerService } from '@/app/common/services/logger.service';
-import { DateTime } from 'luxon';
+import httpStatusMessages from '@/app/shared/models/constants/http-status-messages.const';
+import { LoggerService } from '@/app/shared/services/logger.service';
 
 interface IFinish {
   res: Response;

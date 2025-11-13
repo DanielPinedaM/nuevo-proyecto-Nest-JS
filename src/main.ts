@@ -10,20 +10,20 @@ import {
   apiDescription,
   apiTitle,
   apiVersion,
-} from '@/app/models/constants/general.const';
+} from '@/app/shared/models/constants/general.const';
 import { json } from 'express';
 import { ConfigService } from '@nestjs/config';
 import { ENV_VARS } from 'environments/env-config';
 
 // manejo de excepciones
-import { AllExceptionsFilter } from '@/app/common/filter/exceptions-response.filter';
+import { AllExceptionsFilter } from '@/app/shared/filter/exceptions-response.filter';
 
 // manejo de respuesta exitosas
-import { SuccessResponseInterceptor } from '@/app/common/interceptor/success-response.interceptor';
-import { log } from '@/app/models/constants/logger.const';
-import { LoggerService } from '@/app/common/services/logger.service';
+import { SuccessResponseInterceptor } from '@/app/shared/interceptor/success-response.interceptor';
+import { log } from '@/app/shared/models/constants/logger.const';
+import { LoggerService } from '@/app/shared/services/logger.service';
 
-const globalPrefix = 'api';
+const globalPrefix: string = 'api';
 
 /* **********************************
  * funciones para configurar Nest JS *

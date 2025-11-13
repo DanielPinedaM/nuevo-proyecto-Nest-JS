@@ -1,6 +1,6 @@
 import { HttpException, Injectable } from '@nestjs/common';
-import { HttpService } from '@/app/common/services/http-general-service/http.service';
-import { IResponse } from '@/app/models/interface/response.interfaces';
+import { HttpService } from '@/app/shared/services/http-general-service/http.service';
+import { IResponse } from '@/app/shared/models/interface/response.interfaces';
 
 @Injectable()
 export class AppService {

@@ -1,12 +1,10 @@
-import { Injectable, Logger } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { Cron, CronExpression } from '@nestjs/schedule';
 import fs from 'fs-extra';
 import * as path from 'path';
 import { DateTime } from 'luxon';
-import { LoggerService } from '@/app/common/services/logger.service';
-import { log } from '@/app/models/constants/logger.const';
-import { EnvironmentClass } from 'environments/env-config';
-import { ConfigService } from '@nestjs/config';
+import { LoggerService } from '@/app/shared/services/logger.service';
+import { log } from '@/app/shared/models/constants/logger.const';
 
 @Injectable()
 export class CleanupLogsTasks {

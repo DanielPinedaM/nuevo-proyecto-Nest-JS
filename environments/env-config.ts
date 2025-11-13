@@ -2,7 +2,7 @@ import { IsBoolean, IsIn, IsNumber, IsString } from 'class-validator';
 import { Transform } from 'class-transformer';
 import { plainToInstance } from 'class-transformer';
 import { validateSync } from 'class-validator';
-import { log } from '@/app/models/constants/logger.const';
+import { log } from '@/app/shared/models/constants/logger.const';
 
 /* *************************************
  * NOMBRES DE LAS VARIABLES DE ENTORNO *

@@ -4,9 +4,9 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from '@/app.controller';
 import { AppService } from '@/app.service';
 import { DatabaseModule } from '@/app/module/database.module';
-import { LoggerMiddleware } from '@/app/common/middlewares/logger.middleware';
+import { LoggerMiddleware } from '@/app/shared/middlewares/logger.middleware';
 import { UtilsModule } from '@/app/utils/utils.module';
-import { ServiceModule } from '@/app/common/services/service.module';
+import { ServiceModule } from '@/app/shared/services/service.module';
 import {
   ENV_VARS,
   EnvironmentClass,
@@ -15,7 +15,7 @@ import {
 import { AuthModule } from '@/app/features/auth/auth.module';
 import { JwtModule } from '@nestjs/jwt';
 import { ScheduleModule } from '@nestjs/schedule';
-import { CleanupLogsTasks } from '@/app/common/tasks/cleanup-logs.tasks';
+import { CleanupLogsTasks } from '@/app/shared/tasks/cleanup-logs.tasks';
 
 @Module({
   imports: [

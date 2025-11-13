@@ -7,9 +7,9 @@ import {
 } from '@nestjs/common';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import httpStatusMessages from '@/app/shared/models/constants/http-status-messages.const';
+import { IResponse } from '@/app/shared/models/interface/response.interfaces';
 import { HttpArgumentsHost } from '@nestjs/common/interfaces';
-import httpStatusMessages from '@/app/models/constants/http-status-messages.const';
-import { IResponse } from '@/app/models/interface/response.interfaces';
 
 @Injectable()
 export class SuccessResponseInterceptor<T>
