@@ -1,0 +1,28 @@
+{
+  // 🎨 Tema VS Code adaptado a la paleta de colores de NestJS
+  "workbench.colorCustomizations": {
+    // Barra lateral izquierda (explorador, extensiones, etc.)
+    "activityBar.background": "#E0234E",
+    "activityBar.foreground": "#FFFFFF",
+    "activityBar.activeBackground": "#B81C41",
+    "activityBar.activeBorder": "#FFFFFF",
+    "activityBarBadge.background": "#FFFFFF",
+    "activityBarBadge.foreground": "#E0234E",
+
+    // Barra superior (título)
+    "titleBar.activeBackground": "#E0234E",
+    "titleBar.activeForeground": "#FFFFFF",
+    "titleBar.inactiveBackground": "#B81C4199",
+    "titleBar.inactiveForeground": "#FFFFFF99",
+
+    // Barra inferior (status bar)
+    "statusBar.background": "#E0234E",
+    "statusBar.foreground": "#FFFFFF",
+    "statusBarItem.hoverBackground": "#B81C41",
+    "statusBarItem.remoteBackground": "#E0234E",
+    "statusBarItem.remoteForeground": "#FFFFFF"
+  },
+
+  // Peacock extension
+  "peacock.color": "#E0234E"
+}
