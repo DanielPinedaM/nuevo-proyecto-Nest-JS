@@ -16,10 +16,10 @@ import { ConfigService } from '@nestjs/config';
 import { ENV_VARS } from 'environments/env-config';
 
 // manejo de excepciones
-import { AllExceptionsFilter } from '@/app/shared/filter/exceptions-response.filter';
+import { AllExceptionsFilter } from '@/app/shared/filter/standardize-error-response.filter';
 
 // manejo de respuesta exitosas
-import { SuccessResponseInterceptor } from '@/app/shared/interceptor/success-response.interceptor';
+import { SuccessResponseInterceptor } from '@/app/shared/interceptor/standardize-success-response.interceptor';
 import { log } from '@/app/shared/models/constants/logger.const';
 import { LoggerService } from '@/app/shared/services/logger.service';
 
