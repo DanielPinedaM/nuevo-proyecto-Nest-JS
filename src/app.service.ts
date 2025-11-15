@@ -11,8 +11,7 @@ export class AppService {
       'https://jsonplaceholder.typicode.com/todos/1',
     );
 
-    if (response.success) 
-      return response;
+    if (response.success) return response;
 
     throw new HttpException(response, response.status);
   }

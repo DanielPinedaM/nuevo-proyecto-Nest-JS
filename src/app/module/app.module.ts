@@ -1,10 +1,9 @@
-import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
+import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from '@/app.controller';
 import { AppService } from '@/app.service';
 import { DatabaseModule } from '@/app/module/database.module';
-import { LoggerMiddleware } from '@/app/shared/middlewares/logger.middleware';
 import { UtilsModule } from '@/app/utils/utils.module';
 import { ServiceModule } from '@/app/shared/services/service.module';
 import {
@@ -16,6 +15,8 @@ import { AuthModule } from '@/app/features/auth/auth.module';
 import { JwtModule } from '@nestjs/jwt';
 import { ScheduleModule } from '@nestjs/schedule';
 import { CleanupLogsTasks } from '@/app/shared/tasks/cleanup-logs.tasks';
+import { FilterModule } from '@/app/shared/filter/filter.module';
+import { InterceptorModule } from '@/app/shared/interceptor/interceptor.module';
 
 @Module({
   imports: [
@@ -38,12 +39,10 @@ import { CleanupLogsTasks } from '@/app/shared/tasks/cleanup-logs.tasks';
     UtilsModule,
     ServiceModule,
     AuthModule,
+    FilterModule,
+    InterceptorModule,
   ],
   controllers: [AppController],
   providers: [AppService, CleanupLogsTasks],
 })
-export class AppModule implements NestModule {
-  configure(consumer: MiddlewareConsumer): void {
-    consumer.apply(LoggerMiddleware).forRoutes('*');
-  }
-}
+export class AppModule {}

@@ -10,12 +10,13 @@ import { IRequestOptions } from '@/app/shared/services/http-general-service/type
 import httpStatusMessages from '@/app/shared/models/constants/http-status-messages.const';
 import { log } from '@/app/shared/models/constants/logger.const';
 import { IResponse } from '@/app/shared/models/interface/response.interfaces';
+import { LoggerService } from '@/app/shared/services/logger.service';
 
 @Injectable()
 export class HttpService {
   private client: AxiosInstance;
 
-  constructor() {
+  constructor(private readonly loggerService: LoggerService) {
     this.client = axios.create({ timeout: 15000 });
     this.#setupInterceptors();
   }
@@ -26,36 +27,78 @@ export class HttpService {
    *********************** */
   #setupInterceptors(): void {
     this.client.interceptors.response.use(
-      (response: AxiosResponse<any, any>) => this.#logResponseSuccess(response),
-      (error: AxiosError) => this.#logResponseError(error),
+      (response: AxiosResponse<any, any>) =>
+        this.#axiosLogResponseSuccess(response),
+      (error: AxiosError) => this.#axiosLogResponseError(error),
     );
   }
 
-  /** logs de peticiones HTTP exitosas ✅  */
-  #logResponseSuccess(response: AxiosResponse) {
-    const { status } = response;
+  /** ✅ logs de peticiones HTTP exitosas en Axios */
+  #axiosLogResponseSuccess(
+    response: AxiosResponse,
+  ): AxiosResponse<any, any, {}> {
+    const statusCode = response.status;
     const { method } = response.config;
 
     const fullUrl: string = this.#buildFullUrl(response.config);
+    const start =
+      Number(response.config.headers?.['x-start-time']) || Date.now();
+    const duration = Date.now() - start;
 
-    const message: string = `[${method?.toUpperCase()}] ${status} ${fullUrl}`;
-    log.info(`\x1b[32m ${message}\x1b[0m`);
+    const statusMessage = httpStatusMessages[statusCode] ?? '';
+
+    const logMessage =
+      `[${method?.toUpperCase()}] ${fullUrl}` +
+      ` ${statusCode}` +
+      ` ${statusMessage}` +
+      ` ${duration}ms`;
+
+    const meta = {
+      statusCode,
+      statusMessage,
+      method,
+      originalUrl: fullUrl,
+      duration,
+    };
+
+    this.loggerService.logInfo(logMessage, meta);
 
     return response;
   }
 
-  /** logs de peticiones HTTP erroneas ❌ */
-  #logResponseError(error: AxiosError) {
-    const status: number = error?.response?.status ?? 500;
+  /** ❌ logs de peticiones HTTP erroneas en Axios */
+  #axiosLogResponseError(error: AxiosError): Promise<never> {
+    const statusCode: number = error?.response?.status ?? 500;
+
     const method: string = (
       error?.config?.method ??
       error?.request?.method ??
       ''
     ).toUpperCase();
+
     const fullUrl: string = this.#buildFullUrl(error?.config ?? {});
 
-    const message: string = `[${method}] ${status} ${fullUrl}`;
-    log.error(`\x1b[31m ${message}\x1b[0m`);
+    const start =
+      Number(error?.config?.headers?.['x-start-time']) || Date.now();
+    const duration = Date.now() - start;
+
+    const statusMessage = httpStatusMessages[statusCode] ?? '';
+
+    const logMessage =
+      `[${method}] ${fullUrl}` +
+      ` ${statusCode}` +
+      ` ${statusMessage}` +
+      ` ${duration}ms`;
+
+    const meta = {
+      statusCode,
+      statusMessage,
+      method,
+      originalUrl: fullUrl,
+      duration,
+    };
+
+    this.loggerService.logError(logMessage, meta);
 
     return Promise.reject(error);
   }

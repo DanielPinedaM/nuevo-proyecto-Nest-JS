@@ -15,13 +15,20 @@ import { json } from 'express';
 import { ConfigService } from '@nestjs/config';
 import { ENV_VARS } from 'environments/env-config';
 
-// manejo de excepciones
-import { AllExceptionsFilter } from '@/app/shared/filter/standardize-error-response.filter';
+// #region Exception Filter
+import { ErrorLogsFilter } from '@/app/shared/filter/error-logs.filter';
+import { StandardizeErrorResponseFilter } from '@/app/shared/filter/standardize-error-response.filter';
+// #endregion Exception Filter
 
-// manejo de respuesta exitosas
-import { SuccessResponseInterceptor } from '@/app/shared/interceptor/standardize-success-response.interceptor';
+// #region Interceptor
+import { StandardizeSuccessResponseInterceptor } from '@/app/shared/interceptor/standardize-success-response.interceptor';
+import { SuccessLogsInterceptor } from '@/app/shared/interceptor/success-logs.interceptor';
+// #endregion Interceptor
+
+// #region logs
 import { log } from '@/app/shared/models/constants/logger.const';
 import { LoggerService } from '@/app/shared/services/logger.service';
+// #endregion logs
 
 const globalPrefix: string = 'api';
 
@@ -30,21 +37,32 @@ const globalPrefix: string = 'api';
  * *********************************** */
 
 /**
-validaciones, interceptores y filtros globales */
-function setupGlobalMiddleware(app: INestApplication): void {
+ExceptionFilter */
+function configExceptionFilter(app: INestApplication): void {
+  app.useGlobalFilters(app.get(StandardizeErrorResponseFilter));
+  app.useGlobalFilters(app.get(ErrorLogsFilter));
+}
+
+/**
+Interceptor */
+function configInterceptor(app: INestApplication): void {
+  app.useGlobalInterceptors(app.get(StandardizeSuccessResponseInterceptor));
+  app.useGlobalInterceptors(app.get(SuccessLogsInterceptor));
+}
+
+/**
+Pipes */
+function configPipes(app: INestApplication): void {
   app.useGlobalPipes(
     new ValidationPipe({
       transform: true,
     }),
   );
-  app.useGlobalFilters(new AllExceptionsFilter());
-  app.useGlobalInterceptors(new SuccessResponseInterceptor());
-  app.use(json({ limit: '5mb' }));
 }
 
 /**
 CORS, prefijos y versionamiento */
-function setupCore(app: INestApplication): void {
+function configCore(app: INestApplication): void {
   const allowedOrigins: string = '*';
   log.info(`\x1b[34morigenes permitidos: ${allowedOrigins}\x1b[0m`);
   app.enableCors({
@@ -60,7 +78,7 @@ function setupCore(app: INestApplication): void {
 
 /**
 swagger (documentación de la API) */
-function setupSwagger(app: INestApplication): void {
+function configSwagger(app: INestApplication): void {
   const config: Omit<OpenAPIObject, 'paths'> = new DocumentBuilder()
     .setTitle(apiTitle)
     .setDescription(apiDescription)
@@ -140,9 +158,14 @@ async function bootstrap(): Promise<void> {
   const loggerService: LoggerService = app.get(LoggerService);
   loggerService.ensureLogDirectories();
 
-  setupGlobalMiddleware(app);
-  setupCore(app);
-  setupSwagger(app);
+  configExceptionFilter(app);
+  configInterceptor(app);
+  configPipes(app);
+
+  app.use(json({ limit: '5mb' }));
+
+  configCore(app);
+  configSwagger(app);
 
   const PORT: number = env.get(ENV_VARS.PORT);
   const ENVIRONMENT: string = env.get(ENV_VARS.ENVIRONMENT);
