@@ -15,6 +15,10 @@ export class ErrorLogsFilter implements ExceptionFilter {
     const ctx = host.switchToHttp();
     const req = ctx.getRequest();
 
+    this.#logError(exception, req);
+  }
+
+  #logError(exception: any, req: any): void {
     const statusCode: number =
       exception instanceof HttpException ? exception.getStatus() : 500;
 
@@ -27,7 +31,7 @@ export class ErrorLogsFilter implements ExceptionFilter {
 
     const logMessage: string =
       `[${method.toUpperCase()}]` +
-      `${statusCode}` +
+      ` ${statusCode}` +
       ` ${fullURL}` +
       ` ${statusMessage}`;
 

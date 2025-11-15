@@ -18,38 +18,41 @@ export class SuccessLogsInterceptor implements NestInterceptor {
     const req = context.switchToHttp().getRequest();
     const res = context.switchToHttp().getResponse();
 
+    return next.handle().pipe(
+      tap(() => {
+        this.#logSuccess(req, res, now);
+      }),
+    );
+  }
+
+  #logSuccess(req: any, res: any, startTime: number): void {
+    const duration: number = Date.now() - startTime;
+    const statusCode: number = res.statusCode;
+
+    // solo loguear si es éxito (2xx ó 3xx)
+    if (statusCode >= 400) return;
+
     const { method, originalUrl, protocol } = req;
     const host: string = req.get('Host');
 
-    return next.handle().pipe(
-      tap(() => {
-        const duration: number = Date.now() - now;
-        const statusCode: number = res.statusCode;
+    const statusMessage: string = httpStatusMessages[statusCode] ?? '';
+    const fullURL: string = `${protocol}://${host}${originalUrl}`;
 
-        // solo admitir logs exitosos
-        if (statusCode >= 400) return;
+    const logMessage: string =
+      `[${method.toUpperCase()}]` +
+      ` ${statusCode}` +
+      ` ${fullURL}` +
+      ` ${statusMessage}` +
+      ` ${duration}ms`;
 
-        const statusMessage: string = httpStatusMessages[statusCode] ?? '';
+    const meta = {
+      statusCode,
+      statusMessage,
+      method,
+      originalUrl,
+      duration,
+    };
 
-        const fullURL: string = `${protocol}://${host}${originalUrl}`;
-
-        const logMessage: string =
-          `[${method.toUpperCase()}]` +
-          ` ${statusCode}` +
-          ` ${fullURL}` +
-          ` ${statusMessage}` +
-          ` ${duration}ms`; // tiempo de respuesta
-
-        const meta = {
-          statusCode,
-          statusMessage,
-          method,
-          originalUrl,
-          duration,
-        };
-
-        this.loggerService.logInfo(logMessage, meta);
-      }),
-    );
+    this.loggerService.logInfo(logMessage, meta);
   }
 }
