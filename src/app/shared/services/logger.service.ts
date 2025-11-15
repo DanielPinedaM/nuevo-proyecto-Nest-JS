@@ -87,7 +87,9 @@ export class LoggerService {
     const id: string = this.generateLogId();
     const time: string = DateTime.local().toFormat('hh:mm:ss a');
 
-    log.info(`\x1b[32m ${message}\x1b[0m`);
+    if (this.env.get(ENV_VARS.SHOW_LOGS))
+      log.info(`\x1b[32m ${message}\x1b[0m`);
+
     this.saveLog.info({ id, time, ...meta }, `✅ ${message}`);
   }
 
@@ -97,7 +99,9 @@ export class LoggerService {
     const id: string = this.generateLogId();
     const time: string = DateTime.local().toFormat('hh:mm:ss a');
 
-    log.error(`\x1b[31m ${message}\x1b[0m`);
+    if (this.env.get(ENV_VARS.SHOW_LOGS))
+      log.error(`\x1b[31m ${message}\x1b[0m`);
+
     this.saveLog.error({ id, time, ...meta }, `❌ ${message}`);
   }
 }

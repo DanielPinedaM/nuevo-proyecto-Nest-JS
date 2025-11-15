@@ -11,6 +11,7 @@ export enum ENV_VARS {
   // #region configurar Nest JS
   ENVIRONMENT = 'ENVIRONMENT',
   PORT = 'PORT',
+  SHOW_LOGS = 'SHOW_LOGS',
   // #endregion configurar Nest JS
 
   // #region JWT
@@ -45,6 +46,10 @@ export class EnvironmentClass {
   @Transform(({ value }) => Number(value))
   @IsNumber()
   PORT: number;
+
+  @Transform(({ value }) => String(value).trim().toLowerCase() === 'true')
+  @IsBoolean()
+  SHOW_LOGS: boolean;
   // #endregion configurar Nest JS
 
   // #region JWT
