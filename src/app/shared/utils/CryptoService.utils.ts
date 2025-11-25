@@ -36,4 +36,32 @@ export class CryptoService {
 
     return decrypted.toString(enc.Utf8);
   }
+
+  async encryptJSON(data: Record<string, any>): Promise<string | null> {
+    const text: string = JSON.stringify(data);
+    return await this.encrypt(text);
+  }
+
+  async decryptJSON(encryptedJSON: string): Promise<any | null> {
+    const decryptedJSON: string | null = await this.decrypt(encryptedJSON);
+
+    if (this.#isValidJSONparse(decryptedJSON as string))
+      return JSON.parse(decryptedJSON as string);
+
+    console.error('❌ [decryptJSON] error no es JSON valido ', decryptedJSON);
+    return null;
+  }
+
+  /**
+  saber si puedo o no convertir de string a array u objeto con JSON.parse() */
+  #isValidJSONparse = (string: string): boolean => {
+    if (typeof string !== 'string') return false;
+
+    try {
+      JSON.parse(string);
+      return true;
+    } catch (error) {
+      return false;
+    }
+  };
 }
