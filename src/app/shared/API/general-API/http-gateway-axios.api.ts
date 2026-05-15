@@ -6,14 +6,14 @@ import axios, {
   AxiosResponse,
   Method,
 } from 'axios';
-import { IRequestOptions } from '@/app/shared/services/http-general-service/types/request-data.types';
+import { IRequestOptions } from '@/app/shared/API/general-API/types/request-data.types';
 import httpStatusMessages from '@/app/shared/models/constants/http-status-messages.const';
 import { log } from '@/app/shared/models/constants/logger.const';
 import { IResponse } from '@/app/shared/models/interface/response.interfaces';
 import { LoggerService } from '@/app/shared/services/logger.service';
 
 @Injectable()
-export class HttpService {
+export class ApiGatewayService {
   private client: AxiosInstance;
 
   constructor(private readonly loggerService: LoggerService) {

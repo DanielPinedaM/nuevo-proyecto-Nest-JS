@@ -1,10 +1,10 @@
 import { HttpException, Injectable } from '@nestjs/common';
-import { HttpService } from '@/app/shared/services/http-general-service/http.service';
+import { ApiGatewayService } from '@/app/shared/API/general-API/http-gateway-axios.api';
 import { IResponse } from '@/app/shared/models/interface/response.interfaces';
 
 @Injectable()
 export class AppService {
-  constructor(private readonly http: HttpService) {}
+  constructor(private readonly http: ApiGatewayService) {}
 
   async jsonPlaceHolder() {
     const response: IResponse = await this.http.GET(

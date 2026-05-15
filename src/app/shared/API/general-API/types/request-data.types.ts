@@ -8,7 +8,8 @@ type TQueryParams = Record<
 >;
 
 /**
-parametros de funcion httpService para llamar a la API */
+parametros para llamar a la API 
+del metodo executeRequest q esta en la clase ApiGatewayService */
 export interface IRequestOptions<T = any> {
   body?: T;
   params?: TQueryParams;

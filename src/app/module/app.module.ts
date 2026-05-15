@@ -4,7 +4,6 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from '@/app.controller';
 import { AppService } from '@/app.service';
 import { DatabaseModule } from '@/app/module/database.module';
-import { UtilsModule } from '@/app/utils/utils.module';
 import { ServiceModule } from '@/app/shared/services/service.module';
 import {
   ENV_VARS,
@@ -17,6 +16,8 @@ import { ScheduleModule } from '@nestjs/schedule';
 import { CleanupLogsTasks } from '@/app/shared/tasks/cleanup-logs.tasks';
 import { FilterModule } from '@/app/shared/filter/filter.module';
 import { InterceptorModule } from '@/app/shared/interceptor/interceptor.module';
+import { ApiModule } from '@/app/shared/API/api.module';
+import { UtilsModule } from '@/app/shared/utils/utils.module';
 
 @Module({
   imports: [
@@ -38,6 +39,7 @@ import { InterceptorModule } from '@/app/shared/interceptor/interceptor.module';
     //TypeOrmModule,
     UtilsModule,
     ServiceModule,
+    ApiModule,
     AuthModule,
     FilterModule,
     InterceptorModule,
