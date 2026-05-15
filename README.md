@@ -1,6 +1,6 @@
 # 🐈 Nest JS 11
 
-usar NodeJS 24.11.1
+usar Node JS 24.15.0
 
 Nombre de clases, variables, interfaces, funciones EN INGLÉS.
 
