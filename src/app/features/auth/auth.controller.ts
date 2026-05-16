@@ -2,7 +2,7 @@ import { Controller, Post, Body, Res, UseGuards } from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { AuthService } from '@/app/features/auth/auth.service';
 import { Response } from 'express';
-import { AuthGuard } from '@/app/shared/guard/auth.guard';
+import { AuthGuard } from '@/shared/guard/auth.guard';
 import { LoginDto } from '@/app/features/auth/dto/users.dto';
 import { RegisterDto } from '@/app/features/auth/dto/register.dto';
 

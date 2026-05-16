@@ -5,8 +5,8 @@ import {
   NestInterceptor,
 } from '@nestjs/common';
 import { Observable, tap } from 'rxjs';
-import { LoggerService } from '@/app/shared/services/logger.service';
-import httpStatusMessages from '@/app/shared/models/constants/http-status-messages.const';
+import { LoggerService } from '@/shared/services/logger.service';
+import httpStatusMessages from '@/shared/models/constants/http-status-messages.const';
 
 @Injectable()
 export class SuccessLogsInterceptor implements NestInterceptor {

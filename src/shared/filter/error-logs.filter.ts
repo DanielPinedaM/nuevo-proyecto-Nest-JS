@@ -4,8 +4,8 @@ import {
   ArgumentsHost,
   HttpException,
 } from '@nestjs/common';
-import httpStatusMessages from '@/app/shared/models/constants/http-status-messages.const';
-import { LoggerService } from '@/app/shared/services/logger.service';
+import httpStatusMessages from '@/shared/models/constants/http-status-messages.const';
+import { LoggerService } from '@/shared/services/logger.service';
 
 @Catch()
 export class ErrorLogsFilter implements ExceptionFilter {

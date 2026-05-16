@@ -1,5 +1,5 @@
 import { Global, Module } from '@nestjs/common';
-import { CryptoService } from '@/app/shared/utils/CryptoService.utils';
+import { CryptoService } from '@/shared/utils/CryptoService.utils';
 
 const modules = [CryptoService];
 

@@ -10,24 +10,24 @@ import {
   apiDescription,
   apiTitle,
   apiVersion,
-} from '@/app/shared/models/constants/general.const';
+} from '@/shared/models/constants/general.const';
 import { json } from 'express';
 import { ConfigService } from '@nestjs/config';
 import { ENV_VARS } from 'environments/env-config';
 
 // #region Exception Filter
-import { ErrorLogsFilter } from '@/app/shared/filter/error-logs.filter';
-import { StandardizeErrorResponseFilter } from '@/app/shared/filter/standardize-error-response.filter';
+import { ErrorLogsFilter } from '@/shared/filter/error-logs.filter';
+import { StandardizeErrorResponseFilter } from '@/shared/filter/standardize-error-response.filter';
 // #endregion Exception Filter
 
 // #region Interceptor
-import { StandardizeSuccessResponseInterceptor } from '@/app/shared/interceptor/standardize-success-response.interceptor';
-import { SuccessLogsInterceptor } from '@/app/shared/interceptor/success-logs.interceptor';
+import { StandardizeSuccessResponseInterceptor } from '@/shared/interceptor/standardize-success-response.interceptor';
+import { SuccessLogsInterceptor } from '@/shared/interceptor/success-logs.interceptor';
 // #endregion Interceptor
 
 // #region logs
-import { log } from '@/app/shared/models/constants/logger.const';
-import { LoggerService } from '@/app/shared/services/logger.service';
+import { log } from '@/shared/models/constants/logger.const';
+import { LoggerService } from '@/shared/services/logger.service';
 // #endregion logs
 
 const globalPrefix: string = 'api';

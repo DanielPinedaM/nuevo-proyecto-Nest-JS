@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
-import { ErrorLogsFilter } from '@/app/shared/filter/error-logs.filter';
-import { StandardizeErrorResponseFilter } from '@/app/shared/filter/standardize-error-response.filter';
+import { ErrorLogsFilter } from '@/shared/filter/error-logs.filter';
+import { StandardizeErrorResponseFilter } from '@/shared/filter/standardize-error-response.filter';
 
 @Module({
   providers: [ErrorLogsFilter, StandardizeErrorResponseFilter],

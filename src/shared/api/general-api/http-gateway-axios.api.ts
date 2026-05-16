@@ -6,11 +6,11 @@ import axios, {
   AxiosResponse,
   Method,
 } from 'axios';
-import { IRequestOptions } from '@/app/shared/API/general-API/types/request-data.types';
-import httpStatusMessages from '@/app/shared/models/constants/http-status-messages.const';
-import { log } from '@/app/shared/models/constants/logger.const';
-import { IResponse } from '@/app/shared/models/interface/response.interfaces';
-import { LoggerService } from '@/app/shared/services/logger.service';
+import { IRequestOptions } from '@/shared/api/general-api/types/request-data.types';
+import httpStatusMessages from '@/shared/models/constants/http-status-messages.const';
+import { log } from '@/shared/models/constants/logger.const';
+import { IResponse } from '@/shared/models/interface/response.interfaces';
+import { LoggerService } from '@/shared/services/logger.service';
 
 @Injectable()
 export class ApiGatewayService {

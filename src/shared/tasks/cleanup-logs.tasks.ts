@@ -3,8 +3,8 @@ import { Cron, CronExpression } from '@nestjs/schedule';
 import fs from 'fs-extra';
 import * as path from 'path';
 import { DateTime } from 'luxon';
-import { LoggerService } from '@/app/shared/services/logger.service';
-import { log } from '@/app/shared/models/constants/logger.const';
+import { LoggerService } from '@/shared/services/logger.service';
+import { log } from '@/shared/models/constants/logger.const';
 
 @Injectable()
 export class CleanupLogsTasks {
