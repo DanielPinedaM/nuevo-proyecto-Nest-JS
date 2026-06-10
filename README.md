@@ -1,20 +1,14 @@
 # 🐈 Nest JS 11
 
-usar Node JS 24.15.0
+# 🟢 Versión de Node JS
 
-Nombre de clases, variables, interfaces, funciones EN INGLÉS.
+Este proyecto debe ejecutarse utilizando:
 
-Elemento                     | Convención de nombre 
------------------------------|----------------------
-Clases                       | PascalCase
-Interfaces                   | PascalCase
-Funciones                    | camelCase
-Variables                    | camelCase
-Propiedades                  | camelCase
-Archivos                     | minúsculas
-Nombres tablas base de datos | PascalCase
+```bash
+Node JS 24.16.0
+```
 
-# 📦 Instalar paquetes del proyecto
+# 📦 Instalar Paquetes
 
 ```console
 npm i
