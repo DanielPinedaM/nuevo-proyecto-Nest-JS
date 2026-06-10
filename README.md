@@ -1,4 +1,4 @@
-# 🐈 Nest JS 11
+# 🐈 Nest JS 11 + Prisma + PostgreSQL
 
 # 🟢 Versión de Node JS
 
