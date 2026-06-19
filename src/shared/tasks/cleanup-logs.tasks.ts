@@ -4,7 +4,7 @@ import fs from 'fs-extra';
 import * as path from 'path';
 import { DateTime } from 'luxon';
 import { LoggerService } from '@/shared/services/logger.service';
-import { log } from '@/shared/models/constants/logger.const';
+import { log } from '@/shared/data-types/constants/logger.const';
 
 @Injectable()
 export class CleanupLogsTasks {

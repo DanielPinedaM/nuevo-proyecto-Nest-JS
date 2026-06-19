@@ -9,7 +9,7 @@ import { Repository } from 'typeorm';
 import { Users } from '@/app/features/auth/entities/users.entity';
 import * as bcrypt from 'bcrypt';
 import { Response } from 'express';
-import { CryptoService } from '@/shared/utils/CryptoService.utils';
+import { CryptoService } from '@/shared/services/crypto.service';
 import { RegisterDto } from '@/app/features/auth/dto/register.dto';
 import { ConfigService } from '@nestjs/config';
 import { ENV_VARS, EnvironmentClass } from 'environments/env-config';

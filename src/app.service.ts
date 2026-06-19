@@ -1,6 +1,6 @@
 import { HttpException, Injectable } from '@nestjs/common';
-import { ApiGatewayService } from '@/shared/api/general-api/http-gateway-axios.api';
-import { IResponse } from '@/shared/models/interface/response.interfaces';
+import { ApiGatewayService } from '@/shared/services/api/http-client/http-gateway-axios.api';
+import { IResponse } from '@/shared/data-types/interface/response.interfaces';
 
 @Injectable()
 export class AppService {

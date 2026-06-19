@@ -6,7 +6,7 @@ import { DateTime } from 'luxon';
 import { ENV_VARS, EnvironmentClass } from 'environments/env-config';
 import { ConfigService } from '@nestjs/config';
 import * as rfs from 'rotating-file-stream';
-import { log } from '@/shared/models/constants/logger.const';
+import { log } from '@/shared/data-types/constants/logger.const';
 
 @Injectable()
 export class LoggerService {

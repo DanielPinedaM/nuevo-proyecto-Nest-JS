@@ -4,7 +4,7 @@ import {
   ArgumentsHost,
   HttpException,
 } from '@nestjs/common';
-import httpStatusMessages from '@/shared/models/constants/http-status-messages.const';
+import httpStatusMessages from '@/shared/data-types/constants/http-status-messages.const';
 import { LoggerService } from '@/shared/services/logger.service';
 
 @Catch()

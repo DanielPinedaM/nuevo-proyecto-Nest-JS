@@ -1,4 +1,4 @@
-import { log } from '@/shared/models/constants/logger.const';
+import { log } from '@/shared/data-types/constants/logger.const';
 import {
   CanActivate,
   ExecutionContext,

@@ -6,10 +6,10 @@ import axios, {
   AxiosResponse,
   Method,
 } from 'axios';
-import { IRequestOptions } from '@/shared/api/general-api/types/request-data.types';
-import httpStatusMessages from '@/shared/models/constants/http-status-messages.const';
-import { log } from '@/shared/models/constants/logger.const';
-import { IResponse } from '@/shared/models/interface/response.interfaces';
+import { IRequestOptions } from '@/shared/services/api/http-client/types/request-data.types';
+import httpStatusMessages from '@/shared/data-types/constants/http-status-messages.const';
+import { log } from '@/shared/data-types/constants/logger.const';
+import { IResponse } from '@/shared/data-types/interface/response.interfaces';
 import { LoggerService } from '@/shared/services/logger.service';
 
 @Injectable()

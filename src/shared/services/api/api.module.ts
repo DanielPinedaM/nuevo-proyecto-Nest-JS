@@ -1,5 +1,5 @@
 import { Module, Global } from '@nestjs/common';
-import { ApiGatewayService } from '@/shared/api/general-api/http-gateway-axios.api';
+import { ApiGatewayService } from '@/shared/services/api/http-client/http-gateway-axios.api';
 
 @Global()
 @Module({

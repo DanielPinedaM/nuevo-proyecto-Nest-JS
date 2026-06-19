@@ -10,7 +10,7 @@ import {
   apiDescription,
   apiTitle,
   apiVersion,
-} from '@/shared/models/constants/general.const';
+} from '@/shared/data-types/constants/general.const';
 import { json } from 'express';
 import { ConfigService } from '@nestjs/config';
 import { ENV_VARS } from 'environments/env-config';
@@ -26,7 +26,7 @@ import { SuccessLogsInterceptor } from '@/shared/interceptor/success-logs.interc
 // #endregion Interceptor
 
 // #region logs
-import { log } from '@/shared/models/constants/logger.const';
+import { log } from '@/shared/data-types/constants/logger.const';
 import { LoggerService } from '@/shared/services/logger.service';
 // #endregion logs
 
