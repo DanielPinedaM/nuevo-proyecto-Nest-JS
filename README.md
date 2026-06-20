@@ -109,6 +109,7 @@ Al copiar este contenido hacia una herramienta de IA:
 
 ## Stack Backend del Proyecto
 
+* Node JS 24.16.0
 * Nest JS 11
 * TypeScript 6
 * Prisma ORM
