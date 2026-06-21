@@ -16,18 +16,18 @@ npm i
 
 # ▶️ Ejecutar proyecto
 
-comando                | apunta a...   | ruta archivo
----------------------- | ------------- | -------------
-node --run start:local | local host    | `environments/.env.localhost`
-node --run start:test  | pruebas       | `environments/.env.test`
-node --run start:prod  | producción    | `environments/.env.production`
+| comando                | apunta a...   | ruta archivo                   |
+| ---------------------- | ------------- | ------------------------------ |
+| node --run start:local | local host    | `environments/.env.localhost`  |
+| node --run start:test  | pruebas       | `environments/.env.test`       |
+| node --run start:prod  | producción    | `environments/.env.production` |
 
 # 🚀 Generar build (dist) para desplegar
 
-comando               | apunta a...   | ruta archivo
---------------------- | ------------- | -------------
-node --run build:test | pruebas       | `environments/.env.test`
-node --run build:prod | producción    | `environments/.env.production`
+| comando               | apunta a...   | ruta archivo                   |
+| --------------------- | ------------- | ------------------------------ |
+| node --run build:test | pruebas       | `environments/.env.test`       |
+| node --run build:prod | producción    | `environments/.env.production` |
 
 # 🤖 Uso de IA
 
