@@ -55,9 +55,6 @@
     "other": true,
     "strings": true
   },
-  "eslint.options": {
-    "extensions": [".js", ".ts", ".jsx", ".tsx"]
-  },
   "emmet.includeLanguages": {
     "javascript": "javascriptreact",
     "jsx-sublime-babel-tags": "javascriptreact",
