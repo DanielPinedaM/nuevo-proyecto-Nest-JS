@@ -53,7 +53,7 @@ la respuesta tiene q ser esta
 response.status(status).json({
       success: false, // esto esta quemado porque la respuesta es erronea
       status, // obtener numero de status
-      statusText: httpStatusMessages[status] ?? '', // esto es un acceso a un objeto literal
+      statusText: HTTP_STATUS_MESSAGES[status] ?? '', // esto es un acceso a un objeto literal
       message, // siempre tipo string
       errorDescription: {
         timestamp: new Date().toISOString(),
@@ -70,7 +70,7 @@ con el interceptor anterior dame ejemplo de esto:
 solamente concatenar error + message cuando se defina manualmente la key error */
 
 import { DateTime } from 'luxon';
-import httpStatusMessages from '@/shared/data-types/constants/http-status-messages.const';
+import HTTP_STATUS_MESSAGES from '@/shared/data-types/constants/http-status-messages.const';
 import {
   ExceptionFilter,
   Catch,
@@ -138,7 +138,7 @@ export class StandardizeErrorResponseFilter implements ExceptionFilter {
     response.status(status).json({
       success: false,
       status,
-      statusText: httpStatusMessages[status] ?? '',
+      statusText: HTTP_STATUS_MESSAGES[status] ?? '',
       message,
       data,
       description: {

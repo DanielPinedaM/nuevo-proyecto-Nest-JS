@@ -7,7 +7,7 @@ import axios, {
   Method,
 } from 'axios';
 import { IRequestOptions } from '@/shared/services/api/http-client/types/request-data.types';
-import httpStatusMessages from '@/shared/data-types/constants/http-status-messages.const';
+import HTTP_STATUS_MESSAGES from '@/shared/data-types/constants/http-status-messages.const';
 import { log } from '@/shared/data-types/constants/logger.const';
 import { IResponse } from '@/shared/data-types/interface/response.interfaces';
 import { LoggerService } from '@/shared/services/logger.service';
@@ -45,7 +45,7 @@ export class ApiGatewayService {
       Number(response.config.headers?.['x-start-time']) || Date.now();
     const duration = Date.now() - start;
 
-    const statusMessage = httpStatusMessages[statusCode] ?? '';
+    const statusMessage = HTTP_STATUS_MESSAGES[statusCode] ?? '';
 
     const logMessage =
       `[${method?.toUpperCase()}] ${fullUrl}` +
@@ -82,7 +82,7 @@ export class ApiGatewayService {
       Number(error?.config?.headers?.['x-start-time']) || Date.now();
     const duration = Date.now() - start;
 
-    const statusMessage = httpStatusMessages[statusCode] ?? '';
+    const statusMessage = HTTP_STATUS_MESSAGES[statusCode] ?? '';
 
     const logMessage =
       `[${method}] ${fullUrl}` +
@@ -150,7 +150,7 @@ export class ApiGatewayService {
       const standardResponse: IResponse<T> = {
         success: true,
         status,
-        statusText: httpStatusMessages[status] ?? '',
+        statusText: HTTP_STATUS_MESSAGES[status] ?? '',
         message: 'Petición HTTP exitosa',
         data: responseData,
       };
@@ -162,7 +162,7 @@ export class ApiGatewayService {
       const standardResponse: IResponse<T> = {
         success: false,
         status,
-        statusText: httpStatusMessages[status],
+        statusText: HTTP_STATUS_MESSAGES[status],
         message: error?.response?.data?.message ?? 'Error en petición HTTP',
         data: error?.response?.data ?? null,
       };

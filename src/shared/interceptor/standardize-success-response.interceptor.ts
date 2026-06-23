@@ -7,7 +7,7 @@ import {
 } from '@nestjs/common';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import httpStatusMessages from '@/shared/data-types/constants/http-status-messages.const';
+import HTTP_STATUS_MESSAGES from '@/shared/data-types/constants/http-status-messages.const';
 import { IResponse } from '@/shared/data-types/interface/response.interfaces';
 import { HttpArgumentsHost } from '@nestjs/common/interfaces';
 
@@ -53,7 +53,7 @@ export class StandardizeSuccessResponseInterceptor<T>
         return {
           success: true,
           status,
-          statusText: httpStatusMessages[status] ?? '',
+          statusText: HTTP_STATUS_MESSAGES[status] ?? '',
           message,
           data: resultData,
           ...(pagination && { pagination }),

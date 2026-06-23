@@ -1,6 +1,6 @@
 // https://http.dev/status
 
-const httpStatusMessages: Record<number, string> = {
+const HTTP_STATUS_MESSAGES: Record<number, string> = {
   // 1xx: Respuestas informativas
   100: 'Continue',
   101: 'Switching Protocols',
@@ -108,4 +108,4 @@ const httpStatusMessages: Record<number, string> = {
   599: 'Network Connect Timeout Error',
 };
 
-export default httpStatusMessages;
+export default HTTP_STATUS_MESSAGES;

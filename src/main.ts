@@ -6,11 +6,6 @@ import {
   VersioningType,
 } from '@nestjs/common';
 import { DocumentBuilder, OpenAPIObject, SwaggerModule } from '@nestjs/swagger';
-import {
-  apiDescription,
-  apiTitle,
-  apiVersion,
-} from '@/shared/data-types/constants/general.const';
 import { json } from 'express';
 import { ConfigService } from '@nestjs/config';
 import { ENV_VARS } from 'environments/env-config';
@@ -30,11 +25,11 @@ import { log } from '@/shared/data-types/constants/logger.const';
 import { LoggerService } from '@/shared/services/logger.service';
 // #endregion logs
 
-const globalPrefix: string = 'api';
+const GLOBAL_PREFIX: string = 'api';
 
 /* **********************************
- * funciones para configurar Nest JS *
- * *********************************** */
+* funciones para configurar Nest JS *
+* *********************************** */
 
 /**
 ExceptionFilter */
@@ -68,21 +63,27 @@ function configCore(app: INestApplication): void {
   app.enableCors({
     origin: true,
   });
-  app.setGlobalPrefix(globalPrefix);
+  app.setGlobalPrefix(GLOBAL_PREFIX);
 
   app.enableVersioning({
     type: VersioningType.URI,
-    defaultVersion: apiVersion,
+    defaultVersion: API_VERSION,
   });
 }
 
-/**
-swagger (documentación de la API) */
+/* *********************************
+* swagger: documentación de la API *
+* ********************************** */
+
+const API_TITLE: string = 'Base';
+const API_DESCRIPTION: string = 'Descripción de API para base';
+const API_VERSION: string = '1';
+
 function configSwagger(app: INestApplication): void {
   const config: Omit<OpenAPIObject, 'paths'> = new DocumentBuilder()
-    .setTitle(apiTitle)
-    .setDescription(apiDescription)
-    .setVersion(apiVersion)
+    .setTitle(API_TITLE)
+    .setDescription(API_DESCRIPTION)
+    .setVersion(API_VERSION)
     .build();
 
   const document: OpenAPIObject = SwaggerModule.createDocument(app, config);
@@ -91,16 +92,17 @@ function configSwagger(app: INestApplication): void {
   });
 }
 
-/**
-listar rutas (URL endpoints) disponibles en consola
-https://stackoverflow.com/questions/58255000/how-can-i-get-all-the-routes-from-all-the-modules-and-controllers-available-on */
+/* ****************************************************************************************************************************
+* listar rutas (URL endpoints) disponibles en consola                                                                         *
+* https://stackoverflow.com/questions/58255000/how-can-i-get-all-the-routes-from-all-the-modules-and-controllers-available-on *
+* ***************************************************************************************************************************** */
 interface IRoute {
   path: string;
   methods: string;
 }
 function normalizePath(path: string): string {
   return path
-    .replace(new RegExp(`^/${globalPrefix}(/v\\d+)?`), '')
+    .replace(new RegExp(`^/${GLOBAL_PREFIX}(/v\\d+)?`), '')
     .replace(/:\w+/g, '');
 }
 function routesLogger(app: INestApplication): void {
@@ -117,7 +119,7 @@ function routesLogger(app: INestApplication): void {
           .join(', '),
       }),
     )
-    .filter((item) => (item?.path ?? '').includes(`/${globalPrefix}`));
+    .filter((item) => (item?.path ?? '').includes(`/${GLOBAL_PREFIX}`));
 
   if (availableRoutes.length === 0) {
     log.info(`\x1b[33mNo hay endpoints\x1b[0m`);

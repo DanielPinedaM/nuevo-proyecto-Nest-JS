@@ -1,15 +1,15 @@
 import { enc, mode, pad, AES } from 'crypto-js';
 import {
-  IVAuth,
-  secretKeyAuthentication,
+  IV_AUTH,
+  SECRET_KEY_AUTHENTICATION,
 } from '@/app/features/auth/data-types/constants/auth.const';
 import { Injectable } from '@nestjs/common';
 
 @Injectable()
 export class CryptoService {
   async encrypt(text: string): Promise<string> {
-    const key = enc.Utf8.parse(secretKeyAuthentication); // número hexadecimal de 16 dígitos como clave
-    const iv = enc.Utf8.parse(IVAuth); // Número hexadecimal como desplazamiento de clave
+    const key = enc.Utf8.parse(SECRET_KEY_AUTHENTICATION); // número hexadecimal de 16 dígitos como clave
+    const iv = enc.Utf8.parse(IV_AUTH); // Número hexadecimal como desplazamiento de clave
 
     const textoHexa = enc.Utf8.parse(text);
     const encrypted = AES.encrypt(textoHexa, key, {
@@ -24,8 +24,8 @@ export class CryptoService {
   }
 
   async decrypt(encryptedText: string): Promise<string> {
-    const key = enc.Utf8.parse(secretKeyAuthentication);
-    const iv = enc.Utf8.parse(IVAuth);
+    const key = enc.Utf8.parse(SECRET_KEY_AUTHENTICATION);
+    const iv = enc.Utf8.parse(IV_AUTH);
 
     // AES.decrypt ahora acepta el texto cifrado completo
     const decrypted = AES.decrypt(encryptedText, key, {
