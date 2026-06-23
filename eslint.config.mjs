@@ -39,9 +39,6 @@ export default tseslint.config(
   // Ajustes de reglas propios del starter de NestJS.
   {
     rules: {
-      '@typescript-eslint/no-explicit-any': 'off',
-      '@typescript-eslint/no-floating-promises': 'warn',
-      '@typescript-eslint/no-unsafe-argument': 'warn',
       'prettier/prettier': ['error', { endOfLine: 'auto' }],
     },
   },
