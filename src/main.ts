@@ -28,8 +28,8 @@ import { LoggerService } from '@/shared/services/logger.service';
 const GLOBAL_PREFIX: string = 'api';
 
 /* **********************************
-* funciones para configurar Nest JS *
-* *********************************** */
+ * funciones para configurar Nest JS *
+ * *********************************** */
 
 /**
 ExceptionFilter */
@@ -72,8 +72,8 @@ function configCore(app: INestApplication): void {
 }
 
 /* *********************************
-* swagger: documentación de la API *
-* ********************************** */
+ * swagger: documentación de la API *
+ * ********************************** */
 
 const API_TITLE: string = 'Base';
 const API_DESCRIPTION: string = 'Descripción de API para base';
@@ -93,9 +93,9 @@ function configSwagger(app: INestApplication): void {
 }
 
 /* ****************************************************************************************************************************
-* listar rutas (URL endpoints) disponibles en consola                                                                         *
-* https://stackoverflow.com/questions/58255000/how-can-i-get-all-the-routes-from-all-the-modules-and-controllers-available-on *
-* ***************************************************************************************************************************** */
+ * listar rutas (URL endpoints) disponibles en consola                                                                         *
+ * https://stackoverflow.com/questions/58255000/how-can-i-get-all-the-routes-from-all-the-modules-and-controllers-available-on *
+ * ***************************************************************************************************************************** */
 interface IRoute {
   path: string;
   methods: string;

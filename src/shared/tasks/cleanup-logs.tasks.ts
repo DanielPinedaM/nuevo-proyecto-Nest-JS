@@ -11,9 +11,7 @@ export class CleanupLogsTasks {
   private readonly daysToKeep = 30;
   private ENV_DIR: string = path.join(process.cwd(), 'environments');
 
-  constructor(
-    private readonly loggerService: LoggerService,
-  ) {}
+  constructor(private readonly loggerService: LoggerService) {}
 
   /** 
   Ejecutar una vez al día a la medianoche */
