@@ -56,9 +56,3 @@ pnpm-lock.yaml
 
 # logs
 /src/logs/
-
-# Claude Code
-#.claude/
-#CLAUDE.md
-#CLAUDE.local.md
-#.mcp.json
