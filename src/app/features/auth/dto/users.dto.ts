@@ -7,10 +7,10 @@ export class LoginDto {
   @IsEmail({}, { message: 'El correo es inválido' })
   @IsString()
   @Transform(({ value }) => value.trim())
-  email: string;
+  email!: string;
 
   @ApiProperty({ type: String, description: 'Contraseña del usuario' })
   @IsString()
   @MinLength(6, { message: 'La contraseña debe tener al menos 6 caracteres' })
-  password: string;
+  password!: string;
 }

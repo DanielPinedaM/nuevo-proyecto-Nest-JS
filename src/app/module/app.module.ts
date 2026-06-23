@@ -17,7 +17,6 @@ import { CleanupLogsTasks } from '@/shared/tasks/cleanup-logs.tasks';
 import { FilterModule } from '@/shared/filter/filter.module';
 import { InterceptorModule } from '@/shared/interceptor/interceptor.module';
 import { ApiModule } from '@/shared/services/api/api.module';
-import { UtilsModule } from '@/shared/utils/utils.module';
 
 @Module({
   imports: [
@@ -37,7 +36,6 @@ import { UtilsModule } from '@/shared/utils/utils.module';
     }),
     //DatabaseModule,
     //TypeOrmModule,
-    UtilsModule,
     ServiceModule,
     ApiModule,
     AuthModule,

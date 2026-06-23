@@ -8,7 +8,6 @@ import axios, {
 } from 'axios';
 import { IRequestOptions } from '@/shared/services/api/http-client/data-types/interfaces/gateway.interface';
 import HTTP_STATUS_MESSAGES from '@/shared/data-types/constants/http-status-messages.const';
-import { log } from '@/shared/data-types/constants/logger.const';
 import { IResponse } from '@/shared/data-types/interface/response.interfaces';
 import { LoggerService } from '@/shared/services/logger.service';
 

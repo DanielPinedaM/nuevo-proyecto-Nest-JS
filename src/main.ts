@@ -110,16 +110,16 @@ function routesLogger(app: INestApplication): void {
   const router = server.router;
 
   const availableRoutes: IRoute[] = router.stack
-    .filter((layer) => layer?.route)
+    .filter((layer: any) => layer?.route)
     .map(
-      (layer): IRoute => ({
+      (layer: any): IRoute => ({
         path: layer?.route?.path,
         methods: Object.keys(layer?.route?.methods)
           .map((method: string) => method?.toUpperCase())
           .join(', '),
       }),
     )
-    .filter((item) => (item?.path ?? '').includes(`/${GLOBAL_PREFIX}`));
+    .filter((item: IRoute) => (item?.path ?? '').includes(`/${GLOBAL_PREFIX}`));
 
   if (availableRoutes.length === 0) {
     log.info(`\x1b[33mNo hay endpoints\x1b[0m`);
@@ -169,8 +169,8 @@ async function bootstrap(): Promise<void> {
   configCore(app);
   configSwagger(app);
 
-  const PORT: number = env.get(ENV_VARS.PORT);
-  const ENVIRONMENT: string = env.get(ENV_VARS.ENVIRONMENT);
+  const PORT: number = env.get<number>(ENV_VARS.PORT)!;
+  const ENVIRONMENT: string = env.get<string>(ENV_VARS.ENVIRONMENT)!;
 
   await app.listen(PORT);
   routesLogger(app);

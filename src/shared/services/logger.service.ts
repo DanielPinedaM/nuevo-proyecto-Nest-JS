@@ -60,7 +60,7 @@ export class LoggerService {
    nombre de la carpeta base donde se guardan los logs:
    src/logs/{ENV}/{NombreMes}/ */
   getLogBaseDirForEnv(): string {
-    const envName: string = this.env.get(ENV_VARS.ENVIRONMENT);
+    const envName: string = this.env.get<string>(ENV_VARS.ENVIRONMENT)!;
     const monthName: string = this.getCurrentMonthName();
     return path.join(this.ROOT_LOGS_DIR, envName, monthName);
   }

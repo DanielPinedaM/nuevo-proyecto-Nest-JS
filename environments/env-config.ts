@@ -2,7 +2,7 @@ import { IsBoolean, IsIn, IsNumber, IsString } from 'class-validator';
 import { Transform } from 'class-transformer';
 import { plainToInstance } from 'class-transformer';
 import { validateSync } from 'class-validator';
-import { log } from '@/shared/models/constants/logger.const';
+import { log } from '@/shared/data-types/constants/logger.const';
 
 /* *************************************
  * NOMBRES DE LAS VARIABLES DE ENTORNO *
@@ -41,64 +41,64 @@ export class EnvironmentClass {
   // #region configurar Nest JS
   @IsString()
   @IsIn(['localhost', 'production', 'test'])
-  ENVIRONMENT: string;
+  ENVIRONMENT!: string;
 
   @Transform(({ value }) => Number(value))
   @IsNumber()
-  PORT: number;
+  PORT!: number;
 
   @Transform(({ value }) => String(value).trim().toLowerCase() === 'true')
   @IsBoolean()
-  SHOW_LOGS: boolean;
+  SHOW_LOGS!: boolean;
   // #endregion configurar Nest JS
 
   // #region JWT
   @IsString()
-  JWT_SECRET_KEY: string;
+  JWT_SECRET_KEY!: string;
   // #endregion JWT
 
   // #region conexion a la base de datos
   @IsString()
-  DB_TYPE: string;
+  DB_TYPE!: string;
 
   @IsString()
-  DB_HOST: string;
+  DB_HOST!: string;
 
   @Transform(({ value }) => Number(value))
   @IsNumber()
-  DB_PORT: number;
+  DB_PORT!: number;
 
   @IsString()
-  DB_USERNAME: string;
+  DB_USERNAME!: string;
 
   @IsString()
-  DB_PASSWORD: string;
+  DB_PASSWORD!: string;
 
   @IsString()
-  DB_NAME: string;
+  DB_NAME!: string;
 
   @IsString()
-  DB_SCHEMA: string;
+  DB_SCHEMA!: string;
 
   @Transform(({ value }) => String(value).trim().toLowerCase() === 'true')
   @IsBoolean()
-  DB_SSL: boolean;
+  DB_SSL!: boolean;
 
   @Transform(({ value }) => String(value).trim().toLowerCase() === 'true')
   @IsBoolean()
-  DB_SYNCHRONIZE: boolean;
+  DB_SYNCHRONIZE!: boolean;
 
   @Transform(({ value }) => String(value).trim().toLowerCase() === 'true')
   @IsBoolean()
-  DB_AUTO_LOAD_ENTITIES: boolean;
+  DB_AUTO_LOAD_ENTITIES!: boolean;
 
   @Transform(({ value }) => Number(value))
   @IsNumber()
-  DB_RETRY_ATTEMPTS: number;
+  DB_RETRY_ATTEMPTS!: number;
 
   @Transform(({ value }) => Number(value))
   @IsNumber()
-  DB_RETRY_DELAY: number;
+  DB_RETRY_DELAY!: number;
   // #endregion conexion a la base de datos
 }
 

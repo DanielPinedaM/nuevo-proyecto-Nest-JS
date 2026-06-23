@@ -8,17 +8,17 @@ import {
 @Entity('Users')
 export class Users {
   @PrimaryGeneratedColumn('uuid')
-  id: number;
+  id!: number;
 
   @Column({ type: 'varchar', length: 200, unique: true })
-  email: string;
+  email!: string;
 
   @Column({ type: 'varchar', length: 100 })
-  username: string;
+  username!: string;
 
   @Column({ type: 'varchar', length: 255 })
-  password: string;
+  password!: string;
 
   @CreateDateColumn()
-  creationDate: Date;
+  creationDate!: Date;
 }
