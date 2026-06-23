@@ -1,4 +1,5 @@
 // @ts-check
+import js from '@eslint/js';
 import tsPlugin from '@typescript-eslint/eslint-plugin';
 import tsParser from '@typescript-eslint/parser';
 import prettierRecommended from 'eslint-plugin-prettier/recommended';
@@ -26,6 +27,7 @@ export default [
       '@typescript-eslint': tsPlugin,
     },
     rules: {
+      ...js.configs.recommended.rules,
       ...tsPlugin.configs.recommended.rules,
     },
   },
