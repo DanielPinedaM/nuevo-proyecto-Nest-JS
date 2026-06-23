@@ -30,5 +30,40 @@
   },
 
   // peacock extension
-  "peacock.color": "#E0234E"
+  "peacock.color": "#E0234E",
+
+  // Configurar auto-completado, formatear codigo y linter
+  "eslint.useFlatConfig": true,
+  "eslint.validate": [
+    "javascript",
+    "typescript",
+    "jsx",
+    "javascriptreact",
+    "typescriptreact"
+  ],
+  "eslint.run": "onType",
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.tabCompletion": "on",
+  "editor.linkedEditing": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit",
+    "source.sortImports": "explicit"
+  },
+  "editor.quickSuggestions": {
+    "comments": false,
+    "other": true,
+    "strings": true
+  },
+  "eslint.options": {
+    "extensions": [".js", ".ts", ".jsx", ".tsx"]
+  },
+  "emmet.includeLanguages": {
+    "javascript": "javascriptreact",
+    "jsx-sublime-babel-tags": "javascriptreact",
+    "typescript": "typescriptreact"
+  },
+  "emmet.triggerExpansionOnTab": true,
+  "javascript.suggest.completeFunctionCalls": true,
+  "javascript.updateImportsOnFileMove.enabled": "always"
 }
