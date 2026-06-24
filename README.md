@@ -5,7 +5,7 @@ A continuación, se presenta un resumen de las tecnologías principales del proy
 
 * Nest JS 11
 
-* TypeScript 6.0.3
+* TypeScript 6
 
 * Prisma ORM 7
 
