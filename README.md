@@ -201,6 +201,7 @@ En este ejemplo, las líneas que comienzan con `-` son el `body`: detallan punto
 | lint          | 🚨 | Cambios relacionados con análisis estático, reglas de calidad de código y configuración de herramientas como ESLint   |
 | accessibility | ♿ | Mejoras de accesibilidad                                                                                              |
 | mock          | 🤡 | Cambios relacionados con mocks, datos simulados o datos quemados utilizados para pruebas y desarrollo                 |
+| format        | 🎨 | Identación, formateo de código y aplicación de reglas del linter, sin modificar la lógica ni el comportamiento        |
 
 ### Reglas para el Scope
 * El `<scope>` es opcional.
