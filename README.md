@@ -79,30 +79,27 @@ Al copiar este contenido hacia una IA:
 
 # ⚙️ Entorno de Ejecución
 Obligatorio el uso de Node.js, prohibido usar alternativas como:
-* Bun
 
+* Bun
 * Deno
 
 # 📦 Manejador de Paquetes
 Obligatorio el uso de `pnpm` y `pnpm-lock.yaml`, prohibido usar alternativas como:
+
 * npm
-
 * npx
-
 * package-lock.json
-
 * yarn
 
 # 🟢 Administrador de Versiones para Node.js
 Obligatorio el uso de `fnm`, prohibido usar alternativas como:
 
 * nvm
-
 * volta
 
 Para instalar paquetes y ejecutar este proyecto, se tiene que usar:
 
-```bash
+```console
 fnm use 24.18.0
 ```
 
@@ -115,20 +112,20 @@ Para todos los comandos de `pnpm` usar el alias `pn`
 pn i
 ```
 
-# ▶️ Ejecutar proyecto
+# ▶️ Ejecutar Proyecto
 
 | comando          | Apunta a ...  | Ruta Archivo                   |
 | ---------------- | ------------- | ------------------------------ |
-| `pn start:local` | local host    | `environments/.env.localhost`  |
-| `pn start:test`  | pruebas       | `environments/.env.test`       |
-| `pn start:prod`  | producción    | `environments/.env.production` |
+| `pn start:local` | Local host    | `environments/.env.localhost`  |
+| `pn start:test`  | Pruebas       | `environments/.env.test`       |
+| `pn start:prod`  | Producción    | `environments/.env.production` |
 
 # 🚀 Generar build (dist) para Desplegar
 
 | comando         | Apunta a ...  | Ruta Archivo                   |
 | --------------- | ------------- | ------------------------------ |
-| `pn build:test` | pruebas       | `environments/.env.test`       |
-| `pn build:prod` | producción    | `environments/.env.production` |
+| `pn build:test` | Pruebas       | `environments/.env.test`       |
+| `pn build:prod` | Producción    | `environments/.env.production` |
 
 # 🚫 Reglas Obligatorias para la IA
 
