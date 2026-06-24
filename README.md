@@ -1,4 +1,15 @@
-# 🐈 Nest JS 11 + Prisma 7 + PostgreSQL 18
+# 🐈 Stack Backend del Proyecto
+A continuación, se presenta un resumen de las tecnologías principales del proyecto. No incluye la totalidad de dependencias:
+
+* Node JS 24.18.0
+
+* Nest JS 11
+
+* TypeScript 6.0.3
+
+* Prisma ORM 7
+
+* PostgreSQL 18
 
 # 🟢 Versión de Node JS
 
@@ -225,17 +236,6 @@ Flujo para determinar el `<scope>`:
 
 ### Mostrar el Commit Después de Realizarlo
 Cuando se solicite hacer un commit desde un prompt, después de crearlo mostrar en la respuesta el encabezado con el formato `<emoji>` `<type>`(`<scope>`): `<mensaje en español>` y el `body` correspondiente al commit realizado.
-
-## Stack Backend del Proyecto
-* Node JS 24.18.0
-
-* Nest JS 11.1.27
-
-* TypeScript 6.0.3
-
-* Prisma ORM 7.8.0
-
-* PostgreSQL 18.4
 
 ## Reglas Obligatorias para la IA
 
