@@ -1,25 +1,6 @@
-# Reglas de Idioma
-* Responder siempre en español. Es decir, redactar en español todas las explicaciones, respuestas, preguntas, descripciones, análisis, recomendaciones, documentación y mensajes dirigidos al usuario.
+# 💾 Commits
 
-* Mantener en español el razonamiento explicativo que se muestra al usuario para justificar una respuesta o decisión.
-
-* El razonamiento explicativo es generado y mostrado únicamente a criterio de la IA cuando sea necesario para justificar o aclarar una respuesta o decisión. Cuando este razonamiento se muestre al usuario, debe estar redactado en español.
-
-* No traducir términos técnicos de uso común en desarrollo de software (por ejemplo: middleware, service, controller, repository, signal, interceptor, provider, endpoint, payload).
-
-* No traducir nombres de frameworks, librerías, paquetes, APIs ni patrones de diseño.
-
-* Mantener el código, identificadores, nombres de archivos, clases, interfaces, métodos, funciones y variables en inglés.
-
-* Escribir el código en inglés.
-
-* En Nest JS, las rutas URL de los endpoints se definen mediante el valor de `path` que se pasa al decorador `@Controller()` a nivel de clase y a los decoradores de método (`@Get()`, `@Post()`, `@Put()`, `@Patch()`, `@Delete()`).
-
-* Escribir en inglés los nombres de archivos, carpetas y todos los valores de `path` de las rutas URL de los endpoints.
-
-## Commits
-
-### Fuente Única de Verdad para los Commits
+## 🎯 Fuente Única de Verdad para los Commits
 * La tabla de la sección "Emojis por Tipo de Commit" es la única fuente de verdad para construir cualquier commit. El tipo y el emoji deben seleccionarse exclusivamente desde sus filas.
 
 * Antes de crear un commit, dar prioridad absoluta a la tabla: tomar siempre el tipo y el emoji desde ella.
@@ -32,7 +13,7 @@
 
 * Está prohibido eliminar, agregar, editar o alterar la tabla de la sección "Emojis por Tipo de Commit".
 
-### Formato del Mensaje de Commit
+## ✍️ Formato del Mensaje de Commit
 `<emoji>` `<type>`(`<scope>`): `<mensaje en español>`
 
 El `<emoji>` siempre va al inicio, antes del `<type>`. A continuación del encabezado, escribir siempre el `body` como una lista de puntos con los cambios realizados.
@@ -51,7 +32,7 @@ Elementos obligatorios en todo commit:
 
 * El `body` nunca debe ser idéntico al `<mensaje en español>`. El `<mensaje en español>` resume el cambio, mientras que el `body` lo detalla punto por punto. Aunque el cambio sea muy pequeño y ambos puedan parecer similares, desarrollar el `body` con los puntos concretos del cambio en lugar de repetir el `<mensaje en español>`.
 
-### Ejemplo
+## Ejemplo
 El encabezado es el `<emoji> <type>(<scope>): <mensaje en español>` y, debajo, el `body` desarrolla los cambios como lista de puntos.
 
 ```
@@ -64,7 +45,7 @@ El encabezado es el `<emoji> <type>(<scope>): <mensaje en español>` y, debajo, 
 
 En este ejemplo, las líneas que comienzan con `-` son el `body`: detallan punto por punto lo que resume el `<mensaje en español>` "agregar validación de token JWT", sin repetirlo literalmente.
 
-### Emojis por Tipo de Commit
+## Emojis por Tipo de Commit
 
 | Tipo de commit | Emoji | Definición                                                                                                                                                                                                |
 | ------------- | --- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
@@ -91,8 +72,7 @@ En este ejemplo, las líneas que comienzan con `-` son el `body`: detallan punto
 | accessibility | ♿ | Mejoras de accesibilidad                                                                                                                                                                                     |
 | mock          | 🤡 | Cambios relacionados con mocks, datos simulados o datos quemados utilizados para pruebas y desarrollo                                                                                                        |
 
-### Reglas para el Scope
-
+## Reglas para el Scope
 * El `<scope>` es opcional.
 
 * Cuando se use, escribir el `<scope>` en inglés.
@@ -119,10 +99,10 @@ Flujo para determinar el `<scope>`:
 
 5. Si el `<scope>` genera duda, omitirlo.
 
-### Regla Cuando el Cambio no Coincide Exactamente con la Tabla
+## Regla Cuando el Cambio no Coincide Exactamente con la Tabla
 * Nunca omitir el emoji.
 
 * Priorizar la coherencia semántica sobre la coincidencia exacta: elegir el tipo y el emoji de la tabla que mejor representen la intención del cambio.
 
-### Mostrar el Commit Después de Realizarlo
+## Mostrar el Commit Después de Realizarlo
 Cuando se solicite hacer un commit desde un prompt, después de crearlo mostrar en la respuesta el encabezado con el formato `<emoji>` `<type>`(`<scope>`): `<mensaje en español>` y el `body` correspondiente al commit realizado.
