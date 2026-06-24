@@ -177,7 +177,7 @@ En este ejemplo, las líneas que comienzan con `-` son el `body`: detallan punto
 
 ### Emojis por Tipo de Commit
 
-| Tipo de commit | Emoji | Descripción (definición)                                                                                                                                                                                  |
+| Tipo de commit | Emoji | Definición                                                                                                                                                                                                |
 | ------------- | --- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | feat          | ✨ | Nueva funcionalidad o capacidad del sistema                                                                                                                                                                  |
 | fix           | 🐛 | Corrección de errores o fallos                                                                                                                                                                               |
