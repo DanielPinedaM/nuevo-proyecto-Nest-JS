@@ -34,7 +34,6 @@ Usar la IA en el siguiente orden:
 3. Chat GPT para realizar preguntas sobre el código.
 
 ## 🧠 Razón
-
 Como Chat GPT es gratis, se recomienda utilizarlo para mejorar el prompt antes de enviarlo a Claude Code, lo que permite que Claude haga mejores modificaciones en el código. Además Chat GPT, puede usarse para resolver dudas sobre el código sin consumir los tokens de Claude Code.
 
 No significa que no se pueda utilizar la IA del CLI para hacer preguntas. La razón para no hacerlo es ahorrar tokens.
@@ -44,7 +43,6 @@ No es obligatorio utilizar el CLI de Claude Code, pero sí es necesario pagar un
 La razón por la que es necesario pagar una IA es que este `README.md` es muy extenso y las IAs gratuitas tienen limitaciones.
 
 ## ✏️ Edición de Código
-
 Evitar copiar y pegar código desde una plataforma web de IA. Siempre utilizar el CLI para editar el código, ya que el CLI tiene:
 
 * Mayor contexto del proyecto.
@@ -53,7 +51,6 @@ Evitar copiar y pegar código desde una plataforma web de IA. Siempre utilizar e
 * Capacidad para realizar cambios respetando la arquitectura del proyecto.
 
 ## 🌿 Uso de Git y de IA
-
 Por cada feature terminada hacer un commit antes de solicitar nuevas modificaciones a la IA. Evita acumular demasiados cambios, ya que puedes perder el contexto de lo que la IA está realizando y cometer errores.
 
 Trabajar bajo el principio:
@@ -114,7 +111,7 @@ pn i
 
 # ▶️ Ejecutar Proyecto
 
-| comando          | Apunta a ...  | Ruta Archivo                   |
+| Comando          | Apunta a ...  | Ruta Archivo                   |
 | ---------------- | ------------- | ------------------------------ |
 | `pn start:local` | Local host    | `environments/.env.localhost`  |
 | `pn start:test`  | Pruebas       | `environments/.env.test`       |
@@ -122,7 +119,7 @@ pn i
 
 # 🚀 Generar build (dist) para Desplegar
 
-| comando         | Apunta a ...  | Ruta Archivo                   |
+| Comando         | Apunta a ...  | Ruta Archivo                   |
 | --------------- | ------------- | ------------------------------ |
 | `pn build:test` | Pruebas       | `environments/.env.test`       |
 | `pn build:prod` | Producción    | `environments/.env.production` |
