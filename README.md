@@ -124,7 +124,7 @@ A partir de ahora no tendra que ejecutar
 fnm use 24.18.0
 ```
 
-para cambiar de version, porque la version se cambia automaticamente
+para cambiar de version de Node.js, porque la version se cambia automaticamente
 
 # 🔗 Alias
 Para todos los comandos de `pnpm` usar el alias `pn`
