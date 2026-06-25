@@ -7,6 +7,17 @@ A continuación, se presenta un resumen de las tecnologías principales del proy
 * Prisma ORM 7
 * PostgreSQL 18
 
+# ⌨️ Configurar Autocompletado, Formatear Código y Linter
+Usar VS Code o cualquier editor basado en VS Code (Antigravity, Cursor, Windsurf, etc.) para instalar las siguientes extensiones:
+
+* [Error Lens](https://marketplace.visualstudio.com/items?itemName=usernamehw.errorlens)
+
+* [EditorConfig](https://marketplace.visualstudio.com/items?itemName=EditorConfig.EditorConfig)
+
+* [Prettier - Code formatter](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)
+
+La configuración de autocompletado, formateo de código y linter ya está incluida en `.vscode/settings.json`. No es necesario realizar modificaciones adicionales.
+
 # 🤖 Uso de IA
 
 > [!WARNING]
