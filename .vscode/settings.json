@@ -62,7 +62,6 @@
   },
 
   // Configurar auto-completado, formatear codigo y linter
-  "eslint.useFlatConfig": true,
   "eslint.validate": [
     "javascript",
     "typescript",
@@ -70,11 +69,9 @@
     "javascriptreact",
     "typescriptreact"
   ],
-  "eslint.run": "onType",
-  "editor.formatOnSave": false,
-  "editor.defaultFormatter": "esbenp.prettier-vscode",
-  "editor.tabCompletion": "on",
-  "editor.linkedEditing": true,
+  "eslint.options": {
+    "extensions": [".js", ".ts", ".jsx", ".tsx"]
+  },
   "editor.codeActionsOnSave": {
     "source.sortImports": "explicit"
   },
@@ -88,7 +85,20 @@
     "jsx-sublime-babel-tags": "javascriptreact",
     "typescript": "typescriptreact"
   },
+  "javascript.updateImportsOnFileMove.enabled": "always",
+  "typescript.updateImportsOnFileMove.enabled": "always",
+  "js/ts.implicitProjectConfig.checkJs": true,
+  "eslint.useFlatConfig": true,
+  "eslint.run": "onType",
+  "editor.formatOnSave": false,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.linkedEditing": true,
   "emmet.triggerExpansionOnTab": true,
   "javascript.suggest.completeFunctionCalls": true,
-  "javascript.updateImportsOnFileMove.enabled": "always"
+  "terminal.integrated.suggest.enabled": true,
+  "editor.snippetSuggestions": "inline",
+  "editor.acceptSuggestionOnEnter": "on",
+  "javascript.suggest.paths": true,
+  "typescript.suggest.paths": true,
+  "editor.tabCompletion": "on"
 }
