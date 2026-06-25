@@ -7,7 +7,9 @@ A continuación, se presenta un resumen de las tecnologías principales del proy
 * Prisma ORM 7
 * PostgreSQL 18
 
-# Configurar `fnm` **UNA SOLA VEZ**
+# Configurar lo Siguiente **UNA SOLA VEZ**
+
+## `fnm`
 Para que `fnm` automáticamente al entrar a la carpeta del proyecto seleccione la versión correcta de Node.js que se especifica en el archivo `.nvmrc` que esta en la raiz del proyecto. Hacer esto:
 
 1. Abrir Git Bash.
@@ -47,7 +49,7 @@ node -v
 fnm use 24.18.0
 ```
 
-# ⌨️ Configurar Autocompletado, Formatear Código y Linter
+# ⌨️ Autocompletado, Formatear Código y Linter
 Usar VS Code o cualquier editor basado en VS Code (Antigravity, Cursor, Windsurf, etc.) para instalar las siguientes extensiones:
 
 * [Error Lens](https://marketplace.visualstudio.com/items?itemName=usernamehw.errorlens)
