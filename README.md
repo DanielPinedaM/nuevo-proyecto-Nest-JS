@@ -112,7 +112,7 @@ Obligatorio el uso de `fnm`, prohibido usar alternativas como:
 
 Para instalar paquetes y ejecutar este proyecto, se tiene que usar Node.js 24.18.0
 
-En Git Bash, ejecutar lo siguiente:
+ejecutar en Git Bash:
 
 ```console
 eval "$(fnm env --use-on-cd)"
