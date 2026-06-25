@@ -45,8 +45,7 @@ export class CryptoService {
   async decryptJSON(encryptedJSON: string): Promise<any | null> {
     const decryptedJSON: string | null = await this.decrypt(encryptedJSON);
 
-    if (this.#isValidJSONparse(decryptedJSON as string))
-      return JSON.parse(decryptedJSON as string);
+    if (this.#isValidJSONparse(decryptedJSON)) return JSON.parse(decryptedJSON);
 
     console.error('❌ [decryptJSON] error no es JSON valido ', decryptedJSON);
     return null;

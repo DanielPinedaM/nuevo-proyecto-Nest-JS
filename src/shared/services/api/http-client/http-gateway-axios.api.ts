@@ -105,7 +105,7 @@ export class ApiGatewayService {
   #buildFullUrl(config: AxiosRequestConfig): string {
     const path: string = config?.url ?? '';
     const query: string = config?.params
-      ? `?${new URLSearchParams(config.params as any).toString()}`
+      ? `?${new URLSearchParams(config.params).toString()}`
       : '';
     return `${path}${query}`;
   }
@@ -131,7 +131,7 @@ export class ApiGatewayService {
 
     const config: AxiosRequestConfig = {
       url,
-      method: method as Method,
+      method: method,
       data: body,
       params,
       responseType,

@@ -12,9 +12,9 @@ import { IResponse } from '@/shared/data-types/interface/response.interfaces';
 import { HttpArgumentsHost } from '@nestjs/common/interfaces';
 
 @Injectable()
-export class StandardizeSuccessResponseInterceptor<T>
-  implements NestInterceptor<T, IResponse<T>>
-{
+export class StandardizeSuccessResponseInterceptor<
+  T,
+> implements NestInterceptor<T, IResponse<T>> {
   intercept(
     context: ExecutionContext,
     next: CallHandler,
