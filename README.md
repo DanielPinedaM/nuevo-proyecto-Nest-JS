@@ -7,6 +7,46 @@ A continuación, se presenta un resumen de las tecnologías principales del proy
 * Prisma ORM 7
 * PostgreSQL 18
 
+# Configurar `fnm` **UNA SOLA VEZ**
+Para que `fnm` automáticamente al entrar a la carpeta del proyecto seleccione la versión correcta de Node.js que se especifica en el archivo `.nvmrc` que esta en la raiz del proyecto. Hacer esto:
+
+1. Abrir Git Bash.
+
+2. Instalar Node.js 24.18.0:
+
+```console
+fnm install 24.18.0
+```
+
+3. Copiar completo el siguiente comando y ejecutarlo:
+
+```console
+echo 'eval "$(fnm env --use-on-cd)"' >> ~/.bashrc
+source ~/.bashrc
+```
+
+4. Cerrar y volver abrir Git Bash
+
+5. Para verificar que funcione ejecutar los siguientes comandos en el siguiente orden:
+
+```console
+cd /ruta/a/tu/proyecto
+```
+
+```console
+fnm current
+```
+
+```console
+node -v
+```
+
+6. Debería mostrarte `v24.18.0` automáticamente, sin que hayas escrito manualmente
+
+```console
+fnm use 24.18.0
+```
+
 # ⌨️ Configurar Autocompletado, Formatear Código y Linter
 Usar VS Code o cualquier editor basado en VS Code (Antigravity, Cursor, Windsurf, etc.) para instalar las siguientes extensiones:
 
@@ -105,22 +145,12 @@ Obligatorio el uso de `pnpm` y `pnpm-lock.yaml`, prohibido usar alternativas com
 * yarn
 
 # 🟢 Administrador de Versiones para Node.js
-Es obligatorio el uso de `fnm`. Está prohibido usar alternativas como:
+Obligatorio el uso de `fnm`. Está prohibido usar alternativas como:
 
 * nvm
 * volta
 
-Este proyecto requiere Node.js 24.18.0. Para que `fnm` seleccione su versión automáticamente al entrar a la carpeta, ejecuta en Git Bash:
-
-```console
-eval "$(fnm env --use-on-cd)"
-```
-
-Así ya no será necesario ejecutar manualmente:
-
-```console
-fnm use 24.18.0
-```
+Este proyecto usa Node.js 24.18.0
 
 # 🔗 Alias
 Para todos los comandos de `pnpm` usar el alias `pn`
