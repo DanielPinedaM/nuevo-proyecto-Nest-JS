@@ -428,8 +428,6 @@ ESTA REGLA ES MUY IMPORTANTE porque incumplir esta regla hace que el consumo de 
   data: T;
 }
 
-2. NO crear una nueva instancia de axios
-
 3. NO usar axios directo. Esta PROHIBIDO importar axios:
 
 ```console
