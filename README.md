@@ -350,3 +350,92 @@ Flujo para determinar el `<scope>`:
 
 ## Mostrar el Commit Después de Realizarlo
 Cuando se solicite hacer un commit desde un prompt, después de crearlo mostrar en la respuesta el encabezado con el formato `<emoji>` `<type>`(`<scope>`): `<mensaje en español>` y el `body` correspondiente al commit realizado.
+
+# 🔌 Consumo de API
+
+> [!WARNING]
+> # ⚠️ **IMPORTANTE** 🚨
+>
+> **esta seccion esta INCOMPLETA**
+>
+> **me fallta:**
+> **escribir las reglas para que funcione interceptor global para hacer peticiones HTTP en Nest JS**
+>  **pasarle esto a Claude para verificar de que no hayan errores**
+> **agregar Ejemplo incorrecto y correcto de como consumir API**
+
+MEJORAR REDACCION DE ESTO:
+
+Los interceptor permiten estandarizar la estructura de las respuestas de *CUALQUIER* API, para que todas las API que se llaman en este backend de Nest, respondan con este formato:
+{
+  success: boolean;
+  status: number;
+  message: string;
+  data: T;
+}
+
+## 🔀 Flujo para Consumir API:
+
+```txt
+TU SERVICIO DE NEST
+        (UsersService, AuthService, etc.)
+                         │
+                         │
+                         ▼
+                HttpService (Nest)
+          (wrapper sobre AxiosInstance)
+                         │
+                         │
+                         │
+                         ├───────────────────────────────┐
+                         │                               │
+                         ▼                               │
+              axiosRef (AxiosInstance)                  │
+        ┌────────────────────────────────────┐          │
+        │                                    │          │
+        │  Request Interceptors  ◄───────────┤          │
+        │                                    │          │
+        │           Axios                    │          │
+        │                                    │          │
+        │  Response Interceptors ◄───────────┤          │
+        │                                    │          │
+        └────────────────────────────────────┘          │
+                         │                               │
+                         ▼                               │
+                   API EXTERNA                           │
+                                                         │
+────────────────────────────────────────────────────────────────────
+```
+
+No existe un "interceptor de HttpService". Cuando dices "interceptor de HttpModule", en realidad te refieres a los interceptores registrados sobre la AxiosInstance que HttpModule creó y que HttpService expone mediante axiosRef. Esa es la razón por la que, si toda la aplicación usa HttpService, un único interceptor registrado sobre axiosRef afecta todas esas peticiones.
+
+## Reglas para Consumo de API
+1. todas las peticiones HTTP externas tienen que pasar por HttpService
+
+2. NO crear una nueva instancia de axios
+
+3. NO usar axios directo. Esta PROHIBIDO importar axios:
+
+```console
+import axios from 'axios';
+```
+
+4. Obligatorio usar `HttpService` **DIRECTO**
+
+5. Está **prohibido** usar:
+* `try/catch`
+* .catch()
+
+6. Al llamar API esta **prohibido** propagar los errores con  `throw new Error()`.
+
+7. TODAS las peticiones HTTP se TIENEN que validar con
+
+```ts
+  if (success) {
+    // codigo cuando peticion HTTP es exitosa
+  } else {
+    // codigo cuando peticion HTTP es erronea
+  }
+```
+
+8. La razon de esto es que el interceptor ya se encarga de estandarizar y manejar los errores
+
