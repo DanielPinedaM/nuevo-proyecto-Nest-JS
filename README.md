@@ -9,6 +9,14 @@ A continuación, se presenta un resumen de las tecnologías principales del proy
 
 # ⚙️ Configurar lo Siguiente **UNA SOLA VEZ**
 
+## Antes de Empezar
+Para que la configuración funcione, debes tener instalado:
+* VS Code o cualquier editor basado en VS Code (Antigravity, Cursor, Windsurf, etc.)
+
+* Git Bash
+
+* Node.js
+
 ## Instalar `pnpm`
 1. Abrir Git Bash
 
@@ -69,7 +77,7 @@ fnm use 24.18.0
 ```
 
 ## ⌨️ Autocompletado, Formatear Código y Linter
-Usar VS Code o cualquier editor basado en VS Code (Antigravity, Cursor, Windsurf, etc.) para instalar las siguientes extensiones:
+Instalar las siguientes extensiones:
 
 * [Error Lens](https://marketplace.visualstudio.com/items?itemName=usernamehw.errorlens)
 
