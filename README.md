@@ -17,6 +17,8 @@ Para que la configuración funcione, debes tener instalado:
 
 * Node.js
 
+* Claude Code
+
 ## Instalar `pnpm`
 1. Abrir Git Bash
 
