@@ -411,6 +411,23 @@ No existe un "interceptor de HttpService". Cuando dices "interceptor de HttpModu
 ## Reglas para Consumo de API
 1. todas las peticiones HTTP externas tienen que pasar por HttpService
 
+2. Solamente debe exisitr una sola instancia de `HttpService`, es decir:
+
+```txt
+Un HttpModule → un HttpService → una AxiosInstance.
+```
+
+Esta PROHIBIDO registrar HttpModule mas de una sola vez
+
+ESTA REGLA ES MUY IMPORTANTE porque incumplir esta regla hace que el consumo de APIs sea inconsistente y rompe con el contrato
+
+{
+  success: boolean;
+  status: number;
+  message: string;
+  data: T;
+}
+
 2. NO crear una nueva instancia de axios
 
 3. NO usar axios directo. Esta PROHIBIDO importar axios:
