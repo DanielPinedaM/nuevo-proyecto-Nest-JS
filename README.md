@@ -7,6 +7,40 @@ A continuación, se presenta un resumen de las tecnologías principales del proy
 * Prisma ORM 7
 * PostgreSQL 18
 
+# Skill vs MCP — Context7
+
+Comparativa basada en preguntas y respuestas sobre las dos formas de usar Context7 en Claude Code.
+
+## Tabla Comparativa General
+
+| Aspecto | Skill | MCP |
+|---|---|---|
+| ¿Puede conectarse a documentación? | Sí | Sí |
+| Funcionalidad final | Misma documentación actualizada | Misma documentación actualizada |
+| Cuándo se carga | Solo cuando hay match con su descripción (relevancia) | Siempre — tools declaradas en cada turno de la conversación |
+| Disponibilidad | Disponible, pero pasivo hasta que se dispara | Siempre disponible activamente (tools visibles todo el tiempo) |
+| Costo fijo por turno (sin usarlo) | Ninguno | Sí — definiciones de las tools ocupan contexto aunque no se llamen |
+| Costo al ejecutar la búsqueda real | Tokens del output del comando (similar volumen) | Tokens del tool_result (similar volumen) |
+| Mecanismo de ejecución | Comando CLI vía bash (ej. `ctx7 docs <id> <query>`) | Llamada a tool del servidor (`resolve-library-id`, `get-library-docs`) |
+| ¿Se puede forzar/invocar explícitamente? | Sí — ej. "use context7 to..." | Sí — ej. "usa el MCP de Context7 para..." |
+| Ahorro de tokens relativo | Mayor, especialmente con muchos servidores/tools acumulados | Menor — overhead fijo escala con la cantidad de MCP servers activos |
+
+## Preguntas y Respuestas
+
+| Pregunta | Respuesta |
+|---|---|
+| ¿Ambos pueden conectarse a documentación? | Sí, ambos traen la misma documentación actualizada; solo cambia el mecanismo de acceso. |
+| ¿El skill consume tokens en cada llamada y el MCP no? | No es así. Ambos consumen tokens similares **cuando se ejecuta la búsqueda real** (el contenido de la doc pesa igual). La diferencia está en el costo fijo: MCP paga overhead en cada turno por tener las tools declaradas; el skill no paga nada si no se dispara. |
+| ¿El skill está disponible pero se invoca solo por match del description? | Sí, correcto. Claude Code lo evalúa por relevancia y solo lo ejecuta si el contexto de la pregunta coincide. |
+| ¿El MCP está siempre disponible y eso hace que importe que no se usen las tools? | Sí. Las tools del MCP quedan declaradas en cada turno se usen o no, lo cual genera un costo fijo de contexto independiente del uso real. |
+| Al final, ¿cuándo ambos se invocan consumen tokens parecidos? | Sí. La respuesta con la documentación pesa lo mismo sea por tool_result (MCP) o por output de bash (skill). |
+| ¿El skill ahorra más tokens que el MCP? | Sí, en general — pero la diferencia es marginal con un solo servidor de pocas tools (como Context7). Se vuelve notoria con muchos MCP servers acumulados. |
+| ¿Se puede forzar/invocar explícitamente cada uno? | Sí, ambos. Con MCP, se elige una tool ya disponible ("usa el MCP de Context7"). Con Skill, se fuerza el match explícito ("use context7 to...") aunque normalmente se dispare solo por relevancia. |
+
+## Resumen
+
+La funcionalidad es idéntica (ambos traen la misma documentación); la diferencia real está en **cuándo se carga el costo**: el MCP paga un overhead fijo por turno por tener las tools siempre declaradas, mientras que el skill solo "cuesta" cuando efectivamente se dispara.
+
 # ⚙️ Configurar lo Siguiente **UNA SOLA VEZ**
 
 ## Antes de Empezar
