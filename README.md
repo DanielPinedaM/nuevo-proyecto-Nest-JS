@@ -112,23 +112,6 @@ Esta sección está diseñada para utilizarse como contexto en herramientas de I
 | Google                   | [Google AI Studio](https://aistudio.google.com/) / [Gemini](https://gemini.google.com/) | [Antigravity 2.0](https://antigravity.google/product/antigravity-2)   | [Antigravity CLI](https://youtu.be/bdEqIchP4x4?si=gRf6iLggXuzy_cq) |
 | Anomaly Innovations      | [`opencode web`](https://opencode.ai/docs/web/)                                         | [Open Code Desktop](https://youtu.be/_SVSv2Y59P0?si=LT2S0z10t1FBxlB6) | [Open Code CLI](https://youtu.be/2gO8WyctqMk?si=aNvHlf23tKfrN-Z3)  |
 
-## 💡 Recomendación
-
-Usar la IA en el siguiente orden:
-
-1. Chat GPT para mejorar el prompt antes de enviarselo a Claude Code.
-2. Claude Code para editar el código.
-3. Chat GPT para realizar preguntas sobre el código.
-
-## 🧠 Razón
-Como Chat GPT es gratis, se recomienda utilizarlo para mejorar el prompt antes de enviarlo a Claude Code, lo que permite que Claude haga mejores modificaciones en el código. Además Chat GPT, puede usarse para resolver dudas sobre el código sin consumir los tokens de Claude Code.
-
-No significa que no se pueda utilizar la IA del CLI para hacer preguntas. La razón para no hacerlo es ahorrar tokens.
-
-No es obligatorio utilizar el CLI de Claude Code, pero sí es necesario pagar una IA y utilizar un CLI.
-
-La razón por la que es necesario pagar una IA es que este `README.md` es muy extenso y las IAs gratuitas tienen limitaciones.
-
 ## ✏️ Edición de Código
 Evitar copiar y pegar código desde una plataforma web de IA. Siempre utilizar el CLI para editar el código, ya que el CLI tiene:
 
