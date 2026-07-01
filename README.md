@@ -127,6 +127,16 @@ Trabajar bajo el principio:
 
 > 1 commit = 1 feature
 
+El skill `.claude\skills\git-commit\SKILL.md` te permite realizar commits. Ejemplo:
+
+```console
+/git-commit
+```
+
+```console
+commit y push
+```
+
 ## 📋 Contexto para la IA
 Antes de realizar cualquier pregunta sobre este proyecto en una IA, se debe proporcionar este contexto completo para que la IA pueda seguir la arquitectura del proyecto.
 
