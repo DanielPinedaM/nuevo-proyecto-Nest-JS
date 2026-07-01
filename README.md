@@ -94,9 +94,6 @@ La configuración de autocompletado, formateo de código y linter ya está inclu
 * `.prettierrc`
 * `eslint.config.mjs`
 
-# 🔗 Enlaces - Click Aqui para Ver ...
-* [Prompts para trabajar con IA](https://github.com/DanielPinedaM/prompt-engineering/tree/main/2_prompts-full-stack)
-
 # Skills
 
 ## 🌿 `git-commit`
@@ -124,6 +121,8 @@ hacer commit y push
 > # ⚠️ ****IMPORTANTE**** 🚨
 >
 > ****Ignorar esta sección ocasionará que la IA genere código que no respete la arquitectura, estructura ni las convenciones del proyecto, produciendo código inconsistente, desordenado y con malas practicas****
+
+# [🔗 Enlace - Prompts para trabajar con IA](https://github.com/DanielPinedaM/prompt-engineering/tree/main/2_prompts-full-stack)
 
 Esta sección está diseñada para utilizarse como contexto en herramientas de IA.
 
