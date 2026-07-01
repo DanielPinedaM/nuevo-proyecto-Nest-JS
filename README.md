@@ -94,6 +94,11 @@ La configuración de autocompletado, formateo de código y linter ya está inclu
 * `.prettierrc`
 * `eslint.config.mjs`
 
+## 👾 Configurar MCP para que Claude Code Acceda a la Documentación Oficial de Prisma ORM
+1. 
+
+# [🔗 Enlace - Comandos de Prisma MCP](https://angular.dev/ai/mcp)
+
 # Skills
 
 ## 🌿 `git-commit`
