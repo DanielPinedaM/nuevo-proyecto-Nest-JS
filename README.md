@@ -94,6 +94,9 @@ La configuración de autocompletado, formateo de código y linter ya está inclu
 * `.prettierrc`
 * `eslint.config.mjs`
 
+# 🔗 Enlaces - Click Aqui para Ver ...
+* [Prompts para trabajar con IA](https://github.com/DanielPinedaM/prompt-engineering/tree/main/2_prompts-full-stack)
+
 # 🤖 Uso de IA
 
 > [!WARNING]
