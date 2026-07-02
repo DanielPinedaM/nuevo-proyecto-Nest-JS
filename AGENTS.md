@@ -51,4 +51,4 @@ Es decir, redactar en español todas las explicaciones, comentarios de codigo re
 
 * Nombres de frameworks, librerías, paquetes, APIs
 
-* Código fuente: Identificadores, nombres de archivos y carpetas, clases, interfaces, métodos, funciones, parámetros, variables, ruta base del controlador de Nest, ruta de endpoint de Nest
+* Código fuente: Identificadores, nombres de archivos y carpetas, clases, interfaces, tipos de datos, métodos, funciones, parámetros, variables, ruta base del controlador de Nest, ruta de endpoint de Nest
