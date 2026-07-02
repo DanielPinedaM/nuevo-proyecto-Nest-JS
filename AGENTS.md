@@ -40,18 +40,15 @@ Node.js
 * La arquitectura, reglas y convenciones definidas en este documento tienen prioridad absoluta. Sin embargo, como no todos los casos posibles están documentados, si un problema no puede resolverse respetando la arquitectura actual o requiere una solución no contemplada en el README, primero debes advertir explícitamente que dicha solución se sale de la arquitectura o convenciones establecidas antes de generar una implementación.
 
 # Reglas de Idioma
-* Responder siempre en español. Es decir, redactar en español todas las explicaciones, respuestas, preguntas, descripciones, análisis, recomendaciones, documentación y mensajes dirigidos al usuario.
 
-* Mantener en español el razonamiento explicativo que se muestra al usuario para justificar una respuesta o decisión.
+## Responder en Español
+Responder en español siempre, excepto lo que esta en "Excepciones, Responder en Ingles"
 
-* El razonamiento explicativo es generado y mostrado únicamente a criterio de la IA cuando sea necesario para justificar o aclarar una respuesta o decisión. Cuando este razonamiento se muestre al usuario, debe estar redactado en español.
+Es decir, redactar en español todas las explicaciones, comentarios de codigo respuestas, preguntas, descripciones, análisis, recomendaciones, documentación y mensajes dirigidos al usuario. Con la excepcion de lo siguiente que tiene que estar en ingles:
 
-* No traducir términos técnicos de uso común en desarrollo de software (por ejemplo: middleware, service, controller, repository, signal, interceptor, provider, endpoint, payload).
+## Excepciones, Responder en Ingles
+* Términos técnicos de uso común en desarrollo de software: middleware, service, controller, repository, signal, interceptor, provider, endpoint, payload, patrones de diseño, etc.
 
-* No traducir nombres de frameworks, librerías, paquetes, APIs ni patrones de diseño.
+* Nombres de frameworks, librerías, paquetes, APIs
 
-* Mantener el código, identificadores, nombres de archivos, clases, interfaces, métodos, funciones y variables en inglés.
-
-* Escribir el código en inglés, salvo las excepciones indicadas más abajo.
-
-* Como excepción a la regla anterior, escribir en español los valores de `path` de las rutas definidas en `src/app/app.routes.ts` (por ejemplo, `iniciar-sesion` o `recuperar-clave`). El nombre del archivo y de la clase del componente asociado permanecen en inglés.
+* Código fuente: Identificadores, nombres de archivos y carpetas, clases, interfaces, métodos, funciones, parámetros, variables, ruta base del controlador de Nest, ruta de endpoint de Nest
